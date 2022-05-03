@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+const log = console.log;
 
 @Component({
   selector: 'app-register',
@@ -7,23 +8,28 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./register.component.sass']
 })
 export class RegisterComponent implements OnInit {
-  userData={
-    password:'',
-    username:'',
-    firstName:'',
-    lastName:''
+  userData = {
+    password: '',
+    username: '',
+    firstName: '',
+    lastName: ''
   }
-  
-  
+
+
   constructor(
-    private api:ApiService
+    private api: ApiService
   ) { }
 
   ngOnInit(): void {
   }
-  async register(){
-    console.log(this.userData)
-   const answer=await this.api.register(this.userData)
-   console.log(answer)
+  async register() {
+    log(this.userData)
+    const answer: any = await this.api.register(this.userData)
+    log(answer)
+    if (answer.ok) {
+      alert('user was successful created')
+    } else {
+      alert(answer.msg)
+    }
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+const log = console.log;
 
 @Component({
   selector: 'app-login',
@@ -7,9 +8,9 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
-  userData={
-    password:'',
-    username:'',
+  userData = {
+    password: '',
+    username: '',
   }
 
 
@@ -19,10 +20,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  async login(){
-    console.log(this.userData)
-    const answer=await this.api.login(this.userData)
-   console.log(answer)
+  async login() {
+    log(this.userData)
+    const answer: any = await this.api.login(this.userData)
+    log(answer)
+    if (answer.ok) {
+      localStorage.setItem('token', answer.token)
+      alert('user was logged')
+    } else {
+      alert(answer.msg)
+    }
   }
 
 }
