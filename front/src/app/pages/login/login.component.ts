@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   }
   async login(){
     console.log(this.userData)
-    const answer=await this.api.register(this.userData)
+    const answer=await this.api.login(this.userData)
    console.log(answer)
   }
 
