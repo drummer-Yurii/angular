@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
+const log = console.log;
 
 @Component({
   selector: 'app-dev',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DevComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private api:ApiService
+  ) { }
 
   ngOnInit(): void {
+  }
+  async testSession(){
+    const answer: any = await this.api.testSession()
+    log(answer)
   }
 
 }

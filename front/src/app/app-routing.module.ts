@@ -6,6 +6,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { PasswordComponent } from './pages/password/password.component';
 import { EmailComponent } from './pages/email/email.component';
 import { P404Component } from './pages/p404/p404.component';
+import { DevComponent } from './pages/dev/dev.component';
+
 
 const routes: Routes = [
   {
@@ -33,9 +35,13 @@ const routes: Routes = [
     path:'email',
     component:EmailComponent
   },
+  {
+    path:'dev',
+    component:DevComponent
+  },
   { path: '**',
    component:P404Component
-  }
+  },
 ];
 
 @NgModule({
