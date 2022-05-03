@@ -1,0 +1,23 @@
+<div class="register">
+    <div class="input-group mb-3">
+        <!-- <span class="input-group-text">FN</span> -->
+        <input [(ngModel)]="userData.firstName" type="text" aria-label="First name" class="form-control" placeholder="First name">
+      </div>
+      <div class="input-group mb-3">
+        <!-- <span class="input-group-text">LN</span> -->
+        <input [(ngModel)]="userData.lastName" type="text" aria-label="Last name" class="form-control"placeholder="Last name">
+      </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text">@</span>
+        <input [(ngModel)]="userData.username" type="text" class="form-control" placeholder="Username" aria-label="Username"
+            aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text">$</span>
+        <input [(ngModel)]="userData.password" type="password" class="form-control" placeholder="Password" aria-label="Username"
+            aria-describedby="basic-addon1">
+    </div>
+    <div class="panel">
+        <button (click)="register()" type="button" class="btn btn-primary">Register</button>
+    </div>
+</div>
