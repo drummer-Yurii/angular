@@ -12,6 +12,7 @@ import { PasswordComponent } from './pages/password/password.component';
 import { EmailComponent } from './pages/email/email.component';
 import { P404Component } from './pages/p404/p404.component';
 import { DevComponent } from './pages/dev/dev.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { DevComponent } from './pages/dev/dev.component';
     PasswordComponent,
     EmailComponent,
     P404Component,
-    DevComponent
+    DevComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

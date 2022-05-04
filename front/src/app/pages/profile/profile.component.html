@@ -1,0 +1,23 @@
+<div class="profile">
+    <div class="input-group mb-3">
+        <!-- <span>age</span> -->
+        <input [(ngModel)]="userData.age" class="form-control" type="text" aria-label="age" placeholder="age">
+    </div>
+    <!-- <span>phone</span> -->
+    <div class="input-group mb-3">
+        <input [(ngModel)]="userData.phone" class="form-control" type="number" aria-label="phone" placeholder="phone">
+    </div>
+    <!-- <span>email</span> -->
+    <div class="input-group mb-3">
+        <input [(ngModel)]="userData.email" class="form-control" type="text" aria-label="email" placeholder="email">
+    </div>
+    <!-- <span>facebookPage</span> -->
+    <div class="input-group mb-3">
+        <input [(ngModel)]="userData.facebookPage" class="form-control" type="text" aria-label="facebookPage"
+            placeholder="facebookPage">
+    </div>
+    <!-- <input class="password" type="password"> -->
+    <div class="panel">
+        <button (click)="editProfile()" type="button" class="btn btn-primary">edit</button>
+    </div>
+</div>
