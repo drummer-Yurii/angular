@@ -26,59 +26,62 @@ let users = [];
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
+const level='../'
+const authControllers=`${level}controllers/auth`;
+router.post('/api/auth/register', require(`${authControllers}/register`));
 
-router.post('/api/auth/register', async (req, res) => {
-  function successfulResponse() {
-    res.json({
-      ok: true,
-      msg: 'user was successful created'
-    })
-  }
-  function unsuccessfulResponse() {
-    res.json({
-      ok: false,
-      msg: 'user already exist pleas chose another username'
-    })
-  }
-  async function addDataToDB() {
-    users.push(userData);
-    const newUsersJSON = JSON.stringify(users);
-    await client.set('users', newUsersJSON);
-  }
-  let users = [];
-  const userData = req.body;
-  log(userData);
-  if (userData.password == '') {
-    return res.json({
-      ok: false,
-      msg: 'password is required'
-    })
-  }
-  const usersJSON = await client.get('users');
-  log(usersJSON);
-  if (usersJSON == null) {//відсутність поля users
-    await addDataToDB()
-    successfulResponse()
-  } else {
-    try {
-      users = JSON.parse(usersJSON)
-      const isExist = users.some((user) => {
-        return user.username == userData.username
-      })
-      if (isExist) {
-        unsuccessfulResponse()
-      } else {
-        await addDataToDB()
-        successfulResponse()
-      }
-    } catch (error) {
-      res.status(500).json({
-        ok: false,
-        msg: 'error on server'
-      })
-    }
-  }
-})
+// router.post('/api/auth/register', async (req, res) => {
+//   function successfulResponse() {
+//     res.json({
+//       ok: true,
+//       msg: 'user was successful created'
+//     })
+//   }
+//   function unsuccessfulResponse() {
+//     res.json({
+//       ok: false,
+//       msg: 'user already exist pleas chose another username'
+//     })
+//   }
+//   async function addDataToDB() {
+//     users.push(userData);
+//     const newUsersJSON = JSON.stringify(users);
+//     await client.set('users', newUsersJSON);
+//   }
+//   let users = [];
+//   const userData = req.body;
+//   log(userData);
+//   if (userData.password == '') {
+//     return res.json({
+//       ok: false,
+//       msg: 'password is required'
+//     })
+//   }
+//   const usersJSON = await client.get('users');
+//   log(usersJSON);
+//   if (usersJSON == null) {//відсутність поля users
+//     await addDataToDB()
+//     successfulResponse()
+//   } else {
+//     try {
+//       users = JSON.parse(usersJSON)
+//       const isExist = users.some((user) => {
+//         return user.username == userData.username
+//       })
+//       if (isExist) {
+//         unsuccessfulResponse()
+//       } else {
+//         await addDataToDB()
+//         successfulResponse()
+//       }
+//     } catch (error) {
+//       res.status(500).json({
+//         ok: false,
+//         msg: 'error on server'
+//       })
+//     }
+//   }
+// })
 
 router.post('/api/auth/login', async (req, res) => {
   const userData = req.body;
