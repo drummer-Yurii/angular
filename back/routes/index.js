@@ -9,18 +9,18 @@ let users = [];
 //
 // DB: connection,reading of users
 //
-(async () => {
-  client = redis.createClient();
-  client.on('error', (err) => console.log('Redis Client Error', err));
-  await client.connect();
-  const usersJSON = await client.get('users')
-  try {
-    users = JSON.parse(usersJSON)
-  } catch (error) {
-    log('can not read users from DB')
-  }
-  log(users)
-})();
+// (async () => {
+//   client = redis.createClient();
+//   client.on('error', (err) => console.log('Redis Client Error', err));
+//   await client.connect();
+//   const usersJSON = await client.get('users')
+//   try {
+//     users = JSON.parse(usersJSON)
+//   } catch (error) {
+//     log('can not read users from DB')
+//   }
+//   log(users)
+// })();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
