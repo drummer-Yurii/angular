@@ -8,7 +8,10 @@ const self = {
 
     // 1
     // log: console.log,
-    log: (...args) => self.pro(...args),
+    log: (...args) => {
+        console.log('\n', 1234, 'c:/dell/frend/');
+        console.log(...args, '\n')
+    },
 
     //
     // lex: (...args) => self.logWriteFile('exceptions', self.dateFormat(), ...args),
@@ -44,18 +47,18 @@ const self = {
 
     //
     logWriteFile: async (...args) => {
-    //     const path = args.shift();
-    //     const fname = args.shift();
-    //     const fullPath = `./logs/${path}`;
-    //     const logFile = `${fullPath}/${fname}.txt`;
-    //     self.ensureFolder(fullPath);
-    //     appEvents.emit('push-sys-message', { channel: 1, arr: args }); // ....................................................................................... push messages by Socket.io  
+        //     const path = args.shift();
+        //     const fname = args.shift();
+        //     const fullPath = `./logs/${path}`;
+        //     const logFile = `${fullPath}/${fname}.txt`;
+        //     self.ensureFolder(fullPath);
+        //     appEvents.emit('push-sys-message', { channel: 1, arr: args }); // ....................................................................................... push messages by Socket.io  
 
-    //     // appEvents.emit('push-sys-message', {channel: 2, text: ''}); // ....................................................................................... push messages by Socket.io  
-    //     args.forEach(arg => {
-    //         // fs.appendFile(logFile, JSON.stringify(arg, null, "\t") + '\n\n', _ => 0);
-    //         // appEvents.emit('push-sys-message', {channel: 2, text: arg}); // ....................................................................................... push messages by Socket.io  
-    //     });
+        //     // appEvents.emit('push-sys-message', {channel: 2, text: ''}); // ....................................................................................... push messages by Socket.io  
+        //     args.forEach(arg => {
+        //         // fs.appendFile(logFile, JSON.stringify(arg, null, "\t") + '\n\n', _ => 0);
+        //         // appEvents.emit('push-sys-message', {channel: 2, text: arg}); // ....................................................................................... push messages by Socket.io  
+        //     });
     },
 
     // 3

@@ -8,8 +8,8 @@ const self = {
     // var-s
     const { password, username, firstName, lastName } = o;
     // checking
-    if (!password) return { ok: false, err: 'Password required!' };
-    if (!username) return { ok: false, err: 'Username required!' };
+    if (!password) return { ok: false, msg: 'Password required!' };
+    if (!username) return { ok: false, msg: 'Username required!' };
     // do
     const user = await userService.getOne({ username })
     if (!user) {
@@ -19,7 +19,7 @@ const self = {
         firstName,
         lastName,
       });
-      if (!result.ok) return { ok: false, err: result.err };
+      if (!result.ok) return { ok: false, msg: result.msg };
     };
     return { ok: true }
   }

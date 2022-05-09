@@ -5,59 +5,59 @@ error = (err, req, res, status, msg2) => {
   err = err.toString();
   // log('error Universal'.error, err, status, msg2, '\n')
   res.json({
-      status,
-      err,
-      success: false,
-      msg: 'Error in ' + req.url,
-      msg2: msg2 || '',
-      from: 'error Universal'
+    status,
+    err,
+    success: false,
+    msg: 'Error in ' + req.url,
+    msg2: msg2 || '',
+    from: 'error Universal'
   });
 };
 
 send = (result, req, res, msg2) => {
   res.json({
-      code: '200',
-      result,
-      ok: true,
-      success: true,
-      msg: 'ok',
-      msg2: msg2 || '',
-      from: 'send Universal'
+    code: '200',
+    result,
+    ok: true,
+    success: true,
+    msg: 'ok',
+    msg2: msg2 || '',
+    from: 'send Universal'
   });
 };
-good = (result, req, res, msg2) => {
+good = (data, req, res, msg2) => {
   res.json({
-      code: '200',
-      result,
-      ok: true,
-      success: true,
-      msg: 'Good :)',
-      msg2: msg2 || '',
-      from: 'send Universal'
+    code: '200',
+    data,
+    ok: true,
+    success: true,
+    msg: 'Good :)',
+    msg2: msg2 || '',
+    from: 'send Universal'
   });
 };
 
-bad = (result, req, res, msg2) => {
+bad = (data, req, res, msg2) => {
   res.json({
-      code: '200',
-      result,
-      ok: false,
-      success: false,
-      msg: 'Not good :(',
-      msg2: msg2 || '',
-      from: 'send Universal'
+    code: '200',
+    data,
+    ok: false,
+    success: false,
+    msg: 'Not good :(',
+    msg2: msg2 || '',
+    from: 'send Universal'
   });
 };
 
 module.exports = async (req, res) => {
   try {
-    pro('Con: Register', module.filename, req.body);
+    log('Con: Register', req.body);
     // do
     const result = await auth.registration(req.body);
     // send msg
-    return (result.ok) ? good('ok', req, res, 'User is registered') : bad('custom', req, res, 409, result.err);
+    return (result.ok) ? good(null, req, res, 'User is registered') : bad(null, req, res, 409, result.msg);
   } catch (e) {
-    lex(e, module.filename);
+    log('Error:', e,);
     error(e, req, res, 500, 'Cannot register ');
   };
 };
