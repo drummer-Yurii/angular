@@ -5,14 +5,14 @@ const { auth } = require(`${level}services`);
 
 module.exports = async (req, res) => {
   try {
-    log('Con: Register', req.body);
+    log('Con: Login', req.body);
     // do
-    const result = await auth.registration(req.body);
+    const result = await auth.login(req.body);
     // send msg
-    return (result.ok) ? good(null, req, res, 'User is registered') : bad(null, req, res, 409, result.msg);
+    return (result.ok) ? good({ token: result.token }, req, res, 'User is login') : bad(null, req, res, 409, result.msg);
   } catch (e) {
     log('Error:', e,);
-    error(e, req, res, 500, 'Cannot register ');
+    error(e, req, res, 500, 'Cannot login ');
   };
 };
 

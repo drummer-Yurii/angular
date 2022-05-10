@@ -29,6 +29,7 @@ router.get('/', function (req, res, next) {
 const level='../'
 const authControllers=`${level}controllers/auth`;
 router.post('/api/auth/register', require(`${authControllers}/register`));
+router.post('/api/auth/login', require(`${authControllers}/login`));
 
 // router.post('/api/auth/register', async (req, res) => {
 //   function successfulResponse() {

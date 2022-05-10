@@ -22,7 +22,15 @@ const self = {
     },
     create: async (o) => await new User(o).save(),
     delAll: async () => null,
-    edit: async () => null,
+    edit: async (_id, msg) => {
+        //     let edit = {}; // ......................................................... edit obj
+        //     const isArray = msg instanceof Array; // ............................. must be array
+        //     if (isArray) msg.forEach(el => edit[el.key] = el.newValue); // ...... build edit obj
+        //     await User.findOneAndUpdate({ _id }, edit); // .............................. update
+        //     return 1;
+        await User.findOneAndUpdate({ _id }, msg);
+        return { ok: true };
+    },
     fake: async () => null,
 };
 module.exports = self;
