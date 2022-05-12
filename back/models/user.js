@@ -1,4 +1,4 @@
-let mongoose = require('mongoose');
+import mongoose from 'mongoose';
 // create a user model
 let User = mongoose.model('User', {
     room: String,
@@ -80,7 +80,7 @@ let User = mongoose.model('User', {
     specialization: String
 });
 
-module.exports = User;
+export default User;
 
 // //Schema
 // let walletSchema = new Schema({

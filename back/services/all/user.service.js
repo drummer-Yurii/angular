@@ -1,36 +1,22 @@
 const level = '../../';
-const { log } = require(`${level}my_modules/staff`);
-log('heyyy')
-// const { User } = require(`${level}models`);
-const User = require(`${level}models/user.js`);
-const self = {
-    getAll: async () => null,
-    getByToken: async () => null,
-    getOne: async (q) => await User.findOne(q),
-    add: async (msg) => {
-        console.log('user add')
-        const usernameOccupied = await self.getOne({ username: msg.username }); // User already exists  ?
-        if (usernameOccupied) return { ok: false, msg: 'User already exists!' };
-        // const userInfo = {
-        //     username: msg.username,
-        //     password: msg.password,
-        //     firstName: msg.firstName,
-        //     lastName: msg.lastName
-        // };
-        await self.create(msg);
-        return { ok: true };
-    },
-    create: async (o) => await new User(o).save(),
-    delAll: async () => null,
-    edit: async (_id, msg) => {
-        //     let edit = {}; // ......................................................... edit obj
-        //     const isArray = msg instanceof Array; // ............................. must be array
-        //     if (isArray) msg.forEach(el => edit[el.key] = el.newValue); // ...... build edit obj
-        //     await User.findOneAndUpdate({ _id }, edit); // .............................. update
-        //     return 1;
-        await User.findOneAndUpdate({ _id }, msg);
-        return { ok: true };
-    },
-    fake: async () => null,
+import { log } from '../../colub/high-level/index.js';
+import User from '../../models/user.js';
+
+// getAll: async () => null,
+// getByToken: async () => null,
+const getOne = async (q) => await User.findOne(q);
+const add = async (msg) => {
+    const usernameOccupied = await self.getOne({ username: msg.username }); // User already exists  ?
+    if (usernameOccupied) return { ok: false, msg: 'User already exists!' };
+    await self.create(msg);
+    return { ok: true };
 };
-module.exports = self;
+const create = async (o) => await new User(o).save();
+// delAll: async () => null,
+const edit = async (_id, msg) => {
+    await User.findOneAndUpdate({ _id }, msg);
+    return { ok: true };
+};
+// fake: async () => null,
+
+export default { getOne, create, edit, add };

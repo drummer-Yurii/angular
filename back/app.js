@@ -1,23 +1,26 @@
-const log=console.log;
-// var express = require('express');
+const log = console.log;
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 import express from 'express';
-// var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import cors from 'cors';
+import indexRouter from './routes/index.js';
+import usersRouter from './routes/users.js';
 
 var app = express();
 
-require('mongoose')
-    // .connect(`mongodb+srv://user:${process.env.DB_PASS}@cluster0-bpnma.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`, {
-        require('mongoose').connect('mongodb://localhost/angular', {
-        // useCreateIndex: true,
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        // useFindAndModify: false
-    })
+import mongoose from 'mongoose';
+// mongoose.connect(`mongodb+srv://user:${process.env.DB_PASS}@cluster0-bpnma.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`, {
+mongoose.connect('mongodb://localhost/angular', {
+    // useCreateIndex: true,
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    // useFindAndModify: false
+})
     .then(() => log('\n DB Connected!'.info))
     .catch(err => log(`DB Connection Error: ${err.message}`));
 
@@ -26,6 +29,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);

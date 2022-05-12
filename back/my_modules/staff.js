@@ -136,16 +136,7 @@ const self = {
     randInt: (n) => Math.round(Math.random() * n),
 
     // 8
-    // Random string with 10 chars: 's5xoxqnit4'
-    rand_str: () => {
-        return Math.random().toString(36).substr(2); // remove `0.`
-    },
-
-    // 9
-    // Random string with 40 chars: 's5xoxqnit4s5xoxqnit4s5xoxqnit4s5xoxqnit4'
-    rand_str_long: () => {
-        return self.rand_str() + self.rand_str() + self.rand_str() + self.rand_str();
-    },
+   
 
     // 10
     parseQuery: (queryString) => {

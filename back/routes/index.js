@@ -1,9 +1,8 @@
 const log = console.log
-const { json } = require('express');
-var express = require('express');
+// const { json } = require('express');
+// var express = require('express');
+import express from 'express';
 var router = express.Router();
-const redis = require('redis');
-let client;
 let users = [];
 
 //
@@ -28,8 +27,11 @@ router.get('/', function (req, res, next) {
 });
 const level='../'
 const authControllers=`${level}controllers/auth`;
-router.post('/api/auth/register', require(`${authControllers}/register`));
-router.post('/api/auth/login', require(`${authControllers}/login`));
+import registerConroler from '../controllers/auth/register.js';
+import loginConroler from '../controllers/auth/login.js';
+
+router.post('/api/auth/register',registerConroler);
+router.post('/api/auth/login',loginConroler);
 
 // router.post('/api/auth/register', async (req, res) => {
 //   function successfulResponse() {
@@ -188,4 +190,5 @@ router.put('/api/profile', async (req, res) => {
 
 
 
-module.exports = router;
+// module.exports = router;
+export default router;

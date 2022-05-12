@@ -1,9 +1,9 @@
 const level = '../../';
-const { log, pro, lex } = require(`${level}my_modules/staff`);
-const { error, good, bad } = require(`${level}my_modules/staff`);
-const { auth } = require(`${level}services`);
-
-module.exports = async (req, res) => {
+import {log} from '../../colub/high-level/index.js';
+import  { error, good, bad } from  '../../my_modules/lib.js';
+import  auth  from '../../services/all/auth.service.js';
+log(auth.login).place()
+export default async (req, res) => {
   try {
     log('Con: Login', req.body);
     // do

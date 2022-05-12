@@ -5,8 +5,7 @@
  */
 
 import app from '../app.js';
-var debug = require('debug')('back:server');
-var http = require('http');
+import http from 'http';
 
 /**
  * Get port from environment and store in Express.
@@ -86,5 +85,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  console.log('Listening on ' + bind);
 }
