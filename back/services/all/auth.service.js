@@ -1,6 +1,6 @@
 
 const level = '../../';
-import { log } from '../../colub/high-level/index.js';
+import { log, randomString } from '../../colub/high-level/index.js';
 import userService from './user.service.js';
 
 
@@ -32,7 +32,7 @@ const login = async (o) => {
   // do
   const user = await userService.getOne({ username })
   if (!user) return { ok: false, msg: 'can not user' }
-  const token = 'try to go'
+  const token = randomString(4);
   const { _id } = user;
   const msg = { token };
   await userService.edit(_id, msg)
