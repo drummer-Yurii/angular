@@ -32,11 +32,11 @@ const login = async (o) => {
   // do
   const user = await userService.getOne({ username })
   if (!user) return { ok: false, msg: 'can not user' }
-  const token = randomString(4);
+  const authToken = randomString(4);
   const { _id } = user;
-  const msg = { token };
+  const msg = { authToken };
   await userService.edit(_id, msg)
-  return { ok: true, token }
+  return { ok: true, authToken }
 };
 
 export default { registration, login };

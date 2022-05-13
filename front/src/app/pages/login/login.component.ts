@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     const answer: any = await this.api.login(this.userData)
     log(answer)
     if (answer.ok) {
-      localStorage.setItem('token', answer.token)
+      localStorage.setItem('token', answer.result.token)
       alert('user was logged')
     } else {
       alert(answer.msg)

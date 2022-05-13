@@ -40,7 +40,7 @@ let User = mongoose.model('User', {
     ever_cha: String,
     ever_sec: String,
     pver_cha: String,
-    auth_token: String,
+    authToken: String,
     ass_token: String,
     // wallets
     wallets: {
