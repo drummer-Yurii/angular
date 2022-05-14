@@ -12,9 +12,9 @@ class UserService {
     // };
     getOne = async (q) => await User.findOne(q);
     async add(msg) {
-        const usernameOccupied = await getOne({ username: msg.username }); // User already exists  ?
+        const usernameOccupied = await this.getOne({ username: msg.username }); // User already exists  ?
         if (usernameOccupied) return { ok: false, msg: 'User already exists!' };
-        await self.create(msg);
+        await this.create(msg);
         return { ok: true };
     };
     create = async (o) => await new User(o).save();
