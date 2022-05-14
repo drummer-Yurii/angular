@@ -1,10 +1,10 @@
 import { log } from '../colub/high-level/index.js';
 import { userService } from '../services/index.js';
 export default async (req, res, next) => {
-    const authToken = req.headers.token;
+    const authToken = req.headers.authToken;
     log(authToken).place()
     // const user = await userService.getOne({ token });
-    const user = await userService.getByToken( authToken );
+    const user = await userService.getOne({ authToken });
     log(user).place()
     if (!user) return res.json({
         ok: false,
