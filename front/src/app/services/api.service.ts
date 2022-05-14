@@ -15,7 +15,7 @@ export class ApiService {
   get httpOptions() {
     const authToken = localStorage.getItem('authToken') || '';
     return {
-      headers: headers.set('Content-Type', 'application/json').set('authToken', authToken)
+      headers: headers.set('Content-Type', 'application/json').set('auth-token', authToken)
     }
   }
   register(userData: any) {

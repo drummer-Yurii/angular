@@ -1,7 +1,8 @@
 import { log } from '../colub/high-level/index.js';
 import { userService } from '../services/index.js';
 export default async (req, res, next) => {
-    const authToken = req.headers.authToken;
+    log(req.headers).place()
+    const authToken = req.headers['auth-token'];
     log(authToken).place()
     // const user = await userService.getOne({ token });
     const user = await userService.getOne({ authToken });
@@ -18,5 +19,6 @@ export default async (req, res, next) => {
         facebookPage: req.user.facebookPage,
         username: req.user.username
     };
+    log('guard end')
     next();
 };
