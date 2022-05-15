@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
   }
   async getProfile() {
     log(this.userData)
-    const answer: any = await this.api.profile.get()
+    const answer: any = await this.api.user.get()
     log(answer)
     if (answer.ok) {
       this.userData = answer.user
@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
     }
   }
   async editProfile() {
-    const answer: any = await this.api.profile.edit(this.userData)
+    const answer: any = await this.api.user.edit(this.userData)
     log(answer)
     if (answer.ok) {
       await this.getProfile()

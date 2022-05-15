@@ -3,8 +3,8 @@ const level = '../../';
 import { log, randomString } from '../../colub/high-level/index.js';
 import userService from './user.service.js';
 
-class AuthService{
-  constructor(){}
+class AuthService {
+  constructor() { }
   async registration(o) {
     // var-s
     const { password, username, firstName, lastName } = o;
@@ -42,6 +42,5 @@ class AuthService{
     await userService.edit(_id, msg)
     return { ok: true, authToken }
   };
-  
 };
 export default new AuthService();
