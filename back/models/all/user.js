@@ -1,6 +1,13 @@
 import mongoose from 'mongoose';
 // create a user model
-let User = mongoose.model('User', {
+let User = mongoose.model('User',{
+    username:String,
+    phone:Number,
+    email:String,
+    age:Number,
+    facebookPage:String
+});
+let User2 = mongoose.model('User2', {
     room: String,
     language: String,
     isLogged: { type: Boolean, default: true }, // when you get user, its mean that you are logged

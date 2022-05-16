@@ -31,7 +31,13 @@ export class ProfileComponent implements OnInit {
     }
   }
   async editProfile() {
-    const answer: any = await this.api.user.edit(this.userData)
+    const editFields = {
+      age: this.userData.age,
+      phone: this.userData.phone,
+      email: this.userData.email,
+      facebookPage: this.userData.facebookPage
+    }
+    const answer: any = await this.api.user.edit(editFields)
     log(answer)
     if (answer.ok) {
       await this.getProfile()
