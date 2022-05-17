@@ -5,7 +5,11 @@ let User = mongoose.model('User',{
     phone:Number,
     email:String,
     age:Number,
-    facebookPage:String
+    facebookPage:String,
+    firstName: String,
+    lastName: String,
+    password: { type: String },
+
 });
 let User2 = mongoose.model('User2', {
     room: String,

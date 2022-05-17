@@ -7,16 +7,15 @@ router.get('/', function (req, res, next) {
 });
 
 import sessionGuard from '../guards/session.guard.js';
-import registerConroller from '../controllers/auth/register.js';
-import loginConroller from '../controllers/auth/login.js';
+import { registerConroller, loginConroller } from '../controllers/auth.js';
 import { userControllerPut, userControllerGet } from '../controllers/user.js';
 
 
-router.post('/api/auth/register',registerConroller);
-router.post('/api/auth/login',loginConroller);
-router.all('/*', sessionGuard );
-router.put('/api/user',userControllerPut);
-router.get('/api/user',userControllerGet);
+router.post('/api/auth/register', registerConroller);
+router.post('/api/auth/login', loginConroller);
+router.all('/*', sessionGuard);
+router.put('/api/user', userControllerPut);
+router.get('/api/user', userControllerGet);
 
 
 router.post('/api/test', async (req, res) => {

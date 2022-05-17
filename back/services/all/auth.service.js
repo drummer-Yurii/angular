@@ -1,6 +1,7 @@
 
 const level = '../../';
 import { log, randomString } from '../../colub/high-level/index.js';
+import cryptoService from './crypto.service.js';
 import userService from './user.service.js';
 
 class AuthService {
@@ -35,11 +36,13 @@ class AuthService {
     // do
     const user = await userService.getOne({ username })
     log(user)
-    if (!user) return { ok: false, msg: 'can not user' }
+    if (!user) return { ok: false, msg: 'can not user' };
+    const hashedPassword = cryptoService.hash(password);
+    if (hashedPassword != user.password ) return {ok: false, msg: 'this password not correct'};
     const authToken = randomString(4);
     const { _id } = user;
     const msg = { authToken };
-    await userService.edit(_id, msg)
+    await userService.edit(_id, msg);
     return { ok: true, authToken }
   };
 };

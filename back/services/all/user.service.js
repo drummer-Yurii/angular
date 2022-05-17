@@ -1,6 +1,8 @@
 const level = '../../';
 import { log } from '../../colub/high-level/index.js';
 import { User } from '../../models/index.js';
+import cryptoService from './crypto.service.js';
+
 class UserService {
     constructor() { }
 
@@ -11,10 +13,13 @@ class UserService {
     //     return await getOne({authToken})
     // };
     getOne = async (q) => await User.findOne(q);
-    async add(msg) {
-        const usernameOccupied = await this.getOne({ username: msg.username }); // User already exists  ?
+    async add(newUser) {
+        const usernameOccupied = await this.getOne({ username: newUser.username }); // User already exists  ?
         if (usernameOccupied) return { ok: false, msg: 'User already exists!' };
-        await this.create(msg);
+        const hash =  cryptoService.hash(newUser.password)
+        log(hash).place()
+        newUser.password = hash;
+        await this.create(newUser);
         return { ok: true };
     };
     create = async (o) => await new User(o).save();
