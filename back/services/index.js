@@ -1,3 +1,5 @@
 import userService from './all/user.service.js';
 import authService from './all/auth.service.js';
-export { userService, authService };
+import mailService from './all/mail.service.js';
+
+export { userService, authService, mailService };
