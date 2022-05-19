@@ -1,7 +1,7 @@
 const level = '../../';
 import { log } from '../colub/high-level/index.js';
 import { error, good, bad } from '../my_modules/lib.js';
-import { authService } from '../services/index.js';
+import { authService, mailService } from '../services/index.js';
 
 const registerConroller = async (req, res) => {
   try {
@@ -34,7 +34,8 @@ const mailVerification = async (req, res) => {
     const result = await mailService.send();
     res.json({ ok: 'hz' });
   } catch (error) {
-
+    log('Error:', e,);
+    error(e, req, res, 500, 'Cannot send mail');
   }
 }
 export { registerConroller, loginConroller, mailVerification}
