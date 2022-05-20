@@ -33,7 +33,7 @@ const mailVerification = async (req, res) => {
     log('Con: mailVerification');
     const result = await mailService.send();
     res.json({ ok: 'hz' });
-  } catch (error) {
+  } catch (e) {
     log('Error:', e,);
     error(e, req, res, 500, 'Cannot send mail');
   }
