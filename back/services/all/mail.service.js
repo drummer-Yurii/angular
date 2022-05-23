@@ -12,24 +12,29 @@ class MailService {
         log('init')
 
     }
-    async send() {
+    async send(name) {
         log('send')
         await this.init();
-        var msg = {
-            from: 'uriirybachok@gmail.com',
-            from_name: 'Urii',
-            to: 'drummer2009@ukr.net',
-            subject: 'Hello',
-            body_text: 'Hello World!'
-        };
+        switch (name) {
+            case 'mailVerification':
+                var msg = {
+                    from: 'uriirybachok@gmail.com',
+                    from_name: 'Urii',
+                    to: 'drummer2009@ukr.net',
+                    subject: 'Hello',
+                    body_text: 'Hello World!'
+                };
 
-        this.client.mailer.send(msg, function (err, result) {
-            if (err) {
-                return console.error(err);
-            }
+                this.client.mailer.send(msg, function (err, result) {
+                    if (err) {
+                        return console.error(err);
+                    }
 
-            console.log(result);
-        });
+                    console.log(result);
+                }); break;
+        }
+
+
     }
     async after(err, res) {
         log(err, res)

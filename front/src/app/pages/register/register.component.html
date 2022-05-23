@@ -13,6 +13,11 @@
             aria-describedby="basic-addon1">
     </div>
     <div class="input-group mb-3">
+        <span class="input-group-text">@</span>
+        <input [(ngModel)]="userData.email" type="text" class="form-control" placeholder="email" aria-label="Username"
+            aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
         <span class="input-group-text">$</span>
         <input [(ngModel)]="userData.password" type="password" class="form-control" placeholder="Password" aria-label="Username"
             aria-describedby="basic-addon1">

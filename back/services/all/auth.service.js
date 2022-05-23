@@ -8,7 +8,7 @@ class AuthService {
   constructor() { }
   async registration(o) {
     // var-s
-    const { password, username, firstName, lastName } = o;
+    const { password, username, email } = o;
     // checking
     if (!password) return { ok: false, msg: 'Password required!' };
     if (!username) return { ok: false, msg: 'Username required!' };
@@ -18,8 +18,7 @@ class AuthService {
       const result = await userService.add({
         password,
         username,
-        firstName,
-        lastName,
+        email,
       });
       if (!result.ok) return { ok: false, msg: result.msg };
     };
@@ -38,7 +37,7 @@ class AuthService {
     log(user)
     if (!user) return { ok: false, msg: 'can not user' };
     const hashedPassword = cryptoService.hash(password);
-    if (hashedPassword != user.password ) return {ok: false, msg: 'this password not correct'};
+    if (hashedPassword != user.password) return { ok: false, msg: 'this password not correct' };
     const authToken = randomString(4);
     const { _id } = user;
     const msg = { authToken };
