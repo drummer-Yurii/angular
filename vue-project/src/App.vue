@@ -64,5 +64,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 <style>
 /* @import '@/assets/base.css'; */
 
-#app {}
+#app {
+    background: darkslategrey !important;
+}
 </style>
