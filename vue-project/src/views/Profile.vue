@@ -31,10 +31,15 @@ export default {
       userData: {}
     }
   },
+  created(){
+    this.getUserData()
+  },
   methods: {
-    profile() {
+    getUserData() {
       axios
-        .post('http://localhost:3001/api/auth/profile', this.userData)
+        .get('http://localhost:3001/api/user', {
+          'auth-token': localStorage.getItem('authToken')
+        })
         .then((answer) => {
           console.log(answer)
         })
