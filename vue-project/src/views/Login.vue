@@ -35,6 +35,8 @@ export default {
         .post('http://localhost:3001/api/auth/login', this.userData)
         .then((answer) => {
           console.log(answer)
+          const authToken=answer.data.result.authToken
+          localStorage.setItem('authToken', authToken)
         })
     }
   }
