@@ -1,17 +1,18 @@
 <template>
   <div class="profile">
     <div class="profile-form">
+      <div class="info">Username: {{userData.username}}</div>
       <div class="input-group mb-3">
-        <input @model="userData.age" class="form-control" type="text" aria-label="age" placeholder="age">
+        <input v-model="userData.age" class="form-control" type="text" aria-label="age" placeholder="age">
       </div>
       <div class="input-group mb-3">
-        <input @model="userData.phone" class="form-control" type="number" aria-label="phone" placeholder="phone">
+        <input v-model="userData.phone" class="form-control" type="number" aria-label="phone" placeholder="phone">
       </div>
       <div class="input-group mb-3">
-        <input @model="userData.email" class="form-control" type="text" aria-label="email" placeholder="email">
+        <input v-model="userData.email" class="form-control" type="text" aria-label="email" placeholder="email">
       </div>
       <div class="input-group mb-3">
-        <input @model="userData.facebookPage" class="form-control" type="text" aria-label="facebookPage"
+        <input v-model="userData.facebookPage" class="form-control" type="text" aria-label="facebookPage"
           placeholder="facebookPage">
       </div>
       <div class="panel">
@@ -42,6 +43,7 @@ export default {
         })
         .then((answer) => {
           console.log(answer)
+          this.userData=answer.data.user
         })
     }
   }
