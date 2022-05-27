@@ -25,8 +25,15 @@
 <script>
 import { ref } from 'vue'
 import axios from 'axios'
+import { useUserStore } from '@/stores/user'
 
 export default {
+  setup() {
+    const storeUser = useUserStore()
+    return {
+      storeUser
+    }
+  },
   data() {
     return {
       userData: {}
@@ -44,6 +51,7 @@ export default {
         .then((answer) => {
           console.log(answer)
           this.userData=answer.data.user
+          this.storeUser.update(answer.data.user)
         })
     },
     editProfile() {
