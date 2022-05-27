@@ -45,6 +45,7 @@
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
+          <div class="user">{{ storeUser.user.username }}</div>
         </div>
       </div>
     </nav>
@@ -88,18 +89,18 @@ export default {
           this.storeUser.update(answer.data.user)
         })
     },
-    editProfile() {
-      console.log('editProfile')
-      axios
-       .put('http://localhost:3001/api/user', this.userData, {
-         'auth-token': localStorage.getItem('authToken')
-       })
-       .then((answer) => {
-          console.log(answer)
-          this.getUserData()
-          // this.userData=answer.data.user
-        })
-    },
+    // editProfile() {
+    //   console.log('editProfile')
+    //   axios
+    //    .put('http://localhost:3001/api/user', this.userData, {
+    //      'auth-token': localStorage.getItem('authToken')
+    //    })
+    //    .then((answer) => {
+    //       console.log(answer)
+    //       this.getUserData()
+    //       // this.userData=answer.data.user
+    //     })
+    // },
   }
 }
 </script>
