@@ -46,7 +46,8 @@
           </form>
           <div class="user">{{ storeUser.user.username }}</div>
           <!-- <img alt="avatar" class="logo" src="http://localhost:3001/users/admin/avatar.jpg" width="125" height="125" /> -->
-          <div class="avatar" style="background-image: url('http://localhost:3001/users/admin/avatar.jpg');"></div>
+          <div class="avatar"
+            :style="`background-image: url(\'http://localhost:3001/users/${storeUser.user.username}/avatar.jpg\');`"></div>
         </div>
       </div>
     </nav>
