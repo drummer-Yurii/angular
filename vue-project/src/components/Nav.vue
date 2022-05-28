@@ -1,6 +1,5 @@
 <template>
-  <div class="profile">
-      <header>
+  <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -13,7 +12,7 @@
             <li class="nav-item">
               <router-link :to="'/'" class="nav-link active" aria-current="page">Home</router-link>
             </li>
-             <li class="nav-item">
+            <li class="nav-item">
               <router-link :to="'/about'" class="nav-link active" aria-current="page">About</router-link>
             </li>
             <li class="nav-item">
@@ -46,15 +45,15 @@
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
           <div class="user">{{ storeUser.user.username }}</div>
+          <!-- <img alt="avatar" class="logo" src="http://localhost:3001/users/admin/avatar.jpg" width="125" height="125" /> -->
+          <div class="avatar" style="background-image: url('http://localhost:3001/users/admin/avatar.jpg');"></div>
         </div>
       </div>
     </nav>
 
-    <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
 
     <!-- <HelloWorld msg="You did it!" /> -->
   </header>
-  </div>
 </template>
 
 <script>
@@ -74,7 +73,7 @@ export default {
       userData: {}
     }
   },
-  created(){
+  created() {
     this.getUserData()
   },
   methods: {
@@ -87,7 +86,7 @@ export default {
         })
         .then((answer) => {
           console.log(answer)
-          this.userData=answer.data.user
+          this.userData = answer.data.user
           this.storeUser.update(answer.data.user)
         })
     },
@@ -127,6 +126,13 @@ export default {
 
   .panel {
     text-align: center;
+  }
+
+  .avatar {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 1rem;
+    background-size: cover;
   }
 }
 </style>
