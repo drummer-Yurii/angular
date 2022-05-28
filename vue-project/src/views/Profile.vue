@@ -46,7 +46,9 @@ export default {
     getUserData() {
       axios
         .get('http://localhost:3001/api/user', {
-          'auth-token': localStorage.getItem('authToken')
+          headers: {
+            'auth-token': localStorage.getItem('authToken')
+          }
         })
         .then((answer) => {
           console.log(answer)
@@ -58,7 +60,9 @@ export default {
       console.log('editProfile')
       axios
        .put('http://localhost:3001/api/user', this.userData, {
-         'auth-token': localStorage.getItem('authToken')
+         headers: {
+           'auth-token': localStorage.getItem('authToken')
+         }
        })
        .then((answer) => {
           console.log(answer)

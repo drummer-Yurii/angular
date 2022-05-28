@@ -37,6 +37,7 @@ export default {
           console.log(answer)
           const authToken=answer.data.result.authToken
           localStorage.setItem('authToken', authToken)
+          location.reload()
         })
     }
   }
