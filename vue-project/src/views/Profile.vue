@@ -19,10 +19,12 @@
         <button @click="editProfile" type="button" class="btn btn-primary">edit</button>
       </div>
     </div>
-    <form ref='uploadForm' id='uploadForm' action='http://localhost:3001/upload' method='post' encType="multipart/form-data">
-      <input type="file" name="sampleFile" />
-      <input type='submit' value='Upload!' />
-    </form>
+    <!-- <form ref='uploadForm' id='uploadForm' action='http://localhost:3001/upload' method='post'
+      encType="multipart/form-data"> -->
+    <input type="file" id="fileToUpload" name="sampleFile" />
+    <button @click="uploadFile" type="button" class="btn btn-primary">send</button>
+    <!-- <input type='submit' value='Upload!' /> -->
+    <!-- </form> -->
   </div>
 </template>
 
@@ -73,6 +75,17 @@ export default {
           this.getUserData()
           // this.userData=answer.data.user
         })
+    },
+    uploadFile() {
+      var fd = new FormData();
+      fd.append("sampleFile", document.getElementById('fileToUpload').files[0]);
+      fd.append("directory", "/testpost");
+      fd.append("basename", "wobble-004.txt");
+
+      var oReq = new XMLHttpRequest();
+      oReq.open("POST", 'http://localhost:3001/upload', true);
+      oReq.onreadystatechange = alert(status);
+      oReq.send(fd);
     },
   }
 }
