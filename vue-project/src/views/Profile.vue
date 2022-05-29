@@ -1,7 +1,7 @@
 <template>
   <div class="profile">
     <div class="profile-form">
-      <div class="info">Username: {{userData.username}}</div>
+      <div class="info">Username: {{ userData.username }}</div>
       <div class="input-group mb-3">
         <input v-model="userData.age" class="form-control" type="text" aria-label="age" placeholder="age">
       </div>
@@ -19,6 +19,10 @@
         <button @click="editProfile" type="button" class="btn btn-primary">edit</button>
       </div>
     </div>
+    <form ref='uploadForm' id='uploadForm' action='http://localhost:3001/upload' method='post' encType="multipart/form-data">
+      <input type="file" name="sampleFile" />
+      <input type='submit' value='Upload!' />
+    </form>
   </div>
 </template>
 
@@ -39,7 +43,7 @@ export default {
       userData: {}
     }
   },
-  created(){
+  created() {
     this.getUserData()
   },
   methods: {
@@ -52,19 +56,19 @@ export default {
         })
         .then((answer) => {
           console.log(answer)
-          this.userData=answer.data.user
+          this.userData = answer.data.user
           this.storeUser.update(answer.data.user)
         })
     },
     editProfile() {
       console.log('editProfile')
       axios
-       .put('http://localhost:3001/api/user', this.userData, {
-         headers: {
-           'auth-token': localStorage.getItem('authToken')
-         }
-       })
-       .then((answer) => {
+        .put('http://localhost:3001/api/user', this.userData, {
+          headers: {
+            'auth-token': localStorage.getItem('authToken')
+          }
+        })
+        .then((answer) => {
           console.log(answer)
           this.getUserData()
           // this.userData=answer.data.user
