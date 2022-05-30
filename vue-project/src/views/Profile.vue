@@ -82,9 +82,11 @@ export default {
       fd.append("directory", "/testpost");
       fd.append("basename", "wobble-004.txt");
 
+
       var oReq = new XMLHttpRequest();
-      oReq.open("POST", 'http://localhost:3001/upload', true);
-      oReq.onreadystatechange = alert(status);
+      oReq.open("POST", `http://localhost:3001/upload?pathForUploading=/users/${this.userData.username}/&fileName=avatar`, true);
+      // oReq.onreadystatechange = alert(status);
+      // console.log(alert(status));
       oReq.send(fd);
     },
   }

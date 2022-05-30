@@ -37,17 +37,31 @@ app.use(fileUpload());
 app.post('/upload', function (req, res) {
     let sampleFile;
     let uploadPath;
+    let pathForUploading;
+    let fileName;
 
     if (!req.files || Object.keys(req.files).length === 0) {
         res.status(400).send('No files were uploaded.');
         return;
-    }
+    };
+    console.log('params:', req.params, req.query)
 
-    console.log('req.files >>>', req.files); // eslint-disable-line
+    console.log('req.files >>>', req.files, req.files.sampleFile.test); // eslint-disable-line
 
     sampleFile = req.files.sampleFile;
+    pathForUploading = req.query.pathForUploading;
+    fileName = req.query.fileName;
+    if (req.query.fileName) {
+        console.log(sampleFile.name.split('.'))
+        const extention = sampleFile.name.split('.')[1];
+        fileName = `${req.query.fileName}.${extention}`
+    } else {
+        fileName = sampleFile.name
+    }
 
-    uploadPath = __dirname + '/uploads/' + sampleFile.name;
+    uploadPath = __dirname + '/uploads' + pathForUploading + fileName;
+    // uploadPath = __dirname + '/uploads/' + sampleFile.name;
+
 
     sampleFile.mv(uploadPath, function (err) {
         if (err) {
