@@ -87,7 +87,12 @@ export default {
       oReq.open("POST", `http://localhost:3001/upload?pathForUploading=/users/${this.userData.username}/&fileName=avatar`, true);
       // oReq.onreadystatechange = alert(status);
       // console.log(alert(status));
-      oReq.send(fd);
+      // oReq.send(fd);
+      axios.post(`http://localhost:3001/upload?pathForUploading=/users/${this.userData.username}/&fileName=avatar`, fd, {
+      }).then((response) => {
+        console.log(response)
+        location.reload()
+      })
     },
   }
 }
