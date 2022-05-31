@@ -11,6 +11,7 @@ import logger from 'morgan';
 import cors from 'cors';
 import indexRouter from './routes/index.js';
 import fileUpload from 'express-fileupload';
+import fs from 'fs';
 
 var app = express();
 
@@ -34,6 +35,8 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'uploads')));
 app.use(fileUpload());
+
+
 app.post('/upload', function (req, res) {
     let sampleFile;
     let uploadPath;
@@ -51,25 +54,43 @@ app.post('/upload', function (req, res) {
     sampleFile = req.files.sampleFile;
     pathForUploading = req.query.pathForUploading;
     fileName = req.query.fileName;
-    if (req.query.fileName) {
-        console.log(sampleFile.name.split('.'))
-        const extention = sampleFile.name.split('.')[1];
-        fileName = `${req.query.fileName}.${extention}`
-    } else {
-        fileName = sampleFile.name
-    }
-
-    uploadPath = __dirname + '/uploads' + pathForUploading + fileName;
-    // uploadPath = __dirname + '/uploads/' + sampleFile.name;
-
-
-    sampleFile.mv(uploadPath, function (err) {
-        if (err) {
-            return res.status(500).send(err);
+    let counter = 0;
+    // remove all avators 
+    ['jpg', 'jpeg', 'png'].forEach((extention) => {
+        const path = __dirname + '/uploads' + pathForUploading + 'avatar.' + extention;
+        try {
+            fs.unlink(path, () => {
+                console.log('deleted', path)
+                counter++
+                if (counter == 3) {
+                    rest()
+                }
+            })
+        } catch (error) {
+            console.log('can not deleted', path)
+        }
+    })
+    function rest() {
+        if (req.query.fileName) {
+            console.log(sampleFile.name.split('.'))
+            const extention = sampleFile.name.split('.')[1];
+            fileName = `${req.query.fileName}.${extention}`
+        } else {
+            fileName = sampleFile.name
         }
 
-        res.send('File uploaded to ' + uploadPath);
-    });
+        uploadPath = __dirname + '/uploads' + pathForUploading + fileName;
+        // uploadPath = __dirname + '/uploads/' + sampleFile.name;
+
+
+        sampleFile.mv(uploadPath, function (err) {
+            if (err) {
+                return res.status(500).send(err);
+            }
+
+            res.send('File uploaded to ' + uploadPath);
+        });
+    }
 });
 
 app.use('/', indexRouter);
