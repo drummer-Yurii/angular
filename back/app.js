@@ -56,20 +56,18 @@ app.post('/upload', function (req, res) {
     fileName = req.query.fileName;
     let counter = 0;
     // remove all avators 
-    ['jpg', 'jpeg', 'png'].forEach((extention) => {
+    ['jpg', 'jpeg', 'png'].forEach((extention, i, arr) => {
         const path = __dirname + '/uploads' + pathForUploading + 'avatar.' + extention;
         try {
             fs.unlink(path, () => {
-                console.log('deleted', path)
-                counter++
-                if (counter == 3) {
-                    rest()
-                }
-            })
+                console.log('deleted', path);
+                counter++;
+                if (counter == arr.length) rest()
+            });
         } catch (error) {
-            console.log('can not deleted', path)
+            console.log('can not deleted', path);
         }
-    })
+    });
     function rest() {
         if (req.query.fileName) {
             console.log(sampleFile.name.split('.'))
