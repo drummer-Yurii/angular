@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
 
 import sessionGuard from '../guards/session.guard.js';
 import { registerConroller, loginConroller, mailVerification } from '../controllers/auth.js';
-import { userControllerPut, userControllerGet } from '../controllers/user.js';
+import { userControllerPut, userControllerGet, userControllerGetAvatar} from '../controllers/user.js';
 
 
 router.post('/api/auth/register', registerConroller);
@@ -17,7 +17,7 @@ router.post('/api/auth/mail-verification', mailVerification);
 router.all('/*', sessionGuard);
 router.put('/api/user', userControllerPut);
 router.get('/api/user', userControllerGet);
-
+router.get('/api/avatar', userControllerGetAvatar);
 
 router.post('/api/test', async (req, res) => {
   const data = req.body;

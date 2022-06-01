@@ -47,13 +47,7 @@
           <div class="user">{{ storeUser.user.username }}</div>
           <!-- <img alt="avatar" class="logo" src="http://localhost:3001/users/admin/avatar.jpg" width="125" height="125" /> -->
           <div class="avatar"
-            :style="`background-image: url(\'http://localhost:3001/users/${storeUser.user.username}/avatar.jpg\');`">
-          </div>
-          <div class="avatar"
-            :style="`background-image: url(\'http://localhost:3001/users/${storeUser.user.username}/avatar.jpeg\');`">
-          </div>
-          <div class="avatar"
-            :style="`background-image: url(\'http://localhost:3001/users/${storeUser.user.username}/avatar.png\');`">
+            :style="`background-image: url(\'http://localhost:3001/users/${storeUser.user.username}/${storeUser.avatar}\');`">
           </div>
         </div>
 
@@ -84,6 +78,7 @@ export default {
   },
   created() {
     this.getUserData()
+    this.getAvatar()
   },
   methods: {
     getUserData() {
@@ -99,6 +94,18 @@ export default {
           this.storeUser.update(answer.data.user)
         })
     },
+    getAvatar() {
+      axios
+        .get('http://localhost:3001/api/avatar', {
+          headers: {
+            'auth-token': localStorage.getItem('authToken'),
+          }
+        })
+        .then((answer) => {
+          this.storeUser.updateAvatar(answer.data.result.avatar)
+          console.log(answer)
+        })
+    }
     // editProfile() {
     //   console.log('editProfile')
     //   axios

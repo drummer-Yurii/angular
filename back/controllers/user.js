@@ -28,7 +28,19 @@ const userControllerGet = async (req, res) => {
     error(e, req, res, 500, 'Cannot register ');
   };
 };
-export {userControllerPut, userControllerGet}
+const userControllerGetAvatar = async (req, res) => {
+  try {
+    log('Con: userControllerGetAvatarExtention').place();
+    // do
+    const result = await userService.getAvatar(req.user.username);
+    // send msg
+    return (result.ok) ? good(result, req, res, 'The user avatar extention') : bad(null, req, res, 409, result.msg);
+  } catch (e) {
+    log('Error:', e,);
+    error(e, req, res, 500, 'Cannot get user avatart extention ');
+  };
+};
+export { userControllerPut, userControllerGet, userControllerGetAvatar }
 
 // class RegisterController extends Controller {
 //   conName = 'Register';

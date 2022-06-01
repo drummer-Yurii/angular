@@ -93,3 +93,5 @@ app.post('/upload', function (req, res) {
 
 app.use('/', indexRouter);
 export default app;
+// 1 save avatar extention
+// 2 admin page for diferent items
