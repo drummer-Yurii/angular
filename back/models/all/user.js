@@ -10,6 +10,7 @@ let User = mongoose.model('User',{
     lastName: String,
     password: { type: String },
     authToken: String,
+    role: String,
 });
 let User2 = mongoose.model('User2', {
     room: String,

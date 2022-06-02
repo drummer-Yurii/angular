@@ -18,10 +18,13 @@
             <li class="nav-item">
               <router-link :to="'/profile'" class="nav-link active" aria-current="page">Profile</router-link>
             </li>
+             <li class="nav-item" v-if="storeUser.user.username=='admin'">
+              <router-link :to="'/admin/main'" class="nav-link active" aria-current="page">Admin</router-link>
+            </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
-                Dropdown
+                Auth
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
