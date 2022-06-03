@@ -3,7 +3,7 @@
     <div class="profile-form">
       <div class="info">Username: {{ userData.username }}</div>
       <div class="input-group mb-3">
-        <input v-model="userData.age" class="form-control" type="text" aria-label="age" placeholder="age">
+        <input v-model="userData.companyName" class="form-control" type="text" aria-label="company name" placeholder="company name">
       </div>
       <div class="input-group mb-3">
         <input v-model="userData.phone" class="form-control" type="number" aria-label="phone" placeholder="phone">
