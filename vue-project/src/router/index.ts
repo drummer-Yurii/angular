@@ -69,7 +69,11 @@ router.beforeEach((to) => {
   // the router is installed and pinia will be installed too
   const storeUser = useUserStore()
  console.log(to)
-  if (true && storeUser.user?.username !=='admin') return '/login'
-})
+  if ( storeUser.user?.username =='admin') {
+  } else {
+    const category = to.path.split('/')[1];
+    if (category == 'admin' ) return '/login'
+  }
+});
 
 export default router
