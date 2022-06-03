@@ -36,7 +36,8 @@
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li><a class="dropdown-item" @click="unlogin">Sign out</a></li>
+
               </ul>
             </li>
             <!-- <li class="nav-item">
@@ -96,6 +97,7 @@ export default {
           this.userData = answer.data.user
           this.storeUser.update(answer.data.user)
         })
+
     },
     getAvatar() {
       axios
@@ -108,6 +110,10 @@ export default {
           this.storeUser.updateAvatar(answer.data.result.avatar)
           console.log(answer)
         })
+    },
+    unlogin() {
+      localStorage.removeItem('authToken')
+      location.reload()
     }
     // editProfile() {
     //   console.log('editProfile')

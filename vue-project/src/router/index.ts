@@ -68,12 +68,13 @@ router.beforeEach((to) => {
   // ✅ This will work because the router starts its navigation after
   // the router is installed and pinia will be installed too
   const storeUser = useUserStore()
- console.log(to)
-  if ( storeUser.user?.username =='admin') {
+  console.log(to)
+  if (storeUser.user?.username == 'admin') {
   } else {
     const category = to.path.split('/')[1];
-    if (category == 'admin' ) return '/login'
+    if (category == 'admin') return '/login'
   }
+  if (to.path == '/profile' && !storeUser.user?.username) return '/login'
 });
 
 export default router
