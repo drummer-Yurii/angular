@@ -1,18 +1,19 @@
 <template>
   <div class="profile">
     <div class="profile-form">
-      <div class="info">Username: {{ userData.username }}</div>
+      <div class="info">Company name: {{ storeApp.app.companyName }}</div>
       <div class="input-group mb-3">
-        <input v-model="userData.companyName" class="form-control" type="text" aria-label="company name" placeholder="company name">
+        <input v-model="storeApp.app.companyName" class="form-control" type="text" aria-label="company name"
+          placeholder="company name">
       </div>
       <div class="input-group mb-3">
-        <input v-model="userData.phone" class="form-control" type="number" aria-label="phone" placeholder="phone">
+        <input v-model="storeApp.app.phone" class="form-control" type="number" aria-label="phone" placeholder="phone">
       </div>
       <div class="input-group mb-3">
-        <input v-model="userData.email" class="form-control" type="text" aria-label="email" placeholder="email">
+        <input v-model="storeApp.app.email" class="form-control" type="text" aria-label="email" placeholder="email">
       </div>
       <div class="input-group mb-3">
-        <input v-model="userData.facebookPage" class="form-control" type="text" aria-label="facebookPage"
+        <input v-model="storeApp.app.facebookPage" class="form-control" type="text" aria-label="facebookPage"
           placeholder="facebookPage">
       </div>
       <div class="panel">
@@ -32,34 +33,37 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { useUserStore } from '@/stores/user'
+import { useAppStore } from '@/stores/app'
 
 export default {
   setup() {
     const storeUser = useUserStore()
+    const storeApp = useAppStore()
     return {
-      storeUser
+      storeUser,
+      storeApp
     }
   },
   data() {
     return {
-      userData: {}
+      // userData: {},
+      // appData: {}
     }
   },
   created() {
-    this.getUserData()
+    this.getAppData()
   },
   methods: {
-    getUserData() {
+    getAppData() {
       axios
-        .get('http://localhost:3001/api/user', {
+        .get('http://localhost:3001/api/app-info', {
           headers: {
             'auth-token': localStorage.getItem('authToken')
           }
         })
         .then((answer) => {
           console.log(answer)
-          this.userData = answer.data.user
-          this.storeUser.update(answer.data.user)
+          this.storeApp.update(answer.data.result.info)
         })
     },
     editProfile() {
@@ -77,7 +81,7 @@ export default {
         })
     },
     uploadFile() {
-      const target =  document.getElementById('fileToUpload')
+      const target = document.getElementById('fileToUpload')
       if (target.files.length == 0) return alert('file not selected! please chois avatar');
       const file = target.files[0]
       var fd = new FormData();
