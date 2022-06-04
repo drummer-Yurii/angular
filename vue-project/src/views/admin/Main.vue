@@ -17,7 +17,7 @@
           placeholder="facebookPage">
       </div>
       <div class="panel">
-        <button @click="editProfile" type="button" class="btn btn-primary">edit</button>
+        <button @click="editApp" type="button" class="btn btn-primary">edit</button>
       </div>
     </div>
     <!-- <form ref='uploadForm' id='uploadForm' action='http://localhost:3001/upload' method='post'
@@ -66,17 +66,17 @@ export default {
           this.storeApp.update(answer.data.result.info)
         })
     },
-    editProfile() {
+    editApp() {
       console.log('editProfile')
       axios
-        .put('http://localhost:3001/api/user', this.userData, {
+        .put('http://localhost:3001/api/app-info', this.storeApp.app, {
           headers: {
             'auth-token': localStorage.getItem('authToken')
           }
         })
         .then((answer) => {
           console.log(answer)
-          this.getUserData()
+          this.getAppData()
           // this.userData=answer.data.user
         })
     },
