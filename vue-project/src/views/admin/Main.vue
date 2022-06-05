@@ -63,11 +63,10 @@ export default {
         })
         .then((answer) => {
           console.log(answer)
-          this.storeApp.update(answer.data.result.info)
+          this.storeApp.update(answer.data.result.info[0])
         })
     },
     editApp() {
-      console.log('editProfile')
       axios
         .put('http://localhost:3001/api/app-info', this.storeApp.app, {
           headers: {

@@ -5,18 +5,19 @@ import mailService from './mail.service.js';
 import fs from 'fs';
 const fsp = fs.promises;
 
-async function init(){
+async function init() {
     const appInfoArray = await App.find()
-    const isFirstStart = appInfoArray.length==0
-    if(isFirstStart) await new App({the:'app'}).save();
+    const isFirstStart = appInfoArray.length == 0
+    if (isFirstStart) await new App({ the: 'app' }).save();
 }
 init()
 class AppService {
     constructor() { }
-    getInfo() {
+    async getInfo() {
+        const info = await App.find();// отримати обєкт з бази данних
         return {
             ok: true,
-            info: { companyName: 'salut' }
+            info
         }
     };
     async edit(msg) {
