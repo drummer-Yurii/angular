@@ -96,7 +96,8 @@ export default {
           console.log(answer)
           this.userData = answer.data.user
           this.storeUser.update(answer.data.user)
-          if (this.storeUser.user.username=='admin') this.$router.push('/admin/main') 
+          if (this.storeUser.user.username=='admin') this.$router.push('/admin/main')
+          else this.$router.push('/') 
         })
 
     },
