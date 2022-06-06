@@ -4,14 +4,19 @@
     <section>
       <h1>{{ storeApp.app.companyName }}</h1>
       <h3>{{ storeApp.app.phone }}</h3>
+
+
+
+
+    <FirstScreen/>
+
     </section>
-    <!-- <TheWelcome /> -->
   </main>
 </template>
 
     <script>
 import { RouterLink, RouterView } from 'vue-router'
-// import Nav from '@/components/Nav.vue'
+import FirstScreen from '@/components/FirstScreen.vue'
 import { ref } from 'vue'
 import axios from 'axios'
 import { useUserStore } from '@/stores/user'
@@ -19,7 +24,7 @@ import { useAppStore } from '@/stores/app'
 
 export default {
   components: {
-    // Nav
+   FirstScreen
   },
   setup() {
     const storeUser = useUserStore()
@@ -44,7 +49,5 @@ export default {
 }
 </script>
 <style>
-section {
-  text-align: center;
-}
+
 </style>
