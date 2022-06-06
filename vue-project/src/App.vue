@@ -1,6 +1,6 @@
 
 <template>
-  <Nav />
+  <Nav :companyName="storeApp.app.companyName" />
 
   <RouterView />
 </template>
