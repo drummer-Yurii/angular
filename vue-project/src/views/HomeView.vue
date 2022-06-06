@@ -2,13 +2,8 @@
 <template>
   <main>
     <section>
-      <h1>{{ storeApp.app.companyName }}</h1>
-      <h3>{{ storeApp.app.phone }}</h3>
 
-
-
-
-    <FirstScreen/>
+    <FirstScreen :companyName="storeApp.app.companyName"/>
 
     </section>
   </main>
