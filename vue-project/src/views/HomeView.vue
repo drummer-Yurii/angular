@@ -1,17 +1,19 @@
 
 <template>
   <main>
-    <section>
 
     <FirstScreen :companyName="storeApp.app.companyName"/>
+    <Feed />
+    <!-- <Footer /> -->
 
-    </section>
   </main>
 </template>
 
     <script>
 import { RouterLink, RouterView } from 'vue-router'
 import FirstScreen from '@/components/FirstScreen.vue'
+import Feed from '@/components/Feed.vue'
+// import Footer from '@/conmponents/Footer.vue'
 import { ref } from 'vue'
 import axios from 'axios'
 import { useUserStore } from '@/stores/user'
@@ -19,7 +21,9 @@ import { useAppStore } from '@/stores/app'
 
 export default {
   components: {
-   FirstScreen
+   FirstScreen,
+   Feed,
+  //  Footer
   },
   setup() {
     const storeUser = useUserStore()
