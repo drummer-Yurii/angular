@@ -67,6 +67,8 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { useUserStore } from '@/stores/user'
+import { useAppStore } from '@/stores/app'
+// import {config} from '@/my-config'
 
 export default {
   props: {
@@ -74,8 +76,10 @@ export default {
   },
   setup() {
     const storeUser = useUserStore()
+    const storeApp = useAppStore()
     return {
-      storeUser
+      storeUser,
+      storeApp
     }
   },
   data() {
@@ -99,8 +103,10 @@ export default {
           console.log(answer)
           this.userData = answer.data.user
           this.storeUser.update(answer.data.user)
-          if (this.storeUser.user.username == 'admin') this.$router.push('/admin/main')
-          else this.$router.push('/')
+          if (this.storeApp.goToAnotherPageAfterReload) {
+            if (this.storeUser.user.username == 'admin') this.$router.push('/admin/main')
+            else this.$router.push('/')
+          }
         })
 
     },

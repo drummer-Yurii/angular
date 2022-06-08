@@ -6,6 +6,7 @@ export const useAppStore = defineStore({
   id: 'app',
   state: () => ({
     app: {},
+    goToAnotherPageAfterReload: false
   }),
   getters: {
     // doubleCount: (state) => state.counter * 2

@@ -23,13 +23,14 @@ defineProps<{
 
 section {
   text-align: center;
+  z-index: 10;
 }
 
 .feed {
   max-width: 50rem;
   display: flex;
   flex-direction: column;
-  background: orange;
+  /* background: orange; */
   margin: -5rem auto 3rem auto;
 }
 

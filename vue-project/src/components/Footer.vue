@@ -12,7 +12,7 @@ defineProps<{
 </template>
 
 <style scoped>
-/* @import url(//fonts.googleapis.com/css?family=Lato:300:400); */
+@import url(//fonts.googleapis.com/css?family=Lato:300:400);
 
 section {
   text-align: center;
