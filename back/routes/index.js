@@ -10,6 +10,9 @@ import sessionGuard from '../guards/session.guard.js';
 import { registerConroller, loginConroller, mailVerification } from '../controllers/auth.js';
 import { userControllerPut, userControllerGet, userControllerGetAvatar} from '../controllers/user.js';
 import { appControllerGet, appControllerPut} from '../controllers/app.js'
+import { postControllerPost} from '../controllers/post.js'
+
+
 
 
 
@@ -22,6 +25,7 @@ router.get('/api/user', userControllerGet);
 router.get('/api/avatar', userControllerGetAvatar);
 router.get('/api/app-info', appControllerGet);
 router.put('/api/app-info', appControllerPut);
+router.post('/api/post', postControllerPost);
 
 
 
