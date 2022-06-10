@@ -34,15 +34,15 @@ export default {
       posts: [
         {
           img:'/src/assets/1.webp',
-          title:'bech'
+          title:'beach'
         },
          {
-          img:'/src/assets/1.webp',
-          title:'bech'
+          img:'/src/assets/2.png',
+          title:'feeling'
         },
          {
-          img:'/src/assets/1.webp',
-          title:'bech'
+          img:'/src/assets/3.jpg',
+          title:'stage'
         }
       ]
     }

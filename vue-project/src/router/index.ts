@@ -55,7 +55,14 @@ const router = createRouter({
       name: 'admin-main',
       // beforeEnter: adminGuard,
       component: () => import('../views/admin/Main.vue')
-    }
+    },
+    {
+      path: '/admin/post/:id',
+      name: 'admin-post',
+      // beforeEnter: adminGuard,
+      component: () => import('../views/admin/Post.vue')
+    },
+
   ]
 })
 // router.beforeEach((to, from, next) => {

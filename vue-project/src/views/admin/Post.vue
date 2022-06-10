@@ -1,29 +1,19 @@
 <template>
-  <div class="profile">
-    <div class="profile-form">
-      <div class="info">Company name: {{ storeApp.app.companyName }}</div>
+  <div class="post-page">
+    <div class="post-form">
       <div class="input-group mb-3">
-        <input v-model="storeApp.app.companyName" class="form-control" type="text" aria-label="company name"
-          placeholder="company name">
+        <input v-model="post.title" class="form-control" type="text" aria-label="title" placeholder="title">
       </div>
-      <div class="input-group mb-3">
-        <input v-model="storeApp.app.phone" class="form-control" type="number" aria-label="phone" placeholder="phone">
-      </div>
-      <div class="input-group mb-3">
-        <input v-model="storeApp.app.email" class="form-control" type="text" aria-label="email" placeholder="email">
-      </div>
-      <div class="input-group mb-3">
-        <input v-model="storeApp.app.facebookPage" class="form-control" type="text" aria-label="facebookPage"
-          placeholder="facebookPage">
+      <div class="input-group">
+        <span class="input-group-text">With textarea</span>
+        <textarea v-model="post.description" class="form-control" aria-label="With textarea"></textarea>
       </div>
       <div class="panel">
-        <button @click="editApp" type="button" class="btn btn-primary">edit</button>
+        <button @click="submit" type="button" class="btn btn-primary">save</button>
       </div>
     </div>
-
     <input type="file" id="fileToUpload" name="sampleFile" />
     <button @click="uploadFile" type="button" class="btn btn-primary">send</button>
-    <button @click="goToNewPost" type="button" class="btn btn-primary">new post</button>
   </div>
 </template>
 
@@ -31,52 +21,72 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { useUserStore } from '@/stores/user'
-import { useAppStore } from '@/stores/app'
+import { useRoute } from "vue-router";
+
 
 export default {
   setup() {
-    const storeUser = useUserStore()
-    const storeApp = useAppStore()
+    const storeUser = useUserStore();
+    const route = useRoute();
     return {
       storeUser,
-      storeApp
+      route
     }
   },
   data() {
     return {
-      // userData: {},
-      // appData: {}
+      post: {
+        title: '',
+        description: ''
+      }
     }
   },
   created() {
-    this.getAppData()
+    this.getPost()
   },
   methods: {
-    getAppData() {
+    getPost() {
+      const id = this.route.params.id
+      if (id == 'new') return
       axios
-        .get('http://localhost:3001/api/app-info', {
+        .get('http://localhost:3001/api/post?id=' + id, {
           headers: {
             'auth-token': localStorage.getItem('authToken')
           }
         })
         .then((answer) => {
           console.log(answer)
-          this.storeApp.update(answer.data.result.info[0])
+          // this.userData = answer.data.user
         })
     },
-
-    editApp() {
-      axios
-        .put('http://localhost:3001/api/app-info', this.storeApp.app, {
-          headers: {
-            'auth-token': localStorage.getItem('authToken')
-          }
-        })
-        .then((answer) => {
-          console.log(answer)
-          this.getAppData()
-          // this.userData=answer.data.user
-        })
+    submit() {
+      console.log('submit', this.post)
+      const id = this.route.params.id
+      if (id == 'new') {
+        axios
+          .post('http://localhost:3001/api/post', this.post, {
+            headers: {
+              'auth-token': localStorage.getItem('authToken')
+            }
+          })
+          .then((answer) => {
+            console.log(answer)
+            // this.getUserData()
+            // this.userData=answer.data.user
+          })
+      } else {
+        axios
+          .put('http://localhost:3001/api/post', this.post, {
+            headers: {
+              'auth-token': localStorage.getItem('authToken')
+            }
+          })
+          .then((answer) => {
+            console.log(answer)
+            // this.getUserData()
+            // this.userData=answer.data.user
+          })
+      }
     },
     uploadFile() {
       const target = document.getElementById('fileToUpload')
@@ -99,24 +109,20 @@ export default {
         location.reload()
       })
     },
-    goToNewPost() {
-      this.$router.push('/admin/post/new')
-
-    }
   }
 }
 </script>
 
 <style>
 @media (min-width: 1024px) {
-  .profile {
+  .post-page {
     min-height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
   }
 
-  .profile-form {
+  .post-form {
     padding: 1rem;
     background: #213232;
     margin-top: 3rem;
