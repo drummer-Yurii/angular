@@ -18,8 +18,8 @@ class PostService {
     async post(post) {
         log(post).place()
         log('!!!!!!!!!!!!!!!!')
-        await this.create(post);
-        return { ok: true };
+        const createdPost=await this.create(post);
+        return { ok: true, post: createdPost};
     };
     create = async (o) => await new Post(o).save();
     async edit(_id, msg) {

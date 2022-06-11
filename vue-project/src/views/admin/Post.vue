@@ -71,8 +71,9 @@ export default {
           })
           .then((answer) => {
             console.log(answer)
-            // this.getUserData()
-            // this.userData=answer.data.user
+           //we take post with id
+           //we send a picture if she choise
+           // so we shood create new file louder for posts
           })
       } else {
         axios
