@@ -3,18 +3,18 @@ import { log } from '../colub/high-level/index.js';
 import { error, good, bad } from '../my_modules/lib.js';
 import { postService } from '../services/index.js';
 
-// const appControllerGet = async (req, res) => {
-//   try {
-//     log('Con: appConrollerGet').place();
-//     // do
-//     const result = await appService.getInfo();
-//     // send msg
-//     return (result.ok) ? good(result, req, res, 'App info') : bad(null, req, res, 409, result.msg);
-//   } catch (e) {
-//     log('Error:', e,);
-//     error(e, req, res, 500, 'Cannot get app info ');
-//   };
-// };
+const postControllerGet = async (req, res) => {
+  try {
+    log('Con: postConrollerGet').place();
+    // do
+    const result = await postService.getAll();
+    // send msg
+    return (result.ok) ? good(result, req, res, 'Posts') : bad(null, req, res, 409, result.msg);
+  } catch (e) {
+    log('Error:', e,);
+    error(e, req, res, 500, 'Cannot get posts ');
+  };
+};
 // const appControllerPut = async ( req, res) => {
 //   try {
 //     log('Con: appControllerPut').place();
@@ -36,4 +36,4 @@ const postControllerPost = async ( req, res) => {
   };
 };
 
-export {postControllerPost}
+export {postControllerPost, postControllerGet}

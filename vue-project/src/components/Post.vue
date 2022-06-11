@@ -1,6 +1,6 @@
 @ -1,92 +0,0 @@
 <template>
-  <div class="post" v-for="post in posts">
+  <div class="post" >
     <img :src="post.img" />
     <div class="substrate"></div>
     <h1>{{post.title}}</h1>
@@ -19,7 +19,11 @@ import { useAppStore } from '@/stores/app'
 
 export default {
   props: {
-    companyName: String,
+    post: {
+      title:String,
+      description:String,
+      img:String
+    },
   },
   setup() {
     const storeUser = useUserStore()
@@ -31,20 +35,7 @@ export default {
   },
   data() {
     return {
-      posts: [
-        {
-          img:'/src/assets/1.webp',
-          title:'beach'
-        },
-         {
-          img:'/src/assets/2.png',
-          title:'feeling'
-        },
-         {
-          img:'/src/assets/3.jpg',
-          title:'stage'
-        }
-      ]
+     
     }
   },
   created() {

@@ -8,7 +8,7 @@ defineProps<{
 
   <section>
     <div class="feed">
-      <Post />
+      <Post v-for="post in posts" :post="post" />
     </div>
   </section>
 
@@ -24,11 +24,11 @@ import Post from '@/components/Post.vue'
 // import {config} from '@/my-config'
 
 export default {
-  components:{
+  components: {
     Post
   },
   // props: {
-    // companyName: String,
+  // companyName: String,
   // },
   setup() {
     const storeUser = useUserStore()
@@ -40,46 +40,41 @@ export default {
   },
   data() {
     return {
-      // userData: {}
+      posts: [
+        {
+          img: '/src/assets/1.webp',
+          title: 'beach'
+        },
+        {
+          img: '/src/assets/2.png',
+          title: 'feeling'
+        },
+        {
+          img: '/src/assets/3.jpg',
+          title: 'stage'
+        }
+      ]
     }
   },
   created() {
-    // this.getUserData()
-    // this.getAvatar()
+    this.getPosts()
   },
   methods: {
-    // getUserData() {
-    //   axios
-    //     .get('http://localhost:3001/api/user', {
-    //       headers: {
-    //         'auth-token': localStorage.getItem('authToken'),
-    //       }
-    //     })
-    //     .then((answer) => {
-    //       console.log(answer)
-    //       this.userData = answer.data.user
-    //       this.storeUser.update(answer.data.user)
-    //       if (this.storeApp.goToAnotherPageAfterReload) {
-    //         if (this.storeUser.user.username == 'admin') this.$router.push('/admin/main')
-    //         else this.$router.push('/')
-    //       }
-    //     })
+    getPosts() {
+      axios
+        .get('http://localhost:3001/api/post', {
+          headers: {
+            'auth-token': localStorage.getItem('authToken'),
+          }
+        })
+        .then((answer) => {
+          console.log(answer)
+          const newPosts = answer.data.result.posts
+          this.posts = [...this.posts, ...newPosts]
 
-    // },
-   
-  
-    // editProfile() {
-    //   console.log('editProfile')
-    //   axios
-    //    .put('http://localhost:3001/api/user', this.userData, {
-    //      'auth-token': localStorage.getItem('authToken')
-    //    })
-    //    .then((answer) => {
-    //       console.log(answer)
-    //       this.getUserData()
-    //       // this.userData=answer.data.user
-    //     })
-    // },
+        })
+
+    },
   }
 }
 </script>
