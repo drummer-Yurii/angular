@@ -69,6 +69,7 @@ app.post('/upload', function (req, res) {
         }
     });
     function rest() {
+        console.log('rest')
         if (req.query.fileName) {
             console.log(sampleFile.name.split('.'))
             const extention = sampleFile.name.split('.')[1];

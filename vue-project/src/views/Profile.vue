@@ -81,7 +81,7 @@ export default {
       if (target.files.length == 0) return alert('file not selected! please chois avatar');
       const file = target.files[0]
       var fd = new FormData();
-      fd.append("sampleFile",);
+      fd.append("sampleFile", document.getElementById('fileToUpload').files[0]);
       fd.append("directory", "/testpost");
       fd.append("basename", "wobble-004.txt");
 

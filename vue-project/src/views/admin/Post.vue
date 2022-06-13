@@ -13,7 +13,7 @@
       </div>
     </div>
     <input type="file" id="fileToUpload" name="sampleFile" />
-    <button @click="uploadFile" type="button" class="btn btn-primary">send</button>
+    <!-- <button @click="uploadFile" type="button" class="btn btn-primary">send</button> -->
   </div>
 </template>
 
@@ -71,9 +71,11 @@ export default {
           })
           .then((answer) => {
             console.log(answer)
+            const isImgChoise = document.getElementById('fileToUpload') 
+            if (isImgChoise.files.length !== 0) this.fileUpload(answer.data.result.post)
            //we take post with id
            //we send a picture if she choise
-           // so we shood create new file louder for posts
+           // so we shooed create new file louder for posts
           })
       } else {
         axios
@@ -83,31 +85,26 @@ export default {
             }
           })
           .then((answer) => {
-            console.log(answer)
+            console.log(answer.data.result.post)
             // this.getUserData()
             // this.userData=answer.data.user
           })
       }
     },
-    uploadFile() {
+    fileUpload(newPost) {
       const target = document.getElementById('fileToUpload')
-      if (target.files.length == 0) return alert('file not selected! please chois avatar');
       const file = target.files[0]
       var fd = new FormData();
-      fd.append("sampleFile",);
+      fd.append("sampleFile", document.getElementById('fileToUpload').files[0]);
       fd.append("directory", "/testpost");
       fd.append("basename", "wobble-004.txt");
+      
+      // axios.post(`http://localhost:3001/upload?pathForUploading=/posts/${newPost._id}/&fileName=post-img`, fd, {
+      axios.post(`http://localhost:3001/upload?pathForUploading=/posts/test/&fileName=post-img`, fd, {
 
-
-      var oReq = new XMLHttpRequest();
-      oReq.open("POST", `http://localhost:3001/upload?pathForUploading=/users/${this.userData.username}/&fileName=avatar`, true);
-      // oReq.onreadystatechange = alert(status);
-      // console.log(alert(status));
-      // oReq.send(fd);
-      axios.post(`http://localhost:3001/upload?pathForUploading=/users/${this.userData.username}/&fileName=avatar`, fd, {
       }).then((response) => {
         console.log(response)
-        location.reload()
+        // location.reload()
       })
     },
   }
