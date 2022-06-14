@@ -99,8 +99,8 @@ export default {
       fd.append("directory", "/testpost");
       fd.append("basename", "wobble-004.txt");
       
-      // axios.post(`http://localhost:3001/upload?pathForUploading=/posts/${newPost._id}/&fileName=post-img`, fd, {
-      axios.post(`http://localhost:3001/upload?pathForUploading=/posts/test/&fileName=post-img`, fd, {
+      axios.post(`http://localhost:3001/upload?pathForUploading=/posts/${newPost._id}/&fileName=post-img`, fd, {
+      // axios.post(`http://localhost:3001/upload?pathForUploading=/posts/test/&fileName=post-img`, fd, {
 
       }).then((response) => {
         console.log(response)

@@ -68,7 +68,7 @@ app.post('/upload', function (req, res) {
             console.log('can not deleted', path);
         }
     });
-    function rest() {
+    async function rest() {
         console.log('rest')
         if (req.query.fileName) {
             console.log(sampleFile.name.split('.'))
@@ -77,20 +77,46 @@ app.post('/upload', function (req, res) {
         } else {
             fileName = sampleFile.name
         }
+        const folders = __dirname + '/uploads' + pathForUploading
+        uploadPath = folders + fileName;
 
-        uploadPath = __dirname + '/uploads' + pathForUploading + fileName;
-        // uploadPath = __dirname + '/uploads/' + sampleFile.name;
+        await ensureFolder(folders);
+        setTimeout(() => {
+            log(uploadPath)
+            sampleFile.mv(uploadPath, function (err) {
+                if (err) {
+                    log(err)
+                    return res.status(500).send(err)
+                };
+                res.send('File uploaded to ' + uploadPath);
+            });
+        }, 2000)
 
-
-        sampleFile.mv(uploadPath, function (err) {
-            if (err) {
-                return res.status(500).send(err);
-            }
-
-            res.send('File uploaded to ' + uploadPath);
-        });
     }
 });
+async function canAccess(path) {
+    return new Promise((resolve, reject) => {
+        try {
+            fs.promises.access(path, fs.constants.R_OK | fs.constants.W_OK)
+                .then(() => resolve(true))
+                .catch(() => resolve(false));
+        } catch (error) {
+            reject('Err: Crash in "canAccess()" function')
+        }
+    })
+};
+async function ensureFolder(path) {
+    if (typeof path !== 'string') return; // .................... processing does not make sense if it is not a string
+    const pathParts = path.split('/').filter((word) => word != ''); // ............ split the path and cut the garbage
+    let untilFullPath = ''; // .................................................... prepare like string
+    for (let i = 0; i < pathParts.length; i++) {
+        const folderName = pathParts[i]; // ....................................... reduction
+        untilFullPath += folderName + '/'; // ..................................... deeper and deeper each time
+        if (untilFullPath == './') continue; // ..................... it doesn't make sense to check the current place
+        if (!await canAccess(untilFullPath)) fs.mkdirSync(untilFullPath); // Create a folder if it does not exist
+    }
+    return 'ok'
+};
 
 app.use('/', indexRouter);
 export default app;
