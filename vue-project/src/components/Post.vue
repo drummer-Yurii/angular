@@ -1,6 +1,6 @@
 @ -1,92 +0,0 @@
 <template>
-  <div class="post" >
+  <div class="post" @click="goToPost">
     <img :src="post.img" />
     <div class="substrate"></div>
     <h1>{{post.title}}</h1>
@@ -76,6 +76,9 @@ export default {
     unlogin() {
       localStorage.removeItem('authToken')
       location.reload()
+    },
+    goToPost() {
+      this.$router.push('/admin/post/' + this.post._id)
     }
     // editProfile() {
     //   console.log('editProfile')
