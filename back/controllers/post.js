@@ -7,7 +7,7 @@ const postControllerGet = async (req, res) => {
   try {
     log('Con: postConrollerGet').place();
     // do
-    const result = await postService.getAll();
+    const result = await postService.get(req.query);
     // send msg
     return (result.ok) ? good(result, req, res, 'Posts') : bad(null, req, res, 409, result.msg);
   } catch (e) {

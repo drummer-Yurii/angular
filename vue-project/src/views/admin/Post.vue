@@ -49,14 +49,14 @@ export default {
       const id = this.route.params.id
       if (id == 'new') return
       axios
-        .get('http://localhost:3001/api/post?id=' + id, {
+        .get('http://localhost:3001/api/post?_id=' + id, {
           headers: {
             'auth-token': localStorage.getItem('authToken')
           }
         })
         .then((answer) => {
           console.log(answer)
-          // this.userData = answer.data.user
+          this.post = answer.data.result.post
         })
     },
     submit() {

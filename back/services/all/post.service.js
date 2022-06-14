@@ -6,6 +6,11 @@ const fsp = fs.promises;
 
 class PostService {
     constructor() { }
+    async get (q) {
+        log(q)
+        if(!q._id) return await this.getAll();
+        if(q._id) return await this.getOne(q);
+    };
       getAll = async () => {
        const posts= await Post.find(); 
        return {ok:true,posts}   
