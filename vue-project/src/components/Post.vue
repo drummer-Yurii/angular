@@ -39,8 +39,7 @@ export default {
     }
   },
   created() {
-    // this.getUserData()
-    // this.getAvatar()
+    this.getImg()
   },
   methods: {
     getUserData() {
@@ -61,25 +60,26 @@ export default {
         })
 
     },
-    getAvatar() {
-      axios
-        .get('http://localhost:3001/api/avatar', {
-          headers: {
-            'auth-token': localStorage.getItem('authToken'),
-          }
-        })
-        .then((answer) => {
-          this.storeUser.updateAvatar(answer.data.result.avatar)
-          console.log(answer)
-        })
-    },
     unlogin() {
       localStorage.removeItem('authToken')
       location.reload()
     },
     goToPost() {
       this.$router.push('/admin/post/' + this.post._id)
-    }
+    },
+     getImg() {
+      axios
+        .get('http://localhost:3001/api/post-img/'+this.post._id, {
+          headers: {
+            'auth-token': localStorage.getItem('authToken'),
+          }
+        })
+        .then((answer) => {
+          this.post.img = 'http://localhost:3001/posts/'+ this.post._id +'/' + answer.data.result.img
+          // this.storeUser.updateImg(answer.data.result.img)
+          console.log(answer)
+        })     
+    } 
     // editProfile() {
     //   console.log('editProfile')
     //   axios

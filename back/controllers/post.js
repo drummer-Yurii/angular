@@ -25,7 +25,7 @@ const postControllerGet = async (req, res) => {
 //     error(e, req, res, 500, 'Cannot edit app info ');
 //   };
 // };
-const postControllerPost = async ( req, res) => {
+const postControllerPost = async (req, res) => {
   try {
     log('Con: postControllerPost').place();
     const result = await postService.post(req.body);
@@ -35,5 +35,15 @@ const postControllerPost = async ( req, res) => {
     error(e, req, res, 500, 'Cannot post');
   };
 };
+const postControllerGetImg = async (req, res) => {
+  try {
+    log('Con: postControllerGetImgExtention').place();
+    const result = await postService.getImg(req.params.id);
+    return (result.ok) ? good(result, req, res, 'The post img extention') : bad(null, req, res, 409, result.msg);
+  } catch (e) {
+    log('Error:', e,);
+    error(e, req, res, 500, 'Cannot get post img extention ');
+  };
+};
 
-export {postControllerPost, postControllerGet}
+export { postControllerPost, postControllerGet, postControllerGetImg }

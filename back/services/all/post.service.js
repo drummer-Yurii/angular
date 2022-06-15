@@ -33,18 +33,14 @@ class PostService {
         return { ok: true };
     };
 
-    // async getInfo() {
-    //     const info = await App.find();// отримати обєкт з бази данних
-    //     return {
-    //         ok: true,
-    //         info
-    //     }
-    // };
-    // async edit(msg) {
-    //     log(msg).place()
-    //     await App.findOneAndUpdate({}, msg);
-    //     return { ok: true };
-    // };
+    async getImg(id) {
+        const path =  'uploads/posts/' + id;
+       const files = await fsp.readdir( path );
+       const img = files.find((f)=> f.split('.')[0] == 'post-img');
+       console.log('IMG', img)
+       
+        return { ok: true, img };
+    };
 }
 
 export default new PostService();

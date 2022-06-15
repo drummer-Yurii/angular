@@ -125,19 +125,8 @@ export default {
     unlogin() {
       localStorage.removeItem('authToken')
       location.reload()
-    }
-    // editProfile() {
-    //   console.log('editProfile')
-    //   axios
-    //    .put('http://localhost:3001/api/user', this.userData, {
-    //      'auth-token': localStorage.getItem('authToken')
-    //    })
-    //    .then((answer) => {
-    //       console.log(answer)
-    //       this.getUserData()
-    //       // this.userData=answer.data.user
-    //     })
-    // },
+    },
+   
   }
 }
 </script>
