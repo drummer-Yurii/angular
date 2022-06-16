@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-
+// add interface
 export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
@@ -7,7 +7,6 @@ export const useUserStore = defineStore({
     avatar: ''
   }),
   getters: {
-    // doubleCount: (state) => state.counter * 2
   },
   actions: {
     update(user: any) {

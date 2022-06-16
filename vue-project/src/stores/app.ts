@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import { httpOptions, log } from '@/utils'
 
 
+// add interface
 export const useAppStore = defineStore({
   id: 'app',
   state: () => ({
@@ -9,20 +11,12 @@ export const useAppStore = defineStore({
     goToAnotherPageAfterReload: false
   }),
   getters: {
-    // doubleCount: (state) => state.counter * 2
   },
   actions: {
-    init() {
-      axios
-        .get('http://localhost:3001/api/app-info', {
-          headers: {
-            'auth-token': localStorage.getItem('authToken')
-          }
-        })
-        .then((answer) => {
-          console.log(answer)
-          this.update(answer.data.result.info[0])
-        })
+    async init() {
+      const answer = await axios.get('http://localhost:3001/api/app-info', httpOptions)
+      log(answer)
+      this.update(answer.data.result.info[0])
     },
     update(app: any) {
       this.app = app
