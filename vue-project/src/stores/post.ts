@@ -1,33 +1,27 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import { httpOptions, log } from '@/utils'
+import type {Post} from '@/interfaces'
 
+interface postState{
+    posts: [Post] | [],
+}
 
 export const usePostStore = defineStore({
     id: 'post',
-    state: () => ({
+    state: (): postState => ({
         posts: [],
     }),
     getters: {
-        // doubleCount: (state) => state.counter * 2
     },
     actions: {
-        // async getPosts() {
-        //     await this.refresh()
-        //     return this.posts
-        // },
         async refresh() {
-            const options:any =  {
-                headers: {
-                    'auth-token': localStorage.getItem('authToken'),
-                }
-            }
-            const answer = await axios.get('http://localhost:3001/api/post', options)
-            console.log(answer)
-            this.update(answer.data.result.posts)
+            const answer = await axios.get('http://localhost:3001/api/post', httpOptions);
+            log(answer);
+            this.update(answer.data.result.posts);
         },
-        update(posts: any) {
-            this.posts = posts
+        update(posts: [Post]) {
+            this.posts = posts;
         },
     },
-
 })
