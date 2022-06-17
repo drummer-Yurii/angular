@@ -4,12 +4,12 @@ const log = console.log;
 
 interface MyOption {
     headers: {
-        'auth-token' : string | null
+        'auth-token' : string | null,
     }
 }
 const httpOptions : AxiosRequestConfig <MyOption> =  {
     headers: {
-        'auth-token': localStorage.getItem('authToken'),
+       'auth-token': localStorage.getItem('authToken'),
     }
 }
 export {httpOptions, log}

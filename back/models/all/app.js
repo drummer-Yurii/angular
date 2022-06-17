@@ -1,8 +1,6 @@
 import mongoose from 'mongoose';
 let App = mongoose.model('App',{
-    the:{
-        type: String,
-    },
+    the:String,  
     companyName:String,
     phone:Number,
     email:String,

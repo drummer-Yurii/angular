@@ -7,35 +7,35 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import axios from 'axios'
-// import {config} from '@/my-config'
+import { httpOptions, log } from '@/utils'
+import { onMounted, onUnmounted, ref } from 'vue'
+import type { Post } from '@/interfaces'
 
-export default {
-  props: {
-    post: {
-      title: String,
-      description: String,
-      img: String
-    },
-  },
-  created() {
-    this.getImg()
-  },
-  methods: {
-    getImg() {
-      axios
-        .get('http://localhost:3001/api/post-img/' + this.post._id, {
-          headers: {
-            'auth-token': localStorage.getItem('authToken'),
-          }
-        })
-        .then((answer) => {
-          this.post.img = 'http://localhost:3001/posts/' + this.post._id + '/' + answer.data.result.img
-          console.log(answer)
-        })
-    }
+
+const props = defineProps<{
+  post: { img: string, title: string, _id: string };
+}>();
+const post = ref(props.post);
+
+
+onMounted(async () => {
+  await getImg();
+});
+async function getImg() {
+  const answer = await axios.get('http://localhost:3001/api/post-img/' + post.value._id, httpOptions)
+  try {
+    post.value.img = 'http://localhost:3001/posts/' + post.value._id + '/' + answer.data.result.img
+  } catch (error) {
+    console.log('Error', post.value, answer)
+    console.log(answer)
+    post.value.img = 'src/assets/logo.svg'
   }
+  // console.log(answer)
+};
+function goToPost() {
+  console.log('go')
 }
 </script>
 

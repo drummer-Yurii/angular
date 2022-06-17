@@ -1,13 +1,18 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import { httpOptions, log } from '@/utils'
+import type {App} from '@/interfaces'
 
 
 // add interface
+interface appState{
+    app:App | {},
+    goToAnotherPageAfterReload: boolean
+}
 export const useAppStore = defineStore({
   id: 'app',
-  state: () => ({
-    app: {},
+  state: (): appState => ({
+      app: {},
     goToAnotherPageAfterReload: false
   }),
   getters: {
@@ -18,8 +23,8 @@ export const useAppStore = defineStore({
       log(answer)
       this.update(answer.data.result.info[0])
     },
-    update(app: any) {
-      this.app = app
+    update(app: App) {
+      this.app = app;
     },
   },
 

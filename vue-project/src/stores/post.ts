@@ -6,7 +6,6 @@ import type {Post} from '@/interfaces'
 interface postState{
     posts: [Post] | [],
 }
-
 export const usePostStore = defineStore({
     id: 'post',
     state: (): postState => ({
