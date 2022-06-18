@@ -40,26 +40,18 @@
 
               </ul>
             </li>
-            <!-- <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li> -->
           </ul>
           <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
           <div class="user">{{ storeUser.user.username }}</div>
-          <!-- <img alt="avatar" class="logo" src="http://localhost:3001/users/admin/avatar.jpg" width="125" height="125" /> -->
           <div class="avatar"
             :style="`background-image: url(\'http://localhost:3001/users/${storeUser.user.username}/${storeUser.avatar}\');`">
           </div>
         </div>
-
       </div>
     </nav>
-
-
-    <!-- <HelloWorld msg="You did it!" /> -->
   </header>
 </template>
 
@@ -68,7 +60,8 @@ import { ref } from 'vue'
 import axios from 'axios'
 import { useUserStore } from '@/stores/user'
 import { useAppStore } from '@/stores/app'
-// import {config} from '@/my-config'
+import { httpOptions, log } from '@/utils'
+
 
 export default {
   props: {
@@ -82,51 +75,21 @@ export default {
       storeApp
     }
   },
-  data() {
-    return {
-      userData: {}
-    }
-  },
   created() {
-    this.getUserData()
+    this.storeUser.getUserData()
     this.getAvatar()
   },
   methods: {
-    getUserData() {
-      axios
-        .get('http://localhost:3001/api/user', {
-          headers: {
-            'auth-token': localStorage.getItem('authToken'),
-          }
-        })
-        .then((answer) => {
-          console.log(answer)
-          this.userData = answer.data.user
-          this.storeUser.update(answer.data.user)
-          if (this.storeApp.goToAnotherPageAfterReload) {
-            if (this.storeUser.user.username == 'admin') this.$router.push('/admin/main')
-            else this.$router.push('/')
-          }
-        })
-
-    },
-    getAvatar() {
-      axios
-        .get('http://localhost:3001/api/avatar', {
-          headers: {
-            'auth-token': localStorage.getItem('authToken'),
-          }
-        })
-        .then((answer) => {
-          this.storeUser.updateAvatar(answer.data.result.avatar)
-          console.log(answer)
-        })
+    async getAvatar() {
+      const answer = await axios.get('http://localhost:3001/api/avatar', httpOptions())
+      this.storeUser.updateAvatar(answer.data.result.avatar)
+      log(answer)
     },
     unlogin() {
       localStorage.removeItem('authToken')
       location.reload()
     },
-   
+
   }
 }
 </script>

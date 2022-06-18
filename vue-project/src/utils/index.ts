@@ -7,9 +7,9 @@ interface MyOption {
         'auth-token' : string | null,
     }
 }
-const httpOptions : AxiosRequestConfig <MyOption> =  {
+const httpOptions = (): AxiosRequestConfig <MyOption> => ({
     headers: {
        'auth-token': localStorage.getItem('authToken'),
     }
-}
+})
 export {httpOptions, log}

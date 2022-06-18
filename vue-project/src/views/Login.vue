@@ -20,6 +20,7 @@
 
 <script>
 import axios from 'axios'
+import { useUserStore } from '@/stores/user'
 
 export default {
   data() {
@@ -27,17 +28,21 @@ export default {
       userData: {}
     }
   },
+  setup() {
+    const storeUser = useUserStore()
+    return {
+      storeUser
+    }
+  },
   methods: {
-    login() {
-      console.log(this.userData.username)
-      axios
-        .post('http://localhost:3001/api/auth/login', this.userData)
-        .then((answer) => {
-          console.log(answer)
-          const authToken = answer.data.result.authToken
-          localStorage.setItem('authToken', authToken)
-          location.reload()
-        })
+    async login() {
+      const answer = await axios.post('http://localhost:3001/api/auth/login', this.userData)
+      console.log(answer)
+      const authToken = answer.data.result.authToken
+      localStorage.setItem('authToken', authToken)
+      await this.storeUser.getUserData()
+      if (this.storeUser.user.username == 'admin') this.$router.push('/admin/main')
+      else this.$router.push('/')
     }
   }
 }

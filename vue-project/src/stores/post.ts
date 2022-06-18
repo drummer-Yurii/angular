@@ -15,7 +15,7 @@ export const usePostStore = defineStore({
     },
     actions: {
         async refresh() {
-            const answer = await axios.get('http://localhost:3001/api/post', httpOptions);
+            const answer = await axios.get('http://localhost:3001/api/post', httpOptions());
             log(answer);
             this.update(answer.data.result.posts);
         },
