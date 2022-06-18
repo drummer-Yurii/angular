@@ -12,12 +12,16 @@ import axios from 'axios'
 import { httpOptions, log } from '@/utils'
 import { onMounted, onUnmounted, ref } from 'vue'
 import type { Post } from '@/interfaces'
+import { useRouter, useRoute } from 'vue-router'
 
 
 const props = defineProps<{
   post: { img: string, title: string, _id: string };
 }>();
 const post = ref(props.post);
+
+const router = useRouter()
+const route = useRoute()
 
 
 onMounted(async () => {
@@ -28,14 +32,12 @@ async function getImg() {
   try {
     post.value.img = 'http://localhost:3001/posts/' + post.value._id + '/' + answer.data.result.img
   } catch (error) {
-    console.log('Error', post.value, answer)
     console.log(answer)
     post.value.img = 'src/assets/logo.svg'
   }
-  // console.log(answer)
 };
 function goToPost() {
-  console.log('go')
+  router.push('/admin/post/' + post.value._id)
 }
 </script>
 
