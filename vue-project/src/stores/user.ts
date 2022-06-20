@@ -30,5 +30,11 @@ export const useUserStore = defineStore({
       console.log(answer)
       this.update(answer.data.user)
     },
+    async editProfile() {
+      console.log('editProfile')
+      const answer = await axios.put('http://localhost:3001/api/user', this.user, httpOptions())
+      console.log(answer)
+      this.getUserData()
+    },
   },
 })

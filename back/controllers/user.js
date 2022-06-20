@@ -5,7 +5,7 @@ import { userService } from '../services/index.js';
 
 const userControllerPut = async (req, res) => {
   try {
-    log('Con: User', req.body).place();
+    log('Con: UserPut', req.body).place();
     // do
     const result = await userService.edit(req.user._id, req.body);
     // send msg
@@ -17,7 +17,7 @@ const userControllerPut = async (req, res) => {
 };
 const userControllerGet = async (req, res) => {
   try {
-    log('Con: User', req.body).place();
+    log('Con: UserGet', req.body).place();
     // do
     res.json({
       ok: true,
