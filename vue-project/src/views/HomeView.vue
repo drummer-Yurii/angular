@@ -22,7 +22,6 @@ export default {
     }
   },
   created() {
-    this.storeApp.init()
   },
   methods: {
   }

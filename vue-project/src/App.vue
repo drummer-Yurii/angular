@@ -14,6 +14,7 @@ export default {
   },
   setup() {
     const storeApp = useAppStore()
+    storeApp.init()
     return {
       storeApp
     }
