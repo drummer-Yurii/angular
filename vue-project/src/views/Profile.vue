@@ -1,57 +1,61 @@
 <template>
   <div class="profile">
-    <div class="profile-form">
-      <div class="info">Username: {{ storeUser.user.username }}</div>
-      <div class="input-group mb-3">
-        <input
-          v-model="storeUser.user.age"
-          class="form-control"
-          type="number"
-          aria-label="age"
-          placeholder="age"
-        />
+    <section>
+      <div class="profile-form">
+        <div class="info">Username: {{ storeUser.user.username }}</div>
+        <div class="input-group mb-3">
+          <input
+            v-model="storeUser.user.age"
+            class="form-control"
+            type="number"
+            aria-label="age"
+            placeholder="age"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <input
+            v-model="storeUser.user.phone"
+            class="form-control"
+            type="number"
+            aria-label="phone"
+            placeholder="phone"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <input
+            v-model="storeUser.user.email"
+            class="form-control"
+            type="text"
+            aria-label="email"
+            placeholder="email"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <input
+            v-model="storeUser.user.facebookPage"
+            class="form-control"
+            type="text"
+            aria-label="facebookPage"
+            placeholder="facebookPage"
+          />
+        </div>
+        <div class="panel">
+          <button
+            @click="storeUser.editProfile"
+            type="button"
+            class="btn btn-primary"
+          >
+            edit
+          </button>
+        </div>
       </div>
-      <div class="input-group mb-3">
-        <input
-          v-model="storeUser.user.phone"
-          class="form-control"
-          type="number"
-          aria-label="phone"
-          placeholder="phone"
-        />
-      </div>
-      <div class="input-group mb-3">
-        <input
-          v-model="storeUser.user.email"
-          class="form-control"
-          type="text"
-          aria-label="email"
-          placeholder="email"
-        />
-      </div>
-      <div class="input-group mb-3">
-        <input
-          v-model="storeUser.user.facebookPage"
-          class="form-control"
-          type="text"
-          aria-label="facebookPage"
-          placeholder="facebookPage"
-        />
-      </div>
-      <div class="panel">
-        <button
-          @click="storeUser.editProfile"
-          type="button"
-          class="btn btn-primary"
-        >
-          edit
+      <div class="img-form">
+        <input type="file" id="fileToUpload" name="sampleFile" />
+        <button @click="uploadFile" type="button" class="btn btn-primary">
+          send
         </button>
       </div>
-    </div>
-    <input type="file" id="fileToUpload" name="sampleFile" />
-    <button @click="uploadFile" type="button" class="btn btn-primary">
-      send
-    </button>
+    </section>
   </div>
 </template>
 
@@ -100,7 +104,14 @@ export default {
 </script>
 
 <style>
+section {
+  display: flex;
+  flex-direction: column;
+}
 @media (min-width: 1024px) {
+  section {
+    flex-direction: row;
+  }
   .profile {
     min-height: 100vh;
     display: flex;
