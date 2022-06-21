@@ -22,6 +22,7 @@ class UserService {
     getOne = async (q) => await User.findOne(q);
     async add(newUser) {
         const usernameOccupied = await this.getOne({ username: newUser.username }); // User already exists  ?
+        log(usernameOccupied).place()
         if (usernameOccupied) return { ok: false, msg: 'User already exists!' };
         const emailOccupied = await this.getOne({ email: newUser.email }); // User already exists  ?
         if (emailOccupied) return { ok: false, msg: 'Email already exists!' };

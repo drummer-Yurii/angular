@@ -83,6 +83,7 @@ export default {
         this.userData
       );
       console.log(answer);
+      answer.data.ok ? alert(answer.data.msg) : alert('!!!'+answer.data.msg);
     },
   },
 };

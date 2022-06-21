@@ -3,51 +3,69 @@
     <div class="login-form">
       <div class="input-group mb-3">
         <span class="input-group-text">@</span>
-        <input v-model="userData.username" type="text" class="form-control" placeholder="Username" aria-label="Username"
-          aria-describedby="basic-addon1">
+        <input
+          v-model="userData.username"
+          type="text"
+          class="form-control"
+          placeholder="Username"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+        />
       </div>
       <div class="input-group mb-3">
         <span class="input-group-text">$</span>
-        <input v-model="userData.password" type="password" class="form-control" placeholder="Password"
-          aria-label="Username" aria-describedby="basic-addon1">
+        <input
+          v-model="userData.password"
+          type="password"
+          class="form-control"
+          placeholder="Password"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+        />
       </div>
       <div class="panel">
-        <button @click="login" type="button" class="btn btn-primary">Login</button>
+        <button @click="login" type="button" class="btn btn-primary">
+          Login
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import { useUserStore } from '@/stores/user'
+import axios from "axios";
+import { useUserStore } from "@/stores/user";
 
 export default {
   data() {
     return {
-      userData: {}
-    }
+      userData: {},
+    };
   },
   setup() {
-    const storeUser = useUserStore()
+    const storeUser = useUserStore();
     return {
-      storeUser
-    }
+      storeUser,
+    };
   },
   methods: {
     async login() {
-      const answer = await axios.post('http://localhost:3001/api/auth/login', this.userData)
-      console.log(answer)
-      const authToken = answer.data.result.authToken
-      localStorage.setItem('authToken', authToken)
-      await this.storeUser.getUserData()
-      if (this.storeUser.user.username == 'admin') this.$router.push('/admin/main')
-      else this.$router.push('/')
-    }
-  }
-}
+      const answer = await axios.post(
+        "http://localhost:3001/api/auth/login",
+        this.userData
+      );
+      console.log(answer);
+      answer.data.ok ? alert(answer.data.msg2) : alert(!!!+answer.data.msg2);
+      const authToken = answer.data.result.authToken;
+      localStorage.setItem("authToken", authToken);
+      await this.storeUser.getUserData();
+      if (this.storeUser.user.username == "admin")
+        this.$router.push("/admin/main");
+      else this.$router.push("/");
+    },
+  },
+};
 </script>
-
 
 <style>
 @media (min-width: 1024px) {
