@@ -103,7 +103,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 section {
   display: flex;
   flex-direction: column;
@@ -127,9 +127,25 @@ section {
     display: flex;
     flex-direction: column;
   }
+  .img-form {
+    padding: 1rem;
+    background: #213232;
+    margin-top: 3rem;
+    max-width: 20rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .btn-primary {
+    width: 4rem;
+  }
 
   .panel {
     text-align: center;
+  
   }
+  #fileToUpload{
+    padding-top: 1.5rem;
+  }
+ 
 }
 </style>

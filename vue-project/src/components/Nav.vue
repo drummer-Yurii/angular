@@ -46,8 +46,11 @@
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
           <div class="user">{{ storeUser.user.username }}</div>
-          <div class="avatar"
+          <div class="avatar" v-if="canUploadAvatar"
             :style="`background-image: url(\'http://localhost:3001/users/${storeUser.user.username}/${storeUser.avatar}\');`">
+          </div>
+           <div class="avatar" v-if="!canUploadAvatar"
+            :style="`background-image: url('/src/assets/empty-avatar.webp');`">
           </div>
         </div>
       </div>
@@ -73,6 +76,11 @@ export default {
     return {
       storeUser,
       storeApp
+    }
+  },
+  computed: {
+    canUploadAvatar: function () {
+      return this.storeUser.user.username && this.storeUser.avatar.length > 0
     }
   },
   created() {
