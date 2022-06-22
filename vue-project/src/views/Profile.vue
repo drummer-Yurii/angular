@@ -45,14 +45,14 @@
             type="button"
             class="btn btn-primary"
           >
-            edit
+            Save
           </button>
         </div>
       </div>
       <div class="img-form">
         <input type="file" id="fileToUpload" name="sampleFile" />
         <button @click="uploadFile" type="button" class="btn btn-primary">
-          send
+          Send
         </button>
       </div>
     </section>

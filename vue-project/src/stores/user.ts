@@ -1,22 +1,25 @@
-import { defineStore } from 'pinia'
-import type { User } from '@/interfaces'
-import axios from 'axios'
-import { httpOptions, log } from '@/utils'
-
-
+import { defineStore } from "pinia";
+import type { User } from "@/interfaces";
+import axios from "axios";
+import { httpOptions, log } from "@/utils";
 
 // add interface
 interface userState {
-  user: User | {},
-  avatar: string
+  user: User | { username: null | string };
+  avatar: string;
 }
 export const useUserStore = defineStore({
-  id: 'user',
+  id: "user",
   state: (): userState => ({
-    user: {},
-    avatar: ''
+    user: {
+      username: null,
+    },
+    avatar: "",
   }),
   getters: {
+    isAdmin: (state) => {
+      return state.user.username == "admin";
+    },
   },
   actions: {
     update(user: User) {
@@ -26,15 +29,22 @@ export const useUserStore = defineStore({
       this.avatar = fileName;
     },
     async getUserData() {
-      const answer = await axios.get('http://localhost:3001/api/user', httpOptions())
-      console.log(answer)
-      this.update(answer.data.user)
+      const answer = await axios.get(
+        "http://localhost:3001/api/user",
+        httpOptions()
+      );
+      console.log(answer);
+      this.update(answer.data.user);
     },
     async editProfile() {
-      console.log('editProfile')
-      const answer = await axios.put('http://localhost:3001/api/user', this.user, httpOptions())
-      console.log(answer)
-      this.getUserData()
+      console.log("editProfile");
+      const answer = await axios.put(
+        "http://localhost:3001/api/user",
+        this.user,
+        httpOptions()
+      );
+      console.log(answer);
+      this.getUserData();
     },
   },
-})
+});

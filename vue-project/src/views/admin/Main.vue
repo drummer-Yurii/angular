@@ -1,5 +1,6 @@
 <template>
   <div class="profile">
+    <button @click="goToNewPost" type="button" class="btn btn-primary">new post</button>
     <div class="profile-form">
       <div class="info">Company name: {{ storeApp.app.companyName }}</div>
       <div class="input-group mb-3">
@@ -23,7 +24,6 @@
 
     <input type="file" id="fileToUpload" name="sampleFile" />
     <button @click="uploadFile" type="button" class="btn btn-primary">send</button>
-    <button @click="goToNewPost" type="button" class="btn btn-primary">new post</button>
   </div>
 </template>
 

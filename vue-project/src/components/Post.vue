@@ -1,6 +1,9 @@
 @ -1,92 +0,0 @@
 <template>
   <div class="post" @click="goToPost">
+    <div class="admin-tools" v-if="storeUser.isAdmin">
+      <button>Delete</button>
+    </div>
     <img :src="post.img" />
     <div class="substrate"></div>
     <h1>{{ post.title }}</h1>
@@ -8,33 +11,43 @@
 </template>
 
 <script setup lang="ts">
-import axios from 'axios'
-import { httpOptions, log } from '@/utils'
-import { onMounted, onUnmounted, ref } from 'vue'
-import type { Post } from '@/interfaces'
-import { useRouter, useRoute } from 'vue-router'
-
-const props = defineProps<{ post: { img: string, title: string, _id: string }; }>();
+import axios from "axios";
+import { httpOptions, log } from "@/utils";
+import { onMounted, onUnmounted, ref } from "vue";
+import type { Post } from "@/interfaces";
+import { useRouter, useRoute } from "vue-router";
+import { useUserStore } from "@/stores/user";
+const storeUser = useUserStore();
+const props = defineProps<{
+  post: { img: string; title: string; _id: string };
+}>();
 const post = ref(props.post);
-const router = useRouter()
-const route = useRoute()
+const router = useRouter();
+const route = useRoute();
 
 onMounted(async () => {
   await getImg();
 });
 
 async function getImg() {
-  const answer = await axios.get('http://localhost:3001/api/post-img/' + post.value._id, httpOptions())
+  const answer = await axios.get(
+    "http://localhost:3001/api/post-img/" + post.value._id,
+    httpOptions()
+  );
   try {
-    post.value.img = 'http://localhost:3001/posts/' + post.value._id + '/' + answer.data.result.img
+    post.value.img =
+      "http://localhost:3001/posts/" +
+      post.value._id +
+      "/" +
+      answer.data.result.img;
   } catch (error) {
-    console.log(answer)
-    post.value.img = 'src/assets/logo.svg'
+    console.log(answer);
+    post.value.img = "src/assets/logo.svg";
   }
-};
+}
 
 function goToPost() {
-  router.push('/admin/post/' + post.value._id)
+  router.push("/admin/post/" + post.value._id);
 }
 </script>
 
@@ -47,14 +60,13 @@ function goToPost() {
   border: 1px solid rgba(255, 255, 255, 0.2);
   overflow: hidden;
   position: relative;
-
 }
 
-.post>img {
+.post > img {
   width: 100%;
 }
 
-.post>h1 {
+.post > h1 {
   position: absolute;
   left: 1rem;
   bottom: 0;
@@ -68,5 +80,10 @@ function goToPost() {
   left: 0;
   bottom: 0;
   width: 100%;
+}
+.admin-tools {
+  position: absolute;
+  top: 2rem;
+  right: 0;
 }
 </style>
