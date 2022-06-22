@@ -2,7 +2,7 @@
 <template>
   <div class="post" @click="goToPost">
     <div class="admin-tools" v-if="storeUser.isAdmin">
-      <button>Delete</button>
+      <button @click.stop="storePost.delete(post)">Delete</button>
     </div>
     <img :src="post.img" />
     <div class="substrate"></div>
@@ -16,7 +16,9 @@ import { httpOptions, log } from "@/utils";
 import { onMounted, onUnmounted, ref } from "vue";
 import type { Post } from "@/interfaces";
 import { useRouter, useRoute } from "vue-router";
+import { usePostStore } from "@/stores/post";
 import { useUserStore } from "@/stores/user";
+const storePost = usePostStore();
 const storeUser = useUserStore();
 const props = defineProps<{
   post: { img: string; title: string; _id: string };

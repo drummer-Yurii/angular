@@ -22,5 +22,8 @@ export const usePostStore = defineStore({
         update(posts: [Post]) {
             this.posts = posts;
         },
+        async delete(post) {
+            console.log(post)
+        }
     },
 })
