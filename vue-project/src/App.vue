@@ -1,4 +1,5 @@
 <template>
+  <div class="preloader" v-if="storeApp.preloading">Pending</div>
   <Nav :companyName="storeApp.app.companyName" />
   <RouterView />
 </template>
@@ -34,5 +35,14 @@ export default {
 <style>
 #app {
   background: darkslategrey !important;
+}
+.preloader {
+  background: black;
+  opacity: .5;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  position: fixed;
 }
 </style>

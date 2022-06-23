@@ -2,7 +2,7 @@
 <template>
   <div class="post" @click="goToPost">
     <div class="admin-tools" v-if="storeUser.isAdmin">
-      <button @click.stop="storePost.delete(post)">Delete</button>
+      <button @click.stop="storePost.delete(post)" type="button" class="btn btn-dark">Delete</button>
     </div>
     <img :src="post.img" />
     <div class="substrate"></div>
@@ -85,7 +85,9 @@ function goToPost() {
 }
 .admin-tools {
   position: absolute;
-  top: 2rem;
-  right: 0;
+  top: 0.5rem;
+  right: 1.5rem;
+  width: 4rem;
 }
+
 </style>

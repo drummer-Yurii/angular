@@ -32,6 +32,10 @@ class PostService {
         await Post.findOneAndUpdate({ _id }, msg);
         return { ok: true };
     };
+    async delete(_id) {
+        await Post.findOneAndRemove({_id});
+        return { ok: true };
+    };
 
     async getImg(id) {
         const path =  'uploads/posts/' + id;

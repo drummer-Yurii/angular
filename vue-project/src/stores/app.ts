@@ -3,15 +3,16 @@ import axios from 'axios'
 import { httpOptions, log } from '@/utils'
 import type {App} from '@/interfaces'
 
-
 // add interface
 interface appState{
     app:App | {},
+    preloading: boolean
 }
 export const useAppStore = defineStore({
   id: 'app',
   state: (): appState => ({
-      app: {}
+      app: {},
+      preloading: false
   }),
   getters: {
   },

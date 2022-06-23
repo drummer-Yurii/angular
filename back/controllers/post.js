@@ -35,6 +35,17 @@ const postControllerPost = async (req, res) => {
     error(e, req, res, 500, 'Cannot post');
   };
 };
+const postControllerDelete = async (req, res) => {
+  try {
+    log('Con: postControllerDelete').place();
+    const result = await postService.delete(req.params.id);
+    return (result.ok) ? good(result, req, res, 'Post was deleted') : bad(null, req, res, 409, result.msg);
+  } catch (e) {
+    log('Error:', e,);
+    error(e, req, res, 500, 'Cannot delete post');
+  };
+};
+
 const postControllerGetImg = async (req, res) => {
   try {
     log('Con: postControllerGetImgExtention').place();
@@ -46,4 +57,4 @@ const postControllerGetImg = async (req, res) => {
   };
 };
 
-export { postControllerPost, postControllerGet, postControllerGetImg }
+export { postControllerPost, postControllerGet, postControllerGetImg, postControllerDelete }

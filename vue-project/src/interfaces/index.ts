@@ -1,7 +1,8 @@
 interface Post {
     title: String,
     description: String,
-    img: String
+    img: String,
+    _id: String
 };
 interface User {
     username:String,
