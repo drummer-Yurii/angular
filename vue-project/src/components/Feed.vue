@@ -1,29 +1,37 @@
 <template>
   <section>
     <div class="feed">
-      <Post v-for="post in storePost.posts" :post="post" />
+      <div v-for="(post, index) in storePost.posts" :key="'post'+index">
+        <Post :post="post" />
+      </div>
     </div>
   </section>
 </template>
 
 <script>
-import { usePostStore } from '@/stores/post'
-import Post from '@/components/Post.vue'
+import { usePostStore } from "@/stores/post";
+import Post from "@/components/Post.vue";
 
 export default {
   components: {
-    Post
+    Post,
   },
   setup() {
-    const storePost = usePostStore()
+    const storePost = usePostStore();
     return {
-      storePost
-    }
+      storePost,
+    };
   },
   created() {
-    this.storePost.refresh()
+    this.storePost.refresh();
   },
-}
+   watch: {
+    getPosts() {
+      return this.storePost.posts
+    }
+  
+  }
+};
 </script>
 
 <style scoped>

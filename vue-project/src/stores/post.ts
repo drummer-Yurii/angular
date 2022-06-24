@@ -13,6 +13,9 @@ export const usePostStore = defineStore({
     posts: [],
   }),
   getters: {
+    getPosts(state:any):any {
+     return state.posts
+    },
     // switchPreloading(state:any, to: boolean):any {
     //   const storeApp = useAppStore();
     //   storeApp.preloading = to
