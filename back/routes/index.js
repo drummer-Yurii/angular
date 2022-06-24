@@ -10,7 +10,7 @@ import sessionGuard from '../guards/session.guard.js';
 import { registerConroller, loginConroller, mailVerification } from '../controllers/auth.js';
 import { userControllerPut, userControllerGet, userControllerGetAvatar} from '../controllers/user.js';
 import { appControllerGet, appControllerPut} from '../controllers/app.js'
-import { postControllerPost, postControllerGet, postControllerGetImg, postControllerDelete} from '../controllers/post.js'
+import { postControllerPost, postControllerGet, postControllerGetImg, postControllerDelete, postControllerPut} from '../controllers/post.js'
 
 
 
@@ -20,15 +20,19 @@ router.post('/api/auth/register', registerConroller);
 router.post('/api/auth/login', loginConroller);
 router.post('/api/auth/mail-verification', mailVerification);
 router.all('/*', sessionGuard);
+
 router.put('/api/user', userControllerPut);
 router.get('/api/user', userControllerGet);
 router.get('/api/avatar', userControllerGetAvatar);
+
 router.get('/api/app-info', appControllerGet);
 router.put('/api/app-info', appControllerPut);
+
 router.post('/api/post', postControllerPost);
 router.get('/api/post', postControllerGet);
-router.delete('/api/post/:id', postControllerDelete);
 router.get('/api/post-img/:id', postControllerGetImg)
+router.delete('/api/post/:id', postControllerDelete);
+router.put('/api/post', postControllerPut);
 
 
 

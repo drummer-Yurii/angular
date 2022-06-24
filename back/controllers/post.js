@@ -29,10 +29,20 @@ const postControllerPost = async (req, res) => {
   try {
     log('Con: postControllerPost').place();
     const result = await postService.post(req.body);
+    return (result.ok) ? good(result, req, res, 'Post was created') : bad(null, req, res, 409, result.msg);
+  } catch (e) {
+    log('Error:', e,);
+    error(e, req, res, 500, 'Cannot create post');
+  };
+};
+const postControllerPut = async (req, res) => {
+  try {
+    log('Con: postControllerPut').place();
+    const result = await postService.edit(req.body);
     return (result.ok) ? good(result, req, res, 'Post was edited') : bad(null, req, res, 409, result.msg);
   } catch (e) {
     log('Error:', e,);
-    error(e, req, res, 500, 'Cannot post');
+    error(e, req, res, 500, 'Cannot edit post');
   };
 };
 const postControllerDelete = async (req, res) => {
@@ -57,4 +67,4 @@ const postControllerGetImg = async (req, res) => {
   };
 };
 
-export { postControllerPost, postControllerGet, postControllerGetImg, postControllerDelete }
+export { postControllerPost, postControllerGet, postControllerGetImg, postControllerDelete, postControllerPut }

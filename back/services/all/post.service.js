@@ -27,9 +27,9 @@ class PostService {
         return { ok: true, post: createdPost};
     };
     create = async (o) => await new Post(o).save();
-    async edit(_id, msg) {
-        log(msg).place()
-        await Post.findOneAndUpdate({ _id }, msg);
+    async edit(post) {
+        log(post).place()
+        await Post.findOneAndUpdate({ _id: post._id }, post);
         return { ok: true };
     };
     async delete(_id) {
