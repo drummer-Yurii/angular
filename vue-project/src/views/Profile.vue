@@ -141,11 +141,9 @@ section {
 
   .panel {
     text-align: center;
-  
   }
-  #fileToUpload{
+  #fileToUpload {
     padding-top: 1.5rem;
   }
- 
 }
 </style>

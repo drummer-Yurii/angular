@@ -38,7 +38,7 @@ const postControllerPost = async (req, res) => {
 const postControllerPut = async (req, res) => {
   try {
     log('Con: postControllerPut').place();
-    const result = await postService.edit(req.body);
+    const result = await postService.edit(req.params.id, req.body);
     return (result.ok) ? good(result, req, res, 'Post was edited') : bad(null, req, res, 409, result.msg);
   } catch (e) {
     log('Error:', e,);

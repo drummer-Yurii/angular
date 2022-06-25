@@ -32,7 +32,7 @@ router.post('/api/post', postControllerPost);
 router.get('/api/post', postControllerGet);
 router.get('/api/post-img/:id', postControllerGetImg)
 router.delete('/api/post/:id', postControllerDelete);
-router.put('/api/post', postControllerPut);
+router.put('/api/post/:id', postControllerPut);
 
 
 

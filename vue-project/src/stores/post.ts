@@ -6,11 +6,13 @@ import { useAppStore } from "@/stores/app";
 
 interface postState {
   posts: [Post] | [];
+  post: Post | {};
 }
 export const usePostStore = defineStore({
   id: "post",
   state: (): postState => ({
     posts: [],
+    post: {}
   }),
   getters: {
     getPosts(state:any):any {
@@ -21,6 +23,7 @@ export const usePostStore = defineStore({
     //   storeApp.preloading = to
     // },
   },
+
   actions: {
     async refresh() {
       const answer = await axios.get(
@@ -29,6 +32,15 @@ export const usePostStore = defineStore({
       );
       log(answer);
       this.update(answer.data.result.posts);
+    },
+    async getPost(id) {
+      if (id == "new") return;
+      const answer = await axios.get(
+        "http://localhost:3001/api/post?_id=" + id,
+        httpOptions()
+      );
+      console.log(answer);
+      this.post = answer.data.result.post;
     },
     update(posts: [Post]) {
       this.posts = posts;
