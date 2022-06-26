@@ -44,7 +44,8 @@ export const usePostStore = defineStore({
       this.post = answer.data.result.post;
     },
     update(posts: [Post]) {
-      this.posts = posts;
+      this.posts = [];
+      setTimeout(()=>{this.posts = posts;},50)     
     },
     async delete(post: Post) {
       const storeApp = useAppStore();
