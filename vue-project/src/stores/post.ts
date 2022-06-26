@@ -4,6 +4,7 @@ import { httpOptions, log } from "@/utils";
 import type { Post } from "@/interfaces";
 import { useAppStore } from "@/stores/app";
 
+
 interface postState {
   posts: [Post] | [];
   post: Post | {};
@@ -58,6 +59,50 @@ export const usePostStore = defineStore({
           await this.refresh();
           storeApp.preloading = false;
       },1000)
+    },
+    async submit(id) {
+    // const route = useRoute();
+      console.log("submit", this.post);
+      // const id = route.params.id;
+      let answer;
+      if (id == "new") {
+        answer = await axios.post(
+          "http://localhost:3001/api/post",
+          this.post,
+          httpOptions()
+        );
+        console.log(answer);
+        const isImgChoise = document.getElementById("fileToUpload");
+        if (isImgChoise.files.length !== 0)
+          await this.fileUpload(answer.data.result.post);
+      } else {
+        answer = await axios.put(
+          "http://localhost:3001/api/post/" + this.post._id,
+          this.post,
+          httpOptions()
+        );
+        console.log(answer);
+      }
+      this.refresh()
+      if (answer.data.ok) this.$router.push("/")
+      else alert(answer.data.msg2);
+    },
+    async fileUpload(newPost) {
+      const target = document.getElementById("fileToUpload");
+      const file = target.files[0];
+      var fd = new FormData();
+      fd.append("sampleFile", document.getElementById("fileToUpload").files[0]);
+      fd.append("directory", "/testpost");
+      fd.append("basename", "wobble-004.txt");
+
+      const answer = await axios.post(
+        `http://localhost:3001/upload?pathForUploading=/posts/${newPost._id}/&fileName=post-img`,
+        fd,
+        httpOptions(),
+        {}
+      );
+      console.log(answer);
+      // location.reload()
     },
   },
 });
