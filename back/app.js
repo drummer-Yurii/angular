@@ -36,8 +36,25 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'uploads')));
 app.use(fileUpload());
 
-
-app.post('/upload', function (req, res) {
+function cleanUp(pathForUploading) {
+    return new Promise((resolve, reject)=>{
+    let counter = 0;
+        ['jpg', 'jpeg', 'png','jpg', 'jpeg', 'png','jpg', 'jpeg', 'PNG'].forEach((extention, i, arr) => {
+            const path = __dirname + '/uploads' + pathForUploading + 'avatar.' + extention;
+            try {
+                fs.unlink(path, () => {
+                    console.log('deleted', path);
+                    counter++;
+                    if (counter == arr.length) resolve()
+                });
+            } catch (error) {
+                console.log('can not deleted', path);
+            }
+        });
+    })       
+}
+// cleanUp()
+app.post('/upload',async function (req, res) {
     let sampleFile;
     let uploadPath;
     let pathForUploading;
@@ -54,20 +71,8 @@ app.post('/upload', function (req, res) {
     sampleFile = req.files.sampleFile;
     pathForUploading = req.query.pathForUploading;
     fileName = req.query.fileName;
-    let counter = 0;
-    // remove all avators 
-    ['jpg', 'jpeg', 'png'].forEach((extention, i, arr) => {
-        const path = __dirname + '/uploads' + pathForUploading + 'avatar.' + extention;
-        try {
-            fs.unlink(path, () => {
-                console.log('deleted', path);
-                counter++;
-                if (counter == arr.length) rest()
-            });
-        } catch (error) {
-            console.log('can not deleted', path);
-        }
-    });
+//    await cleanUp(pathForUploading)
+   await rest()
     async function rest() {
         console.log('rest')
         if (req.query.fileName) {
