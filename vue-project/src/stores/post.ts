@@ -83,12 +83,16 @@ export const usePostStore = defineStore({
           httpOptions()
         );
         console.log(answer);
+        const isImgChoise = document.getElementById("fileToUpload");
+        if (isImgChoise.files.length !== 0)
+          await this.fileUpload(this.post);
       }
-      this.refresh()
+      // this.refresh()
+      console.log('!!!!!!!!!!!')
       if (answer.data.ok) this.$router.push("/")
       else alert(answer.data.msg2);
     },
-    async fileUpload(newPost) {
+    async fileUpload(post) {
       const target = document.getElementById("fileToUpload");
       const file = target.files[0];
       var fd = new FormData();
@@ -97,7 +101,7 @@ export const usePostStore = defineStore({
       fd.append("basename", "wobble-004.txt");
 
       const answer = await axios.post(
-        `http://localhost:3001/upload?pathForUploading=/posts/${newPost._id}/&fileName=post-img`,
+        `http://localhost:3001/upload?pathForUploading=/posts/${post._id}/&fileName=post-img`,
         fd,
         httpOptions(),
         {}

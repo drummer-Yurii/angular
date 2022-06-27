@@ -88,7 +88,7 @@ app.post('/upload', function (req, res) {
                     log(err)
                     return res.status(500).send(err)
                 };
-                res.send('File uploaded to ' + uploadPath);
+                    res.send('File uploaded to ' + uploadPath);
             });
         }, 2000)
 

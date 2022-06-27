@@ -33,7 +33,7 @@ onMounted(async () => {
 
 async function getImg() {
   const answer = await axios.get(
-    "http://localhost:3001/api/post-img/" + post.value._id,
+    "http://localhost:3001/api/post-img/" + post.value._id, 
     httpOptions()
   );
   try {
@@ -41,7 +41,7 @@ async function getImg() {
       "http://localhost:3001/posts/" +
       post.value._id +
       "/" +
-      answer.data.result.img;
+      answer.data.result.img  + '?random=' + Math.random();
   } catch (error) {
     console.log(answer);
     post.value.img = "src/assets/logo.svg";
