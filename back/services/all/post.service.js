@@ -34,6 +34,9 @@ class PostService {
     };
     async delete(_id) {
         await Post.findOneAndRemove({_id});
+        // remove old post folder
+        const path =  'uploads/posts/' + _id;
+        await fsp.rm(path,{ recursive: true, force: true });
         return { ok: true };
     };
 
