@@ -36,11 +36,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'uploads')));
 app.use(fileUpload());
 
-function cleanUp(pathForUploading) {
+/*
+delete fails in folder
+cleanUp(`/posts/62ba931031583299577448d1/`,'post-img') // example 
+*/
+function cleanUp(pathForUploading, fileName) {
     return new Promise((resolve, reject)=>{
     let counter = 0;
         ['jpg', 'jpeg', 'png','jpg', 'jpeg', 'png','jpg', 'jpeg', 'PNG'].forEach((extention, i, arr) => {
-            const path = __dirname + '/uploads' + pathForUploading + 'avatar.' + extention;
+            const path = __dirname + '/uploads' + pathForUploading + fileName + '.' + extention;
             try {
                 fs.unlink(path, () => {
                     console.log('deleted', path);
@@ -53,7 +57,6 @@ function cleanUp(pathForUploading) {
         });
     })       
 }
-// cleanUp()
 app.post('/upload',async function (req, res) {
     let sampleFile;
     let uploadPath;
@@ -71,7 +74,7 @@ app.post('/upload',async function (req, res) {
     sampleFile = req.files.sampleFile;
     pathForUploading = req.query.pathForUploading;
     fileName = req.query.fileName;
-//    await cleanUp(pathForUploading)
+   await cleanUp(pathForUploading,fileName)
    await rest()
     async function rest() {
         console.log('rest')

@@ -67,6 +67,7 @@ export const usePostStore = defineStore({
       // const id = route.params.id;
       let answer;
       if (id == "new") {
+       delete this.post._id
         answer = await axios.post(
           "http://localhost:3001/api/post",
           this.post,
@@ -85,6 +86,7 @@ export const usePostStore = defineStore({
         console.log(answer);
         const isImgChoise = document.getElementById("fileToUpload");
         if (isImgChoise.files.length !== 0)
+        console.log(isImgChoise.files.length !== 0)
           await this.fileUpload(this.post);
       }
       // this.refresh()
@@ -99,7 +101,7 @@ export const usePostStore = defineStore({
       fd.append("sampleFile", document.getElementById("fileToUpload").files[0]);
       fd.append("directory", "/testpost");
       fd.append("basename", "wobble-004.txt");
-
+      console.log(post)
       const answer = await axios.post(
         `http://localhost:3001/upload?pathForUploading=/posts/${post._id}/&fileName=post-img`,
         fd,
