@@ -1,12 +1,15 @@
 @ -1,92 +0,0 @@
 <template>
   <div class="post" @click="goToPost">
-    <div class="admin-tools" v-if="storeUser.isAdmin">
-      <button @click.stop="storePost.delete(post)" type="button" class="btn btn-dark">Delete</button>
+    <div class="img-container">
+      <div class="admin-tools" v-if="storeUser.isAdmin">
+        <button @click.stop="storePost.delete(post)" type="button" class="btn btn-dark">Delete</button>
+      </div>
+      <img :src="post.img" />
+      <div class="substrate"></div>
+      <h1>{{ post.title }}</h1>
     </div>
-    <img :src="post.img" />
-    <div class="substrate"></div>
-    <h1>{{ post.title }}</h1>
+    <div class="post-text">{{post.description}}</div>
   </div>
 </template>
 
@@ -33,7 +36,7 @@ onMounted(async () => {
 
 async function getImg() {
   const answer = await axios.get(
-    "http://localhost:3001/api/post-img/" + post.value._id, 
+    "http://localhost:3001/api/post-img/" + post.value._id,
     httpOptions()
   );
   try {
@@ -41,7 +44,7 @@ async function getImg() {
       "http://localhost:3001/posts/" +
       post.value._id +
       "/" +
-      answer.data.result.img  + '?random=' + Math.random();
+      answer.data.result.img + '?random=' + Math.random();
   } catch (error) {
     console.log(answer);
     post.value.img = "src/assets/logo.svg";
@@ -54,6 +57,15 @@ function goToPost() {
 </script>
 
 <style>
+.img-container {
+  position: relative;
+}
+
+.post-text {
+  background: wheat;
+  padding: 1rem;
+}
+
 .post {
   min-height: 20rem;
   background: gray;
@@ -64,11 +76,11 @@ function goToPost() {
   position: relative;
 }
 
-.post > img {
+.post img {
   width: 100%;
 }
 
-.post > h1 {
+.post h1 {
   position: absolute;
   left: 1rem;
   bottom: 0;
@@ -77,17 +89,17 @@ function goToPost() {
 
 .substrate {
   box-shadow: inset -24px -30px 23px rgba(0, 0, 0, 0.7);
-  height: 10rem;
+  height: 100%;
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
 }
+
 .admin-tools {
   position: absolute;
   top: 0.5rem;
   right: 1.5rem;
   width: 4rem;
 }
-
 </style>
