@@ -39,7 +39,6 @@ class PostService {
         await fsp.rm(path,{ recursive: true, force: true });
         return { ok: true };
     };
-
     async getImg(id) {
         const path =  'uploads/posts/' + id;
        const files = await fsp.readdir( path );

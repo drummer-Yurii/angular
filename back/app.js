@@ -12,6 +12,8 @@ import cors from 'cors';
 import indexRouter from './routes/index.js';
 import fileUpload from 'express-fileupload';
 import fs from 'fs';
+import {cleanUp}   from './my_modules/fs-utils.js';
+
 
 var app = express();
 
@@ -40,23 +42,7 @@ app.use(fileUpload());
 delete fails in folder
 cleanUp(`/posts/62ba931031583299577448d1/`,'post-img') // example 
 */
-function cleanUp(pathForUploading, fileName) {
-    return new Promise((resolve, reject)=>{
-    let counter = 0;
-        ['jpg', 'jpeg', 'png','jpg', 'jpeg', 'png','jpg', 'jpeg', 'PNG'].forEach((extention, i, arr) => {
-            const path = __dirname + '/uploads' + pathForUploading + fileName + '.' + extention;
-            try {
-                fs.unlink(path, () => {
-                    console.log('deleted', path);
-                    counter++;
-                    if (counter == arr.length) resolve()
-                });
-            } catch (error) {
-                console.log('can not deleted', path);
-            }
-        });
-    })       
-}
+
 app.post('/upload',async function (req, res) {
     let sampleFile;
     let uploadPath;
