@@ -1,4 +1,4 @@
-*{
+/* *{
     background: darkslategrey !important;
 }
 body {
@@ -12,5 +12,12 @@ main{
 }
 html{
     background: darkslategrey !important;
-
-}
+} */
+.my-form {
+    background: #213232;
+    margin-top: 3rem;
+    max-width: 20rem;
+    display: flex;
+    flex-direction: column;
+    color: wheat;
+  }

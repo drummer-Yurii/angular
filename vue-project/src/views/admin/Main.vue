@@ -4,43 +4,22 @@
       new post
     </button>
     <section>
-      <div class="profile-form">
+      <div class="my-form profile-form">
         <div class="info">Company name: {{ storeApp.app.companyName }}</div>
         <div class="input-group mb-3">
-          <input
-            v-model="storeApp.app.companyName"
-            class="form-control"
-            type="text"
-            aria-label="company name"
-            placeholder="company name"
-          />
+          <input v-model="storeApp.app.companyName" class="form-control" type="text" aria-label="company name"
+            placeholder="company name" />
         </div>
         <div class="input-group mb-3">
-          <input
-            v-model="storeApp.app.phone"
-            class="form-control"
-            type="number"
-            aria-label="phone"
-            placeholder="phone"
-          />
+          <input v-model="storeApp.app.phone" class="form-control" type="number" aria-label="phone"
+            placeholder="phone" />
         </div>
         <div class="input-group mb-3">
-          <input
-            v-model="storeApp.app.email"
-            class="form-control"
-            type="text"
-            aria-label="email"
-            placeholder="email"
-          />
+          <input v-model="storeApp.app.email" class="form-control" type="text" aria-label="email" placeholder="email" />
         </div>
         <div class="input-group mb-3">
-          <input
-            v-model="storeApp.app.facebookPage"
-            class="form-control"
-            type="text"
-            aria-label="facebookPage"
-            placeholder="facebookPage"
-          />
+          <input v-model="storeApp.app.facebookPage" class="form-control" type="text" aria-label="facebookPage"
+            placeholder="facebookPage" />
         </div>
         <div class="panel">
           <button @click="editApp" type="button" class="btn btn-primary">
@@ -48,7 +27,7 @@
           </button>
         </div>
       </div>
-      <div class="img-form">
+      <div class="my-form img-form">
         <input type="file" id="fileToUpload" name="sampleFile" />
         <button @click="uploadFile" type="button" class="btn btn-primary">
           send
@@ -147,37 +126,32 @@ export default {
 </script>
 
 <style scoped>
+@import '@/assets/base.css';
 section {
   display: flex;
   flex-direction: column;
 }
+
 @media (min-width: 1024px) {
   section {
     flex-direction: row;
   }
+
   .profile {
     min-height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
   }
-
   .profile-form {
     padding: 1rem;
-    background: #213232;
-    margin-top: 3rem;
-    max-width: 20rem;
-    display: flex;
-    flex-direction: column;
+
   }
+
   .img-form {
     padding-top: 2.5rem;
-    background: #213232;
-    margin-top: 3rem;
-    max-width: 20rem;
-    display: flex;
-    flex-direction: column;
   }
+
   .btn-primary {
     width: 4rem;
   }
@@ -185,6 +159,7 @@ section {
   .panel {
     text-align: center;
   }
+
   #fileToUpload {
     padding-top: 1.5rem;
   }
