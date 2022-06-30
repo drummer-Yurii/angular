@@ -9,7 +9,7 @@
       <div class="substrate"></div>
       <h1>{{ post.title }}</h1>
     </div>
-    <div class="post-text">{{post.description}}</div>
+    <div class="post-text">{{ post.description }}</div>
   </div>
 </template>
 
@@ -52,7 +52,10 @@ async function getImg() {
 }
 
 function goToPost() {
-  router.push("/admin/post/" + post.value._id);
+  if (storeUser.user.username == 'admin')
+    router.push("/admin/post/" + post.value._id)
+  else
+    router.push("/post/" + post.value._id);
 }
 </script>
 

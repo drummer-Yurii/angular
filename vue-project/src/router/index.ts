@@ -62,6 +62,11 @@ const router = createRouter({
       // beforeEnter: adminGuard,
       component: () => import('../views/admin/Post.vue')
     },
+    {
+      path: '/post/:id',
+      name: 'common-post',
+      component: () => import('../views/common/Post.vue')
+    },
 
   ]
 })
