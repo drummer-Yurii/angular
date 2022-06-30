@@ -1,6 +1,6 @@
 <template>
-  <div class="register">
-    <div class="register-form">
+  <div class="my-layout register">
+    <div class="my-form register-form">
       <div class="input-group mb-3">
         <input
           v-model="userData.firstName"
@@ -90,21 +90,14 @@ export default {
 </script>
 
 <style>
+@import '@/assets/base.css';
 @media (min-width: 1024px) {
   .register {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
   }
 
   .register-form {
     padding: 1rem;
-    background: #213232;
-    margin-top: 3rem;
-    max-width: 20rem;
-    display: flex;
-    flex-direction: column;
+    
   }
 
   .panel {

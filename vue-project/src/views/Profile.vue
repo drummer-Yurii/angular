@@ -1,7 +1,7 @@
 <template>
-  <div class="profile">
+  <div class="my-layout profile">
     <section>
-      <div class="profile-form">
+      <div class="my-form profile-form">
         <div class="info">Username: {{ storeUser.user.username }}</div>
         <div class="input-group mb-3">
           <input
@@ -49,7 +49,7 @@
           </button>
         </div>
       </div>
-      <div class="img-form">
+      <div class="my-form img-form">
         <input type="file" id="fileToUpload" name="sampleFile" />
         <button @click="uploadFile" type="button" class="btn btn-primary">
           Send
@@ -104,6 +104,7 @@ export default {
 </script>
 
 <style scoped>
+@import '@/assets/base.css';
 section {
   display: flex;
   flex-direction: column;
@@ -113,30 +114,19 @@ section {
     flex-direction: row;
   }
   .profile {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
   }
 
   .profile-form {
     padding: 1rem;
-    background: #213232;
-    margin-top: 3rem;
-    max-width: 20rem;
-    display: flex;
-    flex-direction: column;
+    
   }
   .img-form {
     padding: 1rem;
-    background: #213232;
-    margin-top: 3rem;
-    max-width: 20rem;
-    display: flex;
-    flex-direction: column;
+    
   }
   .btn-primary {
     width: 4rem;
+    margin-top: 2px;
   }
 
   .panel {

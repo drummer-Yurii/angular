@@ -1,6 +1,6 @@
 <template>
-  <div class="login">
-    <div class="login-form">
+  <div class="my-layout login">
+    <div class="my-form login-form">
       <div class="input-group mb-3">
         <span class="input-group-text">@</span>
         <input
@@ -68,21 +68,14 @@ export default {
 </script>
 
 <style>
+@import '@/assets/base.css';
 @media (min-width: 1024px) {
   .login {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
   }
 
   .login-form {
     padding: 1rem;
-    background: #213232;
-    margin-top: 3rem;
-    max-width: 20rem;
-    display: flex;
-    flex-direction: column;
+    
   }
 
   .panel {

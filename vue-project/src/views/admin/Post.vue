@@ -1,6 +1,6 @@
 <template>
-  <div class="post-page">
-    <div class="post-form">
+  <div class="my-layout post-page">
+    <div class="my-form post-form">
       <div class="input-group mb-3">
         <input v-model="storePost.post.title" class="form-control" type="text" aria-label="title" placeholder="title" />
       </div>
@@ -50,21 +50,13 @@ export default {
 </script>
 
 <style>
+@import '@/assets/base.css';
 @media (min-width: 1024px) {
   .post-page {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
   }
 
   .post-form {
     padding: 1rem;
-    background: #213232;
-    margin-top: 3rem;
-    max-width: 20rem;
-    display: flex;
-    flex-direction: column;
   }
 
   .panel {

@@ -1,8 +1,5 @@
 <template>
-  <div class="profile">
-    <button @click="goToNewPost" type="button" class="btn btn-primary">
-      new post
-    </button>
+  <div class="my-layout profile">
     <section>
       <div class="my-form profile-form">
         <div class="info">Company name: {{ storeApp.app.companyName }}</div>
@@ -31,6 +28,10 @@
         <input type="file" id="fileToUpload" name="sampleFile" />
         <button @click="uploadFile" type="button" class="btn btn-primary">
           send
+        </button>
+        <hr/>
+        <button @click="goToNewPost" type="button" class="btn btn-primary">
+          new post
         </button>
       </div>
     </section>
@@ -127,6 +128,7 @@ export default {
 
 <style scoped>
 @import '@/assets/base.css';
+
 section {
   display: flex;
   flex-direction: column;
@@ -137,12 +139,8 @@ section {
     flex-direction: row;
   }
 
-  .profile {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
+  .profile {}
+
   .profile-form {
     padding: 1rem;
 
@@ -154,6 +152,8 @@ section {
 
   .btn-primary {
     width: 4rem;
+    line-height: 1rem;
+    margin-top: 2px;
   }
 
   .panel {
