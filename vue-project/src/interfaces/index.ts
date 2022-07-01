@@ -2,7 +2,8 @@ interface Post {
     title: String,
     description: String,
     img: String,
-    _id: String
+    _id: String,
+    blocks: [any]
 };
 interface User {
     username:String,

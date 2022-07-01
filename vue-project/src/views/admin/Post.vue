@@ -13,9 +13,9 @@
         <button  @click="toggleButtonsPanel" type="button" class="btn btn-info">Add block</button>
       </div>
       <div v-if="addButtonsPanel" class="panel add-buttons">
-        <button  @click="" type="button" class="btn btn-info">Text</button>
-        <button  @click="" type="button" class="btn btn-info">Video</button>
-        <button  @click="" type="button" class="btn btn-info">Audio</button>
+        <button  @click="addTextBlock" type="button" class="btn btn-info">Text</button>
+        <button  @click="addVideoBlock" type="button" class="btn btn-info">Video</button>
+        <button  @click="addAudioBlock" type="button" class="btn btn-info">Audio</button>
       </div>
       <hr />
       <div class="panel">
@@ -62,6 +62,16 @@ export default {
     },
     toggleButtonsPanel() {
       this.addButtonsPanel = true
+    },
+    addTextBlock() {
+      this.storePost.post.blocks.push({})
+      console.log(this.storePost.post)
+    },
+    addVideoBlock() {
+
+    },
+    addAudioBlock() {
+
     },
   },
 };

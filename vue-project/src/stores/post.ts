@@ -13,7 +13,9 @@ export const usePostStore = defineStore({
   id: "post",
   state: (): postState => ({
     posts: [],
-    post: {}
+    post: {
+      blocks: []
+    }
   }),
   getters: {
     getPosts(state:any):any {
