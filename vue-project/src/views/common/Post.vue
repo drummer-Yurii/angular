@@ -10,6 +10,10 @@
         <h1>{{ storePost.post.title }}</h1>
       </div>
       <div class="post-text">{{ storePost.post.description }}</div>
+    <div class="video-container">
+      <video controls src="@/assets/video-1.mp4" type="video/mp4">
+      </video>
+      </div>
     </div>
     <hr />
     <div class="my-form post-form">
@@ -49,9 +53,10 @@ export default {
       route,
     };
   },
- async created() {
+  async created() {
     this.storePost.getPost(this.getId());
     await this.getImg();
+    // await this.getVideo();
   },
   methods: {
     async getImg() {
@@ -60,7 +65,7 @@ export default {
         httpOptions()
       );
       try {
-       this.storePost.post.img =
+        this.storePost.post.img =
           "http://localhost:3001/posts/" +
           this.storePost.post._id +
           "/" +
@@ -70,6 +75,22 @@ export default {
         this.storePost.post.img = "src/assets/logo.svg";
       }
     },
+    // async getVideo() {
+    //   const answer = await axios.get(
+    //     "http://localhost:3001/api/post-video/" + this.storePost.post._id,
+    //     httpOptions()
+    //   );
+    //   try {
+    //     this.storePost.post.video=
+    //       "http://localhost:3001/posts/" +
+    //       this.storePost.post._id +
+    //       "/" +
+    //       answer.data.result.video + '?random=' + Math.random();
+    //   } catch (error) {
+    //     console.log(answer);
+    //     this.storePost.post.video = "src/assets/logo.svg";
+    //   }
+    // },
     getId() {
       const id = this.route.params.id;
       return id
@@ -80,6 +101,9 @@ export default {
 
 <style>
 @import '@/assets/base.css';
+.video-container video {
+  width: 100%;
+}
 
 .img-container {
   position: relative;

@@ -8,6 +8,16 @@
         <span class="input-group-text">With textarea</span>
         <textarea v-model="storePost.post.description" class="form-control" aria-label="With textarea"></textarea>
       </div>
+      <hr />
+      <div v-if="!addButtonsPanel" class="panel">
+        <button  @click="toggleButtonsPanel" type="button" class="btn btn-info">Add block</button>
+      </div>
+      <div v-if="addButtonsPanel" class="panel add-buttons">
+        <button  @click="" type="button" class="btn btn-info">Text</button>
+        <button  @click="" type="button" class="btn btn-info">Video</button>
+        <button  @click="" type="button" class="btn btn-info">Audio</button>
+      </div>
+      <hr />
       <div class="panel">
         <button @click="storePost.submit(getId())" type="button" class="btn btn-primary">
           save
@@ -27,6 +37,11 @@ import { useRoute } from "vue-router";
 import { httpOptions, log } from "@/utils";
 
 export default {
+   data() {
+    return {
+      addButtonsPanel: false,
+    };
+  },
   setup() {
     const storePost = usePostStore();
     const storeUser = useUserStore();
@@ -41,26 +56,32 @@ export default {
     this.storePost.getPost(this.getId());
   },
   methods: {
-    getId(){
-    const id = this.route.params.id;
+    getId() {
+      const id = this.route.params.id;
       return id
-    }
+    },
+    toggleButtonsPanel() {
+      this.addButtonsPanel = true
+    },
   },
 };
 </script>
 
 <style>
 @import '@/assets/base.css';
+
 @media (min-width: 1024px) {
-  .post-page {
-  }
+  .post-page {}
 
   .post-form {
     padding: 1rem;
   }
-
+  
   .panel {
     text-align: center;
+  }
+  .panel button {
+    margin: 0 .2rem;
   }
 }
 </style>
