@@ -8,6 +8,9 @@
         <span class="input-group-text">With textarea</span>
         <textarea v-model="storePost.post.description" class="form-control" aria-label="With textarea"></textarea>
       </div>
+      <div class="blocks">
+        <div v-for="(block, index) in storePost.post.blocks" :key="'post'+index" >block</div>
+      </div>
       <hr />
       <div v-if="!addButtonsPanel" class="panel">
         <button  @click="toggleButtonsPanel" type="button" class="btn btn-info">Add block</button>
