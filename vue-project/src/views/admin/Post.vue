@@ -10,7 +10,10 @@
       </div>
       <div class="blocks">
         <div v-for="(block, index) in storePost.post.blocks" :key="'post' + index">
-          <div v-if="block.type == 'text'" class="block-text">{{block.text}}</div>
+          <div v-if="block.type == 'text'" class="block-text">
+          <textarea v-model="block.text" class="form-control" aria-label="With textarea">
+          </textarea>
+          </div>
           <div v-if="block.type == 'video'" class="block-video"></div>
           <div v-if="block.type == 'audio'" class="block-audio"></div>
           <div v-if="!block.type" class="block-text">block</div>
