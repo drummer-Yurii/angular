@@ -9,16 +9,21 @@
         <textarea v-model="storePost.post.description" class="form-control" aria-label="With textarea"></textarea>
       </div>
       <div class="blocks">
-        <div v-for="(block, index) in storePost.post.blocks" :key="'post'+index" >block</div>
+        <div v-for="(block, index) in storePost.post.blocks" :key="'post' + index">
+          <div v-if="block.type == 'text'" class="block-text">{{block.text}}</div>
+          <div v-if="block.type == 'video'" class="block-video"></div>
+          <div v-if="block.type == 'audio'" class="block-audio"></div>
+          <div v-if="!block.type" class="block-text">block</div>
+        </div>
       </div>
       <hr />
       <div v-if="!addButtonsPanel" class="panel">
-        <button  @click="toggleButtonsPanel" type="button" class="btn btn-info">Add block</button>
+        <button @click="toggleButtonsPanel" type="button" class="btn btn-info">Add block</button>
       </div>
       <div v-if="addButtonsPanel" class="panel add-buttons">
-        <button  @click="addTextBlock" type="button" class="btn btn-info">Text</button>
-        <button  @click="addVideoBlock" type="button" class="btn btn-info">Video</button>
-        <button  @click="addAudioBlock" type="button" class="btn btn-info">Audio</button>
+        <button @click="addTextBlock" type="button" class="btn btn-info">Text</button>
+        <button @click="addVideoBlock" type="button" class="btn btn-info">Video</button>
+        <button @click="addAudioBlock" type="button" class="btn btn-info">Audio</button>
       </div>
       <hr />
       <div class="panel">
@@ -40,7 +45,7 @@ import { useRoute } from "vue-router";
 import { httpOptions, log } from "@/utils";
 
 export default {
-   data() {
+  data() {
     return {
       addButtonsPanel: false,
     };
@@ -67,7 +72,11 @@ export default {
       this.addButtonsPanel = true
     },
     addTextBlock() {
-      this.storePost.post.blocks.push({})
+      const newBlock = {
+        type: 'text',
+        text: 'melody',
+      };
+      this.storePost.post.blocks.push(newBlock)
       console.log(this.storePost.post)
     },
     addVideoBlock() {
@@ -89,12 +98,16 @@ export default {
   .post-form {
     padding: 1rem;
   }
-  
+
   .panel {
     text-align: center;
   }
+
   .panel button {
     margin: 0 .2rem;
+  }
+  .block-text {
+    background: black;
   }
 }
 </style>
