@@ -18,8 +18,8 @@ export const usePostStore = defineStore({
     }
   }),
   getters: {
-    getPosts(state:any):any {
-     return state.posts
+    getPosts(state: any): any {
+      return state.posts
     },
     // switchPreloading(state:any, to: boolean):any {
     //   const storeApp = useAppStore();
@@ -47,7 +47,7 @@ export const usePostStore = defineStore({
     },
     update(posts: [Post]) {
       this.posts = [];
-      setTimeout(()=>{this.posts = posts;},50)     
+      setTimeout(() => { this.posts = posts; }, 50)
     },
     async delete(post: Post) {
       const storeApp = useAppStore();
@@ -58,41 +58,42 @@ export const usePostStore = defineStore({
         httpOptions()
       );
       log(answer);
-      setTimeout(async()=> {
-          await this.refresh();
-          storeApp.preloading = false;
-      },1000)
+      setTimeout(async () => {
+        await this.refresh();
+        storeApp.preloading = false;
+      }, 1000)
     },
     async submit(id) {
-    // const route = useRoute();
+      // const route = useRoute();
       console.log("submit", this.post);
       // const id = route.params.id;
       let answer;
+      let fileToUpload;
       if (id == "new") {
-       delete this.post._id
+        delete this.post._id
         answer = await axios.post(
           "http://localhost:3001/api/post",
           this.post,
           httpOptions()
         );
-        console.log(answer);
-        const isImgChoise = document.getElementById("fileToUpload");
-        if (isImgChoise.files.length !== 0)
-          await this.fileUpload(answer.data.result.post);
+        fileToUpload = answer.data.result.post
       } else {
         answer = await axios.put(
           "http://localhost:3001/api/post/" + this.post._id,
           this.post,
           httpOptions()
         );
-        console.log(answer);
-        const isImgChoise = document.getElementById("fileToUpload");
-        if (isImgChoise.files.length !== 0)
-        console.log(isImgChoise.files.length !== 0)
-          await this.fileUpload(this.post);
+        fileToUpload = this.post
       }
-      // this.refresh()
-      console.log('!!!!!!!!!!!')
+      console.log(answer);
+      // 3
+      const blockUploads = document.querySelectorAll('.block-file-to-upload')
+      log('blockUploads', blockUploads)
+      // 1
+      const isImgChoise: any = document.getElementById("fileToUpload");
+      if (isImgChoise.files.length !== 0)
+        await this.fileUpload(fileToUpload);
+      // 2
       if (answer.data.ok) this.$router.push("/")
       else alert(answer.data.msg2);
     },
