@@ -88,7 +88,13 @@ export const usePostStore = defineStore({
       console.log(answer);
       // 3
       const blockUploads = document.querySelectorAll('.block-file-to-upload')
-      log('blockUploads', blockUploads)
+      log('blockUploads', blockUploads);
+      const myTarget = {
+        target: null,
+        fileName: 'post-img',
+      };
+      await this.fileUploader([...blockUploads, myTarget]);
+      return;
       // 1
       const isImgChoise: any = document.getElementById("fileToUpload");
       if (isImgChoise.files.length !== 0)
@@ -97,6 +103,26 @@ export const usePostStore = defineStore({
       if (answer.data.ok) this.$router.push("/")
       else alert(answer.data.msg2);
     },
+    async fileUploader(targets, pathForUploading) {
+      log('fileUploader', targets, pathForUploading);
+      targets.forEach((target, index, array) => {
+        log('target', target, target.name);
+        const isMyTarget = !!target.fileName;
+        log(isMyTarget);
+        let fileName;
+        if (isMyTarget) {
+          log('uploadStrategy1');
+          fileName = target.fileName;
+        } else {
+          log('uploadStrategy2');
+          fileName = target.name;
+          let fd = new FormData();
+          log(fd, target.name);
+
+        }
+      })
+    },
+
     async fileUpload(post) {
       const target = document.getElementById("fileToUpload");
       const file = target.files[0];

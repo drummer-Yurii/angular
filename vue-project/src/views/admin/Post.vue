@@ -15,10 +15,10 @@
           </textarea>
           </div>
           <div v-if="block.type == 'video'" class="block-video">
-            <input type="file" class="block-file-to-upload" name="sampleFile" />
+            <input type="file" class="block-file-to-upload" :name="block.fileId" />
           </div>
           <div v-if="block.type == 'audio'" class="block-audio">
-            <input type="file" class="block-file-to-upload" name="sampleFile" />
+            <input type="file" class="block-file-to-upload" :name="block.fileId" />
           </div>
           <div v-if="!block.type" class="block-text">block</div>
         </div>
@@ -50,6 +50,7 @@ import { useUserStore } from "@/stores/user";
 import { usePostStore } from "@/stores/post";
 import { useRoute } from "vue-router";
 import { httpOptions, log } from "@/utils";
+import { randomString } from "high-level";
 
 export default {
   data() {
@@ -89,12 +90,14 @@ export default {
     addVideoBlock() {
       const newBlock = {
         type: 'video',
+        fileId: randomString(1),
       };
       this.storePost.post.blocks.push(newBlock)
     },
     addAudioBlock() {
       const newBlock = {
         type: 'audio',
+        fileId: randomString(1),
       };
       this.storePost.post.blocks.push(newBlock)
     },
