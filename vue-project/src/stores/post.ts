@@ -108,6 +108,7 @@ export const usePostStore = defineStore({
       const promises = targets.map((target) => {
         const isMyTarget = !!target.fileName;
         const fileName = isMyTarget ? target.fileName : target.name;
+        log('fileName', fileName);
         if (target.files?.length > 0) {
           log('ok');
           const fd = new FormData();
@@ -116,6 +117,7 @@ export const usePostStore = defineStore({
           fd.append("basename", "wobble-004.txt");
           return new Promise(async(resolve, reject) => {
             log('start');
+            // глянути чого пустий fileName
             const answer = await axios.post(
               `http://localhost:3001/upload?pathForUploading=${pathForUploading}&fileName=${fileName}`,
               fd,
