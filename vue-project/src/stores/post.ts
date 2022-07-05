@@ -105,7 +105,7 @@ export const usePostStore = defineStore({
     },
     async fileUploader(targets, pathForUploading) {
       log('fileUploader', targets, pathForUploading);
-      targets.forEach((target, index, array) => {
+      const promises = targets.map((target, index, array) => {
         log('target', target, target.name);
         const isMyTarget = !!target.fileName;
         log(isMyTarget);
@@ -120,7 +120,18 @@ export const usePostStore = defineStore({
           log(fd, target.name);
 
         }
+        return new Promise((resolve, reject) => {
+          log('start');
+          setTimeout(() => {
+            resolve({ ok: true });
+          }, 1000);
+        })
       })
+      log('promises', promises);
+      const result = await Promise
+        .all(promises)
+        .catch(log);
+      log('result', result);
     },
 
     async fileUpload(post) {
