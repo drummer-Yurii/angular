@@ -93,7 +93,7 @@ export const usePostStore = defineStore({
         target: null,
         fileName: 'post-img',
       };
-      await this.fileUploader([...blockUploads, myTarget]);
+      await this.fileUploader([...blockUploads, myTarget], `/posts/${this.post._id}/`);
       return;
       // 1
       const isImgChoise: any = document.getElementById("fileToUpload");
@@ -105,27 +105,28 @@ export const usePostStore = defineStore({
     },
     async fileUploader(targets, pathForUploading) {
       log('fileUploader', targets, pathForUploading);
-      const promises = targets.map((target, index, array) => {
-        log('target', target, target.name);
+      const promises = targets.map((target) => {
         const isMyTarget = !!target.fileName;
-        log(isMyTarget);
-        let fileName;
-        if (isMyTarget) {
-          log('uploadStrategy1');
-          fileName = target.fileName;
+        const fileName = isMyTarget ? target.fileName : target.name;
+        if (target.files?.length > 0) {
+          log('ok');
+          const fd = new FormData();
+          fd.append("sampleFile", target.files[0]);
+          fd.append("directory", "/testpost");
+          fd.append("basename", "wobble-004.txt");
+          return new Promise(async(resolve, reject) => {
+            log('start');
+            const answer = await axios.post(
+              `http://localhost:3001/upload?pathForUploading=${pathForUploading}&fileName=${fileName}`,
+              fd,
+              httpOptions(),
+              {}
+            );
+            console.log(answer);
+          })
         } else {
-          log('uploadStrategy2');
-          fileName = target.name;
-          let fd = new FormData();
-          log(fd, target.name);
-
+          log('!ok');
         }
-        return new Promise((resolve, reject) => {
-          log('start');
-          setTimeout(() => {
-            resolve({ ok: true });
-          }, 1000);
-        })
       })
       log('promises', promises);
       const result = await Promise
