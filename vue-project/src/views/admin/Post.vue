@@ -15,9 +15,11 @@
           </textarea>
           </div>
           <div v-if="block.type == 'video'" class="block-video">
+            fileId {{ block.fileId }}
             <input type="file" class="block-file-to-upload" :name="block.fileId" />
           </div>
           <div v-if="block.type == 'audio'" class="block-audio">
+            fileId {{ block.fileId }}
             <input type="file" class="block-file-to-upload" :name="block.fileId" />
           </div>
           <div v-if="!block.type" class="block-text">block</div>

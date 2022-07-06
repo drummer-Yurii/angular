@@ -106,29 +106,25 @@ export const usePostStore = defineStore({
     async fileUploader(targets, pathForUploading) {
       log('fileUploader', targets, pathForUploading);
       const promises = targets.map((target) => {
+        if (!target.files) return log('skip1');
+        if (target.files.length == 0) return log('skip2');
         const isMyTarget = !!target.fileName;
-        const fileName = isMyTarget ? target.fileName : target.name;
-        log('fileName', fileName);
-        if (target.files?.length > 0) {
-          log('ok');
-          const fd = new FormData();
-          fd.append("sampleFile", target.files[0]);
-          fd.append("directory", "/testpost");
-          fd.append("basename", "wobble-004.txt");
-          return new Promise(async(resolve, reject) => {
-            log('start');
-            // глянути чого пустий fileName
-            const answer = await axios.post(
-              `http://localhost:3001/upload?pathForUploading=${pathForUploading}&fileName=${fileName}`,
-              fd,
-              httpOptions(),
-              {}
-            );
-            console.log(answer);
-          })
-        } else {
-          log('!ok');
-        }
+        log(isMyTarget);
+        var fileName = isMyTarget ? target.fileName : target.name;
+        log('fileName1', fileName, target.name);
+        const fd = new FormData();
+        fd.append("sampleFile", target.files[0]);
+        fd.append("directory", "/testpost");
+        fd.append("basename", "wobble-004.txt");
+        return new Promise(async (resolve, reject) => {
+          const answer = await axios.post(
+            `http://localhost:3001/upload?pathForUploading=${pathForUploading}&fileName=${fileName}`,
+            fd,
+            httpOptions(),
+            {}
+          );
+          log(answer);
+        })
       })
       log('promises', promises);
       const result = await Promise
