@@ -12,15 +12,18 @@
         <div v-for="(block, index) in storePost.post.blocks" :key="'post' + index">
           <div v-if="block.type == 'text'" class="block-text">
             <textarea v-model="block.text" class="form-control" aria-label="With textarea">
-          </textarea>
+            </textarea>
+            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
           </div>
           <div v-if="block.type == 'video'" class="block-video">
             fileId {{ block.fileId }}
             <input type="file" class="block-file-to-upload" :name="block.fileId" />
+            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
           </div>
           <div v-if="block.type == 'audio'" class="block-audio">
             fileId {{ block.fileId }}
             <input type="file" class="block-file-to-upload" :name="block.fileId" />
+            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
           </div>
           <div v-if="!block.type" class="block-text">block</div>
         </div>
@@ -103,6 +106,9 @@ export default {
       };
       this.storePost.post.blocks.push(newBlock)
     },
+    deleteBlock(i) {
+      log(i);
+    }
   },
 };
 </script>
