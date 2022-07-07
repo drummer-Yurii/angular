@@ -73,8 +73,10 @@ export default {
       route,
     };
   },
-  created() {
-    this.storePost.getPost(this.getId());
+  async created() {
+    await this.storePost.getPost(this.getId());
+    await this.getFileNames();
+
   },
   methods: {
     getId() {
@@ -110,10 +112,26 @@ export default {
       log(i);
       this.storePost.post.blocks.splice(i, 1);
       this.storePost.submit(this.getId());
-      // видалити з середини блок по індексу
-      // і автовизов сейва
-      // реалізуєм чистку файлів після едіт
-    }
+    },
+    async getFileNames() {
+      log(this.storePost.post);
+      const answer = await axios.get(
+        "http://localhost:3001/api/post-file-names/" + this.storePost.post._id,
+        httpOptions()
+      );
+      log('post-file-names', answer);
+      const files = answer.data.result.files;
+      // try {
+      //   post.value.img =
+      //     "http://localhost:3001/posts/" +
+      //     post.value._id +
+      //     "/" +
+      //     answer.data.result.img + '?random=' + Math.random();
+      // } catch (error) {
+      //   console.log(answer);
+      //   post.value.img = "src/assets/logo.svg";
+      // }
+    },
   },
 };
 </script>

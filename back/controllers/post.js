@@ -67,4 +67,14 @@ const postControllerGetImg = async (req, res) => {
   };
 };
 
-export { postControllerPost, postControllerGet, postControllerGetImg, postControllerDelete, postControllerPut }
+const postControllerFileNames = async (req, res) => {
+  try {
+    log('Con: postControllerFileNames').place();
+    const result = await postService.getFileNames(req.params.id);
+    return (result.ok) ? good(result, req, res, 'The post file names') : bad(null, req, res, 409, result.msg);
+  } catch (e) {
+    log('Error:', e,);
+    error(e, req, res, 500, 'Cannot get post file names');
+  };
+};
+export { postControllerPost, postControllerGet, postControllerGetImg, postControllerDelete, postControllerPut, postControllerFileNames }
