@@ -108,6 +108,11 @@ export default {
     },
     deleteBlock(i) {
       log(i);
+      this.storePost.post.blocks.splice(i, 1);
+      this.storePost.submit(this.getId());
+      // видалити з середини блок по індексу
+      // і автовизов сейва
+      // реалізуєм чистку файлів після едіт
     }
   },
 };

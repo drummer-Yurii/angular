@@ -132,6 +132,10 @@ export const usePostStore = defineStore({
         .catch(log);
       log('result', result);
     },
+    // deleteBlock(i) {
+    //   log(i);
+    //   // написати axios.delete
+    // },
 
     async fileUpload(post) {
       const target = document.getElementById("fileToUpload");
