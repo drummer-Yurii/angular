@@ -17,6 +17,8 @@
           </div>
           <div v-if="block.type == 'video'" class="block-video">
             fileId {{ block.fileId }}
+            <video controls :src="block.filePath" type="video/mp4">
+            </video>
             <input type="file" class="block-file-to-upload" :name="block.fileId" />
             <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
           </div>
@@ -121,6 +123,20 @@ export default {
       );
       log('post-file-names', answer);
       const files = answer.data.result.files;
+      this.storePost.post.blocks.forEach((block, i) => {
+        if (block.fileId) {
+          const fName = files.find((f) => {
+            return f.split('.')[0] == block.fileId;
+          });
+          log('fName', fName);
+          this.storePost.post.blocks[i].file = fName;
+          this.storePost.post.blocks[i].filePath =
+            "http://localhost:3001/posts/" +
+            this.storePost.post._id +
+            "/" +
+            fName + '?random=' + Math.random();
+        }
+      });
       // try {
       //   post.value.img =
       //     "http://localhost:3001/posts/" +
@@ -156,6 +172,9 @@ export default {
 
   .block-text {
     background: black;
+  }
+  .block-video video {
+    width: 100%;
   }
 }
 </style>
