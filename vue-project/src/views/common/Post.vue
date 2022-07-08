@@ -15,6 +15,7 @@
           <div v-if="block.type == 'text'" class="block-text">{{ block.text }}</div>
           <div v-if="block.type == 'video'" class="block-video"></div>
           <div v-if="block.type == 'audio'" class="block-audio"></div>
+          <div v-if="block.type == 'img'" class="block-img"></div>
           <div v-if="!block.type" class="block-text">block</div>
         </div>
       </div>

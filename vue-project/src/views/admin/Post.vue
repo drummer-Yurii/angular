@@ -24,6 +24,13 @@
           </div>
           <div v-if="block.type == 'audio'" class="block-audio">
             fileId {{ block.fileId }}
+            <audio controls :src="block.filePath" type="audio" ></audio>
+            <input type="file" class="block-file-to-upload" :name="block.fileId" />
+            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+          </div>
+          <div v-if="block.type == 'img'" class="block-img">
+            fileId {{ block.fileId }}
+            <img :src="block.filePath" type="img">
             <input type="file" class="block-file-to-upload" :name="block.fileId" />
             <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
           </div>
@@ -38,6 +45,7 @@
         <button @click="addTextBlock" type="button" class="btn btn-info">Text</button>
         <button @click="addVideoBlock" type="button" class="btn btn-info">Video</button>
         <button @click="addAudioBlock" type="button" class="btn btn-info">Audio</button>
+        <button @click="addImgBlock" type="button" class="btn btn-info">Img</button>
       </div>
       <hr />
       <div class="panel">
@@ -77,7 +85,7 @@ export default {
   },
   async created() {
     await this.storePost.getPost(this.getId());
-    await this.getFileNames();
+    await this.storePost.getFileNames();
 
   },
   methods: {
@@ -110,44 +118,19 @@ export default {
       };
       this.storePost.post.blocks.push(newBlock)
     },
+    addImgBlock() {
+      const newBlock = {
+        type: 'img',
+        fileId: randomString(1),
+      };
+      this.storePost.post.blocks.push(newBlock)
+    },
     deleteBlock(i) {
       log(i);
       this.storePost.post.blocks.splice(i, 1);
       this.storePost.submit(this.getId());
     },
-    async getFileNames() {
-      log(this.storePost.post);
-      const answer = await axios.get(
-        "http://localhost:3001/api/post-file-names/" + this.storePost.post._id,
-        httpOptions()
-      );
-      log('post-file-names', answer);
-      const files = answer.data.result.files;
-      this.storePost.post.blocks.forEach((block, i) => {
-        if (block.fileId) {
-          const fName = files.find((f) => {
-            return f.split('.')[0] == block.fileId;
-          });
-          log('fName', fName);
-          this.storePost.post.blocks[i].file = fName;
-          this.storePost.post.blocks[i].filePath =
-            "http://localhost:3001/posts/" +
-            this.storePost.post._id +
-            "/" +
-            fName + '?random=' + Math.random();
-        }
-      });
-      // try {
-      //   post.value.img =
-      //     "http://localhost:3001/posts/" +
-      //     post.value._id +
-      //     "/" +
-      //     answer.data.result.img + '?random=' + Math.random();
-      // } catch (error) {
-      //   console.log(answer);
-      //   post.value.img = "src/assets/logo.svg";
-      // }
-    },
+  
   },
 };
 </script>
@@ -174,6 +157,9 @@ export default {
     background: black;
   }
   .block-video video {
+    width: 100%;
+  }
+  .block-img img {
     width: 100%;
   }
 }

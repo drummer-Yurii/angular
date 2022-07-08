@@ -93,7 +93,10 @@ export const usePostStore = defineStore({
         target: null,
         fileName: 'post-img',
       };
+      log('??????????????????????????????????');
       await this.fileUploader([...blockUploads, myTarget], `/posts/${this.post._id}/`);
+      log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+      await this.getFileNames();
       return;
       // 1
       const isImgChoise: any = document.getElementById("fileToUpload");
@@ -105,9 +108,12 @@ export const usePostStore = defineStore({
     },
     async fileUploader(targets, pathForUploading) {
       log('fileUploader', targets, pathForUploading);
-      const promises = targets.map((target) => {
-        if (!target.files) return log('skip1');
-        if (target.files.length == 0) return log('skip2');
+
+      const targetsForUploading = targets.filter((target)=> target.files?.length > 0)
+
+      const promises = targetsForUploading.map((target) => {
+        // if (!target.files) return log('skip1');
+        // if (target.files.length == 0) return log('skip2');
         const isMyTarget = !!target.fileName;
         log(isMyTarget);
         var fileName = isMyTarget ? target.fileName : target.name;
@@ -124,6 +130,7 @@ export const usePostStore = defineStore({
             {}
           );
           log(answer);
+          resolve(answer);
         })
       })
       log('promises', promises);
@@ -136,6 +143,29 @@ export const usePostStore = defineStore({
     //   log(i);
     //   // написати axios.delete
     // },
+    async getFileNames() {
+      log(this.post);
+      const answer = await axios.get(
+        "http://localhost:3001/api/post-file-names/" + this.post._id,
+        httpOptions()
+      );
+      log('post-file-names', answer);
+      const files = answer.data.result.files;
+      this.post.blocks.forEach((block, i) => {
+        if (block.fileId) {
+          const fName = files.find((f) => {
+            return f.split('.')[0] == block.fileId;
+          });
+          log('fName', fName);
+          this.post.blocks[i].file = fName;
+          this.post.blocks[i].filePath =
+            "http://localhost:3001/posts/" +
+            this.post._id +
+            "/" +
+            fName + '?random=' + Math.random();
+        }
+      });
+    },
 
     async fileUpload(post) {
       const target = document.getElementById("fileToUpload");
