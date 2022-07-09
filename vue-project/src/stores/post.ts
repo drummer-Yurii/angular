@@ -150,6 +150,7 @@ export const usePostStore = defineStore({
         httpOptions()
       );
       log('post-file-names', answer);
+      if (!answer.data.ok) return alert('something wrong 777');
       const files = answer.data.result.files;
       this.post.blocks.forEach((block, i) => {
         if (block.fileId) {

@@ -32,6 +32,33 @@ class PostService {
         await Post.findOneAndUpdate({ _id }, post);
         return { ok: true };
     };
+    async editProcedure(_id, post) {
+        // log(post).plase()
+        await this.edit(_id, post);
+        await this.cleanUpOldFiles(_id, post);
+        return { ok: true };
+    };
+    async cleanUpOldFiles(_id, post) {
+        const path = 'uploads/posts/' + _id;
+        const files = await fsp.readdir(path);
+        const oldFiles = files.filter((f) => {
+            const isActual = post.blocks.some((b) => b.file == f);
+            return !isActual;
+        });
+        log('oldFiles', oldFiles);
+        oldFiles.forEach((f)=>{
+            const pathToFile = path + '/' + f  
+            try {
+                fs.unlink(pathToFile, () => {
+                    console.log('deleted', pathToFile);
+                });
+            } catch (error) {
+                console.log('can not deleted', pathToFile);
+            }
+        });
+       
+        return { ok: true };
+    };
     async delete(_id) {
         await Post.findOneAndRemove({ _id });
         // remove old post folder
@@ -48,8 +75,12 @@ class PostService {
     };
     async getFileNames(id) {
         const path = 'uploads/posts/' + id;
-        const files = await fsp.readdir(path);
-        return { ok: true, files };
+        try {
+            const files = await fsp.readdir(path);
+            return { ok: true, files };
+        } catch (error) {
+            return { ok: false, files: [] };
+        }
     }
 }
 
