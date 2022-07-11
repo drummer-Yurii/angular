@@ -50,6 +50,7 @@ export const usePostStore = defineStore({
       setTimeout(() => { this.posts = posts; }, 50)
     },
     async delete(post: Post) {
+      console.log('delete');
       const storeApp = useAppStore();
       console.log(post);
       storeApp.preloading = true;
@@ -68,7 +69,7 @@ export const usePostStore = defineStore({
       console.log("submit", this.post);
       // const id = route.params.id;
       let answer;
-      let fileToUpload;
+      let postForUpdate;
       if (id == "new") {
         delete this.post._id
         answer = await axios.post(
@@ -76,32 +77,36 @@ export const usePostStore = defineStore({
           this.post,
           httpOptions()
         );
-        fileToUpload = answer.data.result.post
+        postForUpdate = answer.data.result.post
       } else {
         answer = await axios.put(
           "http://localhost:3001/api/post/" + this.post._id,
           this.post,
           httpOptions()
         );
-        fileToUpload = this.post
+        postForUpdate = this.post
       }
       console.log(answer);
       // 3
-      const blockUploads = document.querySelectorAll('.block-file-to-upload')
-      log('blockUploads', blockUploads);
+      let blocksUpload = []
+      blocksUpload = [...document.querySelectorAll('.block-file-to-upload')]
+      log('blockUploads', blocksUpload);
+      const isImgChoise: any = document.getElementById("fileToUpload");
       const myTarget = {
-        target: null,
+        type: 'custom',
+        files: [isImgChoise.files[0]],
         fileName: 'post-img',
       };
+      if (isImgChoise.files.length !== 0) blocksUpload.push(myTarget);
       log('??????????????????????????????????');
-      await this.fileUploader([...blockUploads, myTarget], `/posts/${this.post._id}/`);
+      await this.fileUploader(blocksUpload, `/posts/${postForUpdate._id}/`);
       log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
       await this.getFileNames();
       return;
       // 1
-      const isImgChoise: any = document.getElementById("fileToUpload");
-      if (isImgChoise.files.length !== 0)
-        await this.fileUpload(fileToUpload);
+      // const isImgChoise: any = document.getElementById("fileToUpload");
+      // if (isImgChoise.files.length !== 0)
+      //   await this.fileUpload(fileToUpload);
       // 2
       if (answer.data.ok) this.$router.push("/")
       else alert(answer.data.msg2);
@@ -109,8 +114,7 @@ export const usePostStore = defineStore({
     async fileUploader(targets, pathForUploading) {
       log('fileUploader', targets, pathForUploading);
 
-      const targetsForUploading = targets.filter((target)=> target.files?.length > 0)
-
+      const targetsForUploading = targets.filter((target)=> (target.files?.length > 0) || (target.type == 'custom'))
       const promises = targetsForUploading.map((target) => {
         // if (!target.files) return log('skip1');
         // if (target.files.length == 0) return log('skip2');
@@ -119,6 +123,7 @@ export const usePostStore = defineStore({
         var fileName = isMyTarget ? target.fileName : target.name;
         log('fileName1', fileName, target.name);
         const fd = new FormData();
+        console.log(target.files[0]);
         fd.append("sampleFile", target.files[0]);
         fd.append("directory", "/testpost");
         fd.append("basename", "wobble-004.txt");
@@ -168,22 +173,22 @@ export const usePostStore = defineStore({
       });
     },
 
-    async fileUpload(post) {
-      const target = document.getElementById("fileToUpload");
-      const file = target.files[0];
-      var fd = new FormData();
-      fd.append("sampleFile", document.getElementById("fileToUpload").files[0]);
-      fd.append("directory", "/testpost");
-      fd.append("basename", "wobble-004.txt");
-      console.log(post)
-      const answer = await axios.post(
-        `http://localhost:3001/upload?pathForUploading=/posts/${post._id}/&fileName=post-img`,
-        fd,
-        httpOptions(),
-        {}
-      );
-      console.log(answer);
-      // location.reload()
-    },
+    // async fileUpload(post) {
+    //   const target = document.getElementById("fileToUpload");
+    //   const file = target.files[0];
+    //   var fd = new FormData();
+    //   fd.append("sampleFile", document.getElementById("fileToUpload").files[0]);
+    //   fd.append("directory", "/testpost");
+    //   fd.append("basename", "wobble-004.txt");
+    //   console.log(post)
+    //   const answer = await axios.post(
+    //     `http://localhost:3001/upload?pathForUploading=/posts/${post._id}/&fileName=post-img`,
+    //     fd,
+    //     httpOptions(),
+    //     {}
+    //   );
+    //   console.log(answer);
+    //   // location.reload()
+    // },
   },
 });

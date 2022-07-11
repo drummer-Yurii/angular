@@ -2,11 +2,11 @@
 <template>
   <div class="post" @click="goToPost">
     <div class="img-container">
+      <div class="substrate"></div>
       <div class="admin-tools" v-if="storeUser.isAdmin">
-        <button @click.stop="storePost.delete(post)" type="button" class="btn btn-dark">Delete</button>
+        <button v-on:click.stop="storePost.delete(post)" type="button" class="btn btn-dark">Delete</button>
       </div>
       <img :src="post.img" />
-      <div class="substrate"></div>
       <h1>{{ post.title }}</h1>
     </div>
     <div class="post-text">{{ post.description }}</div>
