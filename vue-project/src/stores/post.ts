@@ -171,6 +171,14 @@ export const usePostStore = defineStore({
             fName + '?random=' + Math.random();
         }
       });
+      this.post.img = "/src/assets/logo.svg";
+      files.forEach((f)=>{
+        const onlyName = f.split('.')[0];
+        log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%', f, onlyName, onlyName == 'post-img');
+          if (onlyName == 'post-img') {
+           this.post.img = "http://localhost:3001/posts/" + this.post._id + "/" + f +'?random=' + Math.random();
+          } 
+      })
     },
 
     // async fileUpload(post) {

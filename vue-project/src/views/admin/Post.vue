@@ -1,6 +1,7 @@
 <template>
   <div class="my-layout post-page">
     <div class="my-form post-form">
+            <img :src="storePost.post.img" type="img">
       <div class="input-group mb-3">
         <input v-model="storePost.post.title" class="form-control" type="text" aria-label="title" placeholder="title" />
       </div>
