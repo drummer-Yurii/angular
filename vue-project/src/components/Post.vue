@@ -1,6 +1,7 @@
 @ -1,92 +0,0 @@
 <template>
   <div class="post" @click="goToPost">
+  <div v-if="post">
     <div class="img-container">
       <div class="substrate"></div>
       <div class="admin-tools" v-if="storeUser.isAdmin">
@@ -10,6 +11,7 @@
       <h1>{{ post.title }}</h1>
     </div>
     <div class="post-text">{{ post.description }}</div>
+    </div>
   </div>
 </template>
 
@@ -31,25 +33,26 @@ const router = useRouter();
 const route = useRoute();
 
 onMounted(async () => {
-  await getImg();
+  // await getImg();
+  post.value = await storePost.getFileNames(post.value)
 });
 
-async function getImg() {
-  const answer = await axios.get(
-    "http://localhost:3001/api/post-img/" + post.value._id,
-    httpOptions()
-  );
-  try {
-    post.value.img =
-      "http://localhost:3001/posts/" +
-      post.value._id +
-      "/" +
-      answer.data.result.img + '?random=' + Math.random();
-  } catch (error) {
-    console.log(answer);
-    post.value.img = "src/assets/logo.svg";
-  }
-}
+// async function getImg() {
+//   const answer = await axios.get(
+//     "http://localhost:3001/api/post-img/" + post.value._id,
+//     httpOptions()
+//   );
+//   try {
+//     post.value.img =
+//       "http://localhost:3001/posts/" +
+//       post.value._id +
+//       "/" +
+//       answer.data.result.img + '?random=' + Math.random();
+//   } catch (error) {
+//     console.log(answer);
+//     post.value.img = "src/assets/logo.svg";
+//   }
+// }
 
 function goToPost() {
   if (storeUser.user.username == 'admin')

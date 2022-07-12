@@ -64,26 +64,27 @@ export default {
   },
   async created() {
     this.storePost.getPost(this.getId());
-    await this.getImg();
+ this.post = await this.storePost.getFileNames(this.post)
+    // await this.getImg();
     // await this.getVideo();
   },
   methods: {
-    async getImg() {
-      const answer = await axios.get(
-        "http://localhost:3001/api/post-img/" + this.storePost.post._id,
-        httpOptions()
-      );
-      try {
-        this.storePost.post.img =
-          "http://localhost:3001/posts/" +
-          this.storePost.post._id +
-          "/" +
-          answer.data.result.img + '?random=' + Math.random();
-      } catch (error) {
-        console.log(answer);
-        this.storePost.post.img = "src/assets/logo.svg";
-      }
-    },
+    // async getImg() {
+    //   const answer = await axios.get(
+    //     "http://localhost:3001/api/post-img/" + this.storePost.post._id,
+    //     httpOptions()
+    //   );
+    //   try {
+    //     this.storePost.post.img =
+    //       "http://localhost:3001/posts/" +
+    //       this.storePost.post._id +
+    //       "/" +
+    //       answer.data.result.img + '?random=' + Math.random();
+    //   } catch (error) {
+    //     console.log(answer);
+    //     this.storePost.post.img = "src/assets/logo.svg";
+    //   }
+    // },
     // async getVideo() {
     //   const answer = await axios.get(
     //     "http://localhost:3001/api/post-video/" + this.storePost.post._id,

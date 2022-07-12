@@ -86,7 +86,7 @@ export default {
   },
   async created() {
     await this.storePost.getPost(this.getId());
-    await this.storePost.getFileNames();
+    await this.storePost.setFileNamesToStorePost();
 
   },
   methods: {

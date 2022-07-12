@@ -148,37 +148,42 @@ export const usePostStore = defineStore({
     //   log(i);
     //   // написати axios.delete
     // },
-    async getFileNames() {
-      log(this.post);
+    async setFileNamesToStorePost() {
+      this.post =await this.getFileNames(this.post)
+    },
+    async getFileNames(post) {
+      log('1) run getFileNames method!!!')
+      log('2) post=', post)
       const answer = await axios.get(
-        "http://localhost:3001/api/post-file-names/" + this.post._id,
+        "http://localhost:3001/api/post-file-names/" + post._id,
         httpOptions()
       );
-      log('post-file-names', answer);
-      if (!answer.data.ok) return alert('something wrong 777');
+      log('3) post-file-names', answer);
+      if (!answer.data.ok) return log('SKIP!!! something wrong 777');
       const files = answer.data.result.files;
-      this.post.blocks.forEach((block, i) => {
+      post.blocks.forEach((block, i) => {
         if (block.fileId) {
           const fName = files.find((f) => {
             return f.split('.')[0] == block.fileId;
           });
-          log('fName', fName);
-          this.post.blocks[i].file = fName;
-          this.post.blocks[i].filePath =
+          log('4) fName', fName);
+          post.blocks[i].file = fName;
+          post.blocks[i].filePath =
             "http://localhost:3001/posts/" +
-            this.post._id +
+            post._id +
             "/" +
             fName + '?random=' + Math.random();
         }
       });
-      this.post.img = "/src/assets/logo.svg";
+      post.img = "/src/assets/logo.svg";
       files.forEach((f)=>{
         const onlyName = f.split('.')[0];
-        log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%', f, onlyName, onlyName == 'post-img');
+        log('5) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%', f, onlyName, onlyName == 'post-img');
           if (onlyName == 'post-img') {
-           this.post.img = "http://localhost:3001/posts/" + this.post._id + "/" + f +'?random=' + Math.random();
+           post.img = "http://localhost:3001/posts/" + post._id + "/" + f +'?random=' + Math.random();
           } 
       })
+      return post;
     },
 
     // async fileUpload(post) {
