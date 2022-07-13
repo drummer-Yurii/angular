@@ -12,10 +12,30 @@
       <div class="post-text">{{ storePost.post.description }}</div>
       <div class="blocks">
         <div v-for="(block, index) in storePost.post.blocks" :key="'post' + index">
-          <div v-if="block.type == 'text'" class="block-text">{{ block.text }}</div>
-          <div v-if="block.type == 'video'" class="block-video"></div>
-          <div v-if="block.type == 'audio'" class="block-audio"></div>
-          <div v-if="block.type == 'img'" class="block-img"></div>
+          <div v-if="block.type == 'text'" class="block-text">
+            <textarea v-model="block.text" class="form-control" aria-label="With textarea">
+            </textarea>
+            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+          </div>
+          <div v-if="block.type == 'video'" class="block-video">
+            fileId {{ block.fileId }}
+            <video controls :src="block.filePath" type="video/mp4">
+            </video>
+            <input type="file" class="block-file-to-upload" :name="block.fileId" />
+            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+          </div>
+          <div v-if="block.type == 'audio'" class="block-audio">
+            fileId {{ block.fileId }}
+            <audio controls :src="block.filePath" type="audio" ></audio>
+            <input type="file" class="block-file-to-upload" :name="block.fileId" />
+            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+          </div>
+          <div v-if="block.type == 'img'" class="block-img">
+            fileId {{ block.fileId }}
+            <img :src="block.filePath" type="img">
+            <input type="file" class="block-file-to-upload" :name="block.fileId" />
+            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+          </div>
           <div v-if="!block.type" class="block-text">block</div>
         </div>
       </div>
@@ -63,8 +83,9 @@ export default {
     };
   },
   async created() {
-    this.storePost.getPost(this.getId());
- this.post = await this.storePost.getFileNames(this.post)
+   await this.storePost.getPost(this.getId());
+    console.log(123456789, this.storePost.post);
+ this.storePost.post = await this.storePost.getFileNames(this.storePost.post)
     // await this.getImg();
     // await this.getVideo();
   },
