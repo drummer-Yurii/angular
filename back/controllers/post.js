@@ -56,16 +56,16 @@ const postControllerDelete = async (req, res) => {
   };
 };
 
-const postControllerGetImg = async (req, res) => {
-  try {
-    log('Con: postControllerGetImgExtention').place();
-    const result = await postService.getImg(req.params.id);
-    return (result.ok) ? good(result, req, res, 'The post img extention') : bad(null, req, res, 409, result.msg);
-  } catch (e) {
-    log('Error:', e,);
-    error(e, req, res, 500, 'Cannot get post img extention ');
-  };
-};
+// const postControllerGetImg = async (req, res) => {
+//   try {
+//     log('Con: postControllerGetImgExtention').place();
+//     const result = await postService.getImg(req.params.id);
+//     return (result.ok) ? good(result, req, res, 'The post img extention') : bad(null, req, res, 409, result.msg);
+//   } catch (e) {
+//     log('Error:', e,);
+//     error(e, req, res, 500, 'Cannot get post img extention ');
+//   };
+// };
 
 const postControllerFileNames = async (req, res) => {
   try {
@@ -77,4 +77,4 @@ const postControllerFileNames = async (req, res) => {
     error(e, req, res, 500, 'Cannot get post file names');
   };
 };
-export { postControllerPost, postControllerGet, postControllerGetImg, postControllerDelete, postControllerPut, postControllerFileNames }
+export { postControllerPost, postControllerGet, postControllerDelete, postControllerPut, postControllerFileNames }

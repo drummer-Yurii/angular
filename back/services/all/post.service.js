@@ -66,13 +66,13 @@ class PostService {
         await fsp.rm(path, { recursive: true, force: true });
         return { ok: true };
     };
-    async getImg(id) {
-        const path = 'uploads/posts/' + id;
-        const files = await fsp.readdir(path);
-        const img = files.find((f) => f.split('.')[0] == 'post-img');
-        console.log('IMG', img)
-        return { ok: true, img };
-    };
+    // async getImg(id) {
+    //     const path = 'uploads/posts/' + id;
+    //     const files = await fsp.readdir(path);
+    //     const img = files.find((f) => f.split('.')[0] == 'post-img');
+    //     console.log('IMG', img)
+    //     return { ok: true, img };
+    // };
     async getFileNames(id) {
         const path = 'uploads/posts/' + id;
         try {
