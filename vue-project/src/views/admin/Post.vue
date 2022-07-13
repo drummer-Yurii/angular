@@ -1,7 +1,10 @@
 <template>
   <div class="my-layout post-page">
     <div class="my-form post-form">
-            <img :src="storePost.post.img" type="img">
+      <div v-if="!storePost">No Post</div>
+      <div v-if="storePost.post">
+        <img :src="storePost.post.img" type="img">
+      </div>
       <div class="input-group mb-3">
         <input v-model="storePost.post.title" class="form-control" type="text" aria-label="title" placeholder="title" />
       </div>
@@ -85,8 +88,10 @@ export default {
     };
   },
   async created() {
-    await this.storePost.getPost(this.getId());
-    await this.storePost.setFileNamesToStorePost();
+    if(this.getId() !== 'new') {
+      await this.storePost.getPost(this.getId());
+      await this.storePost.setFileNamesToStorePost();
+    }
 
   },
   methods: {

@@ -1,6 +1,7 @@
 @ -1,92 +0,0 @@
 <template>
   <div class="post" @click="goToPost">
+  {{ post }}
   <div v-if="post">
     <div class="img-container">
       <div class="substrate"></div>
