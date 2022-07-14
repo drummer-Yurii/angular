@@ -1,7 +1,6 @@
 @ -1,92 +0,0 @@
 <template>
   <div class="post" @click="goToPost">
-  {{ post }}
       <div class="admin-tools" v-if="storeUser.isAdmin">
         <button v-on:click.stop="storePost.delete(post)" type="button" class="btn btn-dark">Delete</button>
       </div>
@@ -108,5 +107,6 @@ function goToPost() {
   top: 0.5rem;
   right: 1.5rem;
   width: 4rem;
+  z-index: 999;
 }
 </style>

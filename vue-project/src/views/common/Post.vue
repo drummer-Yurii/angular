@@ -185,6 +185,9 @@ export default {
  .block-text {
     background: black;
   }
+  img {
+    width: 100%;
+  }
 
 @media (min-width: 1024px) {
   .post-page {}

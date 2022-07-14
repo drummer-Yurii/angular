@@ -5,40 +5,51 @@
       <div v-if="storePost.post">
         <img :src="storePost.post.img" type="img">
       </div>
-      <div class="input-group mb-3">
+      <div class="input-group mb-1">
         <input v-model="storePost.post.title" class="form-control" type="text" aria-label="title" placeholder="title" />
       </div>
       <div class="input-group">
-        <span class="input-group-text">With textarea</span>
         <textarea v-model="storePost.post.description" class="form-control" aria-label="With textarea"></textarea>
       </div>
       <div class="blocks">
         <div v-for="(block, index) in storePost.post.blocks" :key="'post' + index">
-          <div v-if="block.type == 'text'" class="block-text">
+          <hr>
+          <div v-if="block.type == 'text'" class="block block-text">
             <textarea v-model="block.text" class="form-control" aria-label="With textarea">
             </textarea>
-            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+            <div class="block-panel">
+              <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+            </div>
           </div>
-          <div v-if="block.type == 'video'" class="block-video">
-            fileId {{ block.fileId }}
+          <div v-if="block.type == 'video'" class="block block-video">
+            <div class="block-panel">
+              <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+            </div>
             <video controls :src="block.filePath" type="video/mp4">
             </video>
-            <input type="file" class="block-file-to-upload" :name="block.fileId" />
-            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+            <div class="block-panel-bottom">
+              <input type="file" class="block-file-to-upload" :name="block.fileId" />
+            </div>
           </div>
-          <div v-if="block.type == 'audio'" class="block-audio">
-            fileId {{ block.fileId }}
-            <audio controls :src="block.filePath" type="audio" ></audio>
+          <div v-if="block.type == 'audio'" class="block block-audio">
+            <div class="block-panel">
+              <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+            </div>
+            <audio controls :src="block.filePath" type="audio"></audio>
+            <div class="block-panel-bottom">
             <input type="file" class="block-file-to-upload" :name="block.fileId" />
-            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+            </div>
           </div>
-          <div v-if="block.type == 'img'" class="block-img">
-            fileId {{ block.fileId }}
+          <div v-if="block.type == 'img'" class="block block-img">
+            <div class="block-panel">
+              <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+            </div>
             <img :src="block.filePath" type="img">
+            <div class="block-panel-bottom">
             <input type="file" class="block-file-to-upload" :name="block.fileId" />
-            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+            </div>
           </div>
-          <div v-if="!block.type" class="block-text">block</div>
+          <div v-if="!block.type" class="block block-text">block without type!!!</div>
         </div>
       </div>
       <hr />
@@ -88,7 +99,7 @@ export default {
     };
   },
   async created() {
-    if(this.getId() !== 'new') {
+    if (this.getId() !== 'new') {
       await this.storePost.getPost(this.getId());
       await this.storePost.setFileNamesToStorePost();
     }
@@ -136,13 +147,36 @@ export default {
       this.storePost.post.blocks.splice(i, 1);
       this.storePost.submit(this.getId());
     },
-  
+
   },
 };
 </script>
 
 <style>
 @import '@/assets/base.css';
+
+img {
+  width: 100%;
+}
+
+video {
+  width: 100%;
+}
+
+.block {
+  position: relative;
+}
+
+.block-panel {
+  position: absolute;
+  top: -.5rem;
+  right: -1rem;
+  opacity: .5;
+  z-index: 999;
+}
+.block-panel-bottom {
+  padding: .5rem;
+}
 
 @media (min-width: 1024px) {
   .post-page {}
@@ -162,9 +196,11 @@ export default {
   .block-text {
     background: black;
   }
+
   .block-video video {
     width: 100%;
   }
+
   .block-img img {
     width: 100%;
   }
