@@ -43,20 +43,22 @@
     </div>
     <hr />
     <div class="my-form post-form">
-      <div class="input-group mb-3">
-        <input v-model="storePost.post.title" class="form-control" type="text" aria-label="title" placeholder="title" />
+      <div class="">
+        {{storePost.post.title}}
+        <!-- <input v-model="storePost.post.title" class="form-control" type="text" aria-label="title" placeholder="title" /> -->
       </div>
-      <div class="input-group">
-        <span class="input-group-text">With textarea</span>
-        <textarea v-model="storePost.post.description" class="form-control" aria-label="With textarea"></textarea>
+      <div class="">
+        {{storePost.post.textarea}}
+        <!-- <span class="input-group-text">With textarea</span>
+        <textarea v-model="storePost.post.description" class="form-control" aria-label="With textarea"></textarea> -->
       </div>
       <div class="panel">
-        <button @click="storePost.submit(getId())" type="button" class="btn btn-primary">
+        <!-- <button @click="storePost.submit(getId())" type="button" class="btn btn-primary">
           save
-        </button>
+        </button> -->
       </div>
     </div>
-    <input type="file" id="fileToUpload" name="sampleFile" />
+    <!-- <input type="file" id="fileToUpload" name="sampleFile" /> -->
   </div>
 </template>
 

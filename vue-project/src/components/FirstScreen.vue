@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  companyName: string
+  companyName: String
 }>()
 </script>
 

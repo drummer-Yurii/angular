@@ -114,7 +114,7 @@ export const usePostStore = defineStore({
     async fileUploader(targets, pathForUploading) {
       log('fileUploader', targets, pathForUploading);
 
-      const targetsForUploading = targets.filter((target)=> (target.files?.length > 0) || (target.type == 'custom'))
+      const targetsForUploading = targets.filter((target) => (target.files?.length > 0) || (target.type == 'custom'))
       const promises = targetsForUploading.map((target) => {
         // if (!target.files) return log('skip1');
         // if (target.files.length == 0) return log('skip2');
@@ -149,7 +149,7 @@ export const usePostStore = defineStore({
     //   // написати axios.delete
     // },
     async setFileNamesToStorePost() {
-      this.post =await this.getFileNames(this.post)
+      this.post = await this.getFileNames(this.post)
     },
     async getFileNames(post) {
       log('1) run getFileNames method!!!')
@@ -159,7 +159,10 @@ export const usePostStore = defineStore({
         httpOptions()
       );
       log('3) post-file-names', answer);
-      if (!answer.data.ok) return log('SKIP!!! something wrong 777');
+      if (!answer.data.ok) {
+        log('SKIP!!! something wrong 777')
+        return post
+      };
       const files = answer.data.result.files;
       post.blocks.forEach((block, i) => {
         if (block.fileId) {
@@ -176,12 +179,12 @@ export const usePostStore = defineStore({
         }
       });
       post.img = "/src/assets/logo.svg";
-      files.forEach((f)=>{
+      files.forEach((f) => {
         const onlyName = f.split('.')[0];
         log('5) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%', f, onlyName, onlyName == 'post-img');
-          if (onlyName == 'post-img') {
-           post.img = "http://localhost:3001/posts/" + post._id + "/" + f +'?random=' + Math.random();
-          } 
+        if (onlyName == 'post-img') {
+          post.img = "http://localhost:3001/posts/" + post._id + "/" + f + '?random=' + Math.random();
+        }
       })
       return post;
     },
