@@ -37,7 +37,7 @@
             </div>
             <audio controls :src="block.filePath" type="audio"></audio>
             <div class="block-panel-bottom">
-            <input type="file" class="block-file-to-upload" :name="block.fileId" />
+              <input type="file" class="block-file-to-upload" :name="block.fileId" />
             </div>
           </div>
           <div v-if="block.type == 'img'" class="block block-img">
@@ -46,7 +46,7 @@
             </div>
             <img :src="block.filePath" type="img">
             <div class="block-panel-bottom">
-            <input type="file" class="block-file-to-upload" :name="block.fileId" />
+              <input type="file" class="block-file-to-upload" :name="block.fileId" />
             </div>
           </div>
           <div v-if="!block.type" class="block block-text">block without type!!!</div>
@@ -152,7 +152,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import '@/assets/base.css';
 
 img {
@@ -174,6 +174,7 @@ video {
   opacity: .5;
   z-index: 999;
 }
+
 .block-panel-bottom {
   padding: .5rem;
 }
