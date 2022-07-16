@@ -30,10 +30,10 @@ c-22.4,3-38.4,9.2-47.8,18.3c-11.2,10.9-13.6,26.7-16.3,45c-3.1,20.8-6.6,44.4-25.3
           <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
         </defs>
         <g class="parallax">
-          <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(47,79,79,0.7" />
-          <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(47,79,79,0.5)" />
-          <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(47,79,79,0.3)" />
-          <use xlink:href="#gentle-wave" x="48" y="7" fill="#2f4f4f" />
+          <use xlink:href="#gentle-wave" x="48" y="0" fill="orange" />
+          <use xlink:href="#gentle-wave" x="48" y="3" fill="#3e140a" />
+          <use xlink:href="#gentle-wave" x="48" y="5" fill="#4e2319" />
+          <use xlink:href="#gentle-wave" x="48" y="7" fill="#241b19" />
         </g>
       </svg>
     </div>
@@ -75,7 +75,7 @@ p {
 .header {
   position: relative;
   text-align: center;
-  background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%, rgba(0, 172, 193, 1) 100%);
+  background: linear-gradient(60deg, rgb(183 98 58) 0%, rgb(22 0 0) 100%);
   color: white;
 }
 

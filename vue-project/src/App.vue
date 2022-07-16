@@ -34,7 +34,7 @@ export default {
 
 <style>
 #app {
-  background: darkslategrey !important;
+  background: #100f0e !important;
 }
 .preloader {
   background: black;
