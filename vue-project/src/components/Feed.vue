@@ -46,7 +46,6 @@ section {
   max-width: 50rem;
   display: flex;
   flex-direction: column;
-  /* background: orange; */
-  margin: -5rem auto 3rem auto;
+  margin: -2rem auto 3rem auto;
 }
 </style>
