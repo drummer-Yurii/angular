@@ -35,6 +35,15 @@
         </button>
       </div>
     </section>
+    <hr>
+    <section>
+      <div class="my-form img-form">
+        <input type="file" id="fileToUploadMainImg" name="sampleFile" />
+        <button @click="uploadMainImg" type="button" class="btn btn-primary">
+          Upload
+        </button>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -43,6 +52,7 @@ import { ref } from "vue";
 import axios from "axios";
 import { useUserStore } from "@/stores/user";
 import { useAppStore } from "@/stores/app";
+import { httpOptions, log, uploadFile} from "@/utils";
 
 export default {
   setup() {
@@ -63,6 +73,9 @@ export default {
     this.getAppData();
   },
   methods: {
+    uploadMainImg() {
+     uploadFile('fileToUploadMainImg', `/app/`, 'app-img')
+    },
     getAppData() {
       axios
         .get("http://localhost:3001/api/app-info", {
