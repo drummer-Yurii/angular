@@ -51,8 +51,8 @@
       </div>
       <div class="my-form img-form">
         <input type="file" id="fileToUpload" name="sampleFile" />
-        <button @click="uploadFile" type="button" class="btn btn-primary">
-          Send
+        <button @click="upload" type="button" class="btn btn-primary">
+          Upload
         </button>
       </div>
     </section>
@@ -63,7 +63,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useUserStore } from "@/stores/user";
-import { httpOptions, log } from "@/utils";
+import { httpOptions, log, uploadFile} from "@/utils";
 
 export default {
   setup() {
@@ -76,30 +76,10 @@ export default {
     this.storeUser.getUserData();
   },
   methods: {
-    async uploadFile() {
-      const target = document.getElementById("fileToUpload");
-      if (target.files.length == 0)
-        return alert("file not selected! please chois avatar");
-      const file = target.files[0];
-      var fd = new FormData();
-      fd.append("sampleFile", document.getElementById("fileToUpload").files[0]);
-
-      var oReq = new XMLHttpRequest();
-      oReq.open(
-        "POST",
-        `http://localhost:3001/upload?pathForUploading=/users/${this.storeUser.user.username}/&fileName=avatar`,
-        true
-      );
-      const answer = await axios.post(
-        `http://localhost:3001/upload?pathForUploading=/users/${this.storeUser.user.username}/&fileName=avatar`,
-        fd,
-        httpOptions(),
-        {}
-      );
-      console.log(answer);
-      location.reload();
-    },
-  },
+    upload() {
+     uploadFile('fileToUpload', `/users/${this.storeUser.user.username}/`, 'avatar')
+    }
+  },  
 };
 </script>
 
