@@ -43,7 +43,7 @@ app.post('/upload', async function (req, res) {
     sampleFile = req.files.sampleFile;
     pathForUploading = req.query.pathForUploading;
     fileName = req.query.fileName;
-    await cleanUp(pathForUploading, fileName)
+    await cleanUp(pathForUploading, fileName, __dirname)
     console.log('rest')
     if (req.query.fileName) {
         console.log(sampleFile.name.split('.'))

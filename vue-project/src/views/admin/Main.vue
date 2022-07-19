@@ -77,16 +77,17 @@ export default {
      uploadFile('fileToUploadMainImg', `/app/`, 'app-img')
     },
     getAppData() {
-      axios
-        .get("http://localhost:3001/api/app-info", {
-          headers: {
-            "auth-token": localStorage.getItem("authToken"),
-          },
-        })
-        .then((answer) => {
-          console.log(answer);
-          this.storeApp.update(answer.data.result.info[0]);
-        });
+      // axios
+      //   .get("http://localhost:3001/api/app-info", {
+      //     headers: {
+      //       "auth-token": localStorage.getItem("authToken"),
+      //     },
+      //   })
+      //   .then((answer) => {
+      //     console.log(answer);
+      //     this.storeApp.update(answer.data.result.info[0]);
+      //   });
+      this.storeApp.init()
     },
 
     editApp() {

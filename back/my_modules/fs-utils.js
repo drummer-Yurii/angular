@@ -8,11 +8,12 @@ import fs from 'fs';
 delete fails in folder
 cleanUp(`/posts/62ba931031583299577448d1/`,'post-img') // example 
 */
- function cleanUp(pathForUploading, fileName) {
+ function cleanUp(pathForUploading, fileName, dirname) {
     return new Promise((resolve, reject)=>{
     let counter = 0;
         ['jpg', 'jpeg', 'png','jpg', 'jpeg', 'png','jpg', 'jpeg', 'PNG'].forEach((extention, i, arr) => {
-            const path = __dirname + '/uploads' + pathForUploading + fileName + '.' + extention;
+            const path = dirname + '/uploads' + pathForUploading + fileName + '.' + extention;
+            log('shoud delete', path)
             try {
                 fs.unlink(path, () => {
                     console.log('deleted', path);
