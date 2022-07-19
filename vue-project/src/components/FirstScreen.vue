@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { useAppStore } from "@/stores/app";
+const storeApp = useAppStore();
 defineProps<{
   companyName: String
 }>()
+
 </script>
 
 <template>
@@ -12,7 +15,7 @@ defineProps<{
       <!-- <img
         src="https://www.billboard.com/wp-content/uploads/media/tomorrowland-2019-atmosphere-julien-duval-billboard-1548.jpg"
         alt=""> -->
-        <img src="http://localhost:3001/app/app-img.jpg">   
+        <img :src="storeApp.appImg()">   
       <!--Just the logo.. Don't mind this-->
       <div class="header-content">
         <svg version="1.1" class="logo" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg"

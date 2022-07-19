@@ -34,6 +34,9 @@ export const useAppStore = defineStore({
       // log(answer)
       const { ok, files, msg } = answer.data.result
       ok ? this.files = files : alert(msg)
+    },
+    appImg() {
+      return 'http://localhost:3001/app/app-img.png'
     }
     // update(app: App) {
     //   this.app = app;
