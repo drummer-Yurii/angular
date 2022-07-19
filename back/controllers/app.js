@@ -25,5 +25,18 @@ const appControllerPut = async ( req, res) => {
     error(e, req, res, 500, 'Cannot edit app info ');
   };
 };
+const appControllerGetFiles = async (req, res) => {
+  try {
+    log('Con: appConrollerGetFiles').place();
+    // do
+    const result = await appService.getFiles();
+    // send msg
+    return (result.ok) ? good(result, req, res, 'App files') : bad(null, req, res, 409, result.msg);
+  } catch (e) {
+    log('Error:', e,);
+    error(e, req, res, 500, 'Cannot get app files ');
+  };
+};
 
-export {appControllerGet, appControllerPut}
+
+export {appControllerGet, appControllerPut, appControllerGetFiles}

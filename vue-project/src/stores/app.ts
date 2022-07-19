@@ -1,30 +1,43 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import { httpOptions, log } from '@/utils'
-import type {App} from '@/interfaces'
+import type { App } from '@/interfaces'
 
 // add interface
-interface appState{
-    app:App | {},
-    preloading: boolean
+interface appState {
+  app: App | {},
+  preloading: boolean,
+  files: string[]
 }
 export const useAppStore = defineStore({
   id: 'app',
   state: (): appState => ({
-      app: {},
-      preloading: false
+    app: {},
+    preloading: false,
+    files: []
   }),
   getters: {
   },
   actions: {
     async init() {
+      await this.getAppInfo()
+      await this.getAppFiles()
+    },
+   async getAppInfo() {
       const answer = await axios.get('http://localhost:3001/api/app-info', httpOptions())
-      log(answer)
-      this.update(answer.data.result.info[0])
+      // log(answer)
+      const { ok, info, msg } = answer.data.result
+      ok ? this.app = info : alert(msg)
     },
-    update(app: App) {
-      this.app = app;
-    },
+   async getAppFiles() {
+      const answer = await axios.get('http://localhost:3001/api/app-files', httpOptions())
+      // log(answer)
+      const { ok, files, msg } = answer.data.result
+      ok ? this.files = files : alert(msg)
+    }
+    // update(app: App) {
+    //   this.app = app;
+    // },
   },
 
 })

@@ -14,7 +14,7 @@ init()
 class AppService {
     constructor() { }
     async getInfo() {
-        const info = await App.find();// отримати обєкт з бази данних
+        const info = await App.findOne();// отримати обєкт з бази данних
         return {
             ok: true,
             info
@@ -25,6 +25,16 @@ class AppService {
         await App.findOneAndUpdate({}, msg);
         return { ok: true };
     };
+    async getFiles() {
+        const path = 'uploads/app/';
+        try {
+            const files = await fsp.readdir(path);
+            return { ok: true, files };
+        } catch (error) {
+            return { ok: false, files: [] };
+        }
+    };
 }
+
 
 export default new AppService();
