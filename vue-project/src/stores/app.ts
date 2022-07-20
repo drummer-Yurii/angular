@@ -7,14 +7,25 @@ import type { App } from '@/interfaces'
 interface appState {
   app: App | {},
   preloading: boolean,
-  files: string[]
+  files: string[],
+  ui: any
 }
 export const useAppStore = defineStore({
   id: 'app',
   state: (): appState => ({
     app: {},
     preloading: false,
-    files: []
+    files: [],
+    ui: {
+      firstScreen: {
+        waves: {
+          w1: 'orange',
+          w2: 'yellow',
+          w3: 'gray',
+          w4: 'blue'
+        }
+      }
+    }
   }),
   getters: {
   },

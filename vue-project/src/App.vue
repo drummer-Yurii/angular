@@ -2,6 +2,12 @@
   <div class="preloader" v-if="storeApp.preloading">Pending</div>
   <Nav :companyName="storeApp.app.companyName" />
   <RouterView />
+  <div class="admin-panel">
+    <input type="color" opacity v-model="storeApp.ui.firstScreen.waves.w1"/>
+    <input type="color" opacity v-model="storeApp.ui.firstScreen.waves.w2"/>
+    <input type="color" opacity v-model="storeApp.ui.firstScreen.waves.w3"/>
+    <input type="color" opacity v-model="storeApp.ui.firstScreen.waves.w4"/>
+  </div>
 </template>
 
 <script>
@@ -44,5 +50,14 @@ export default {
   left: 0;
   top: 0;
   position: fixed;
+}
+.admin-panel {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.384);
+  padding: 1rem;
+  z-index: 999;
 }
 </style>
