@@ -36,7 +36,9 @@ export const useAppStore = defineStore({
       ok ? this.files = files : alert(msg)
     },
     appImg() {
-      return 'http://localhost:3001/app/app-img.png'
+     const fileName = this.files.find((f) => f.split(".")[0] == "app-img")
+     const url = 'http://localhost:3001/app/' + fileName
+      return url
     }
     // update(app: App) {
     //   this.app = app;
