@@ -2,11 +2,11 @@
   <div class="preloader" v-if="storeApp.preloading">Pending</div>
   <Nav :companyName="storeApp.app.companyName" />
   <RouterView />
-  <div class="admin-panel">
-    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w1"/>
-    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w2"/>
-    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w3"/>
-    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w4"/>
+  <div class="admin-panel" v-if="storeUser.isAdmin">
+    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w1" />
+    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w2" />
+    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w3" />
+    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w4" />
     <button @click="storeApp.editApp()">Save</button>
   </div>
 </template>
@@ -15,6 +15,7 @@
 import { RouterLink, RouterView } from 'vue-router'
 import Nav from '@/components/Nav.vue'
 import { useAppStore } from '@/stores/app'
+import { useUserStore } from '@/stores/user'
 
 export default {
   components: {
@@ -22,17 +23,21 @@ export default {
   },
   setup() {
     const storeApp = useAppStore()
-    storeApp.init()
+    const storeUser = useUserStore()
+    // storeApp.init()
     return {
-      storeApp
+      storeApp,
+      storeUser
     }
   },
   data() {
     return {
     }
   },
-  created() {
-    this.storeApp.init()
+  async created() {
+    await this.storeApp.init()
+    await this.storeUser.getUserData()
+    await this.storeUser.getAvatar()
   },
   methods: {
   }
@@ -43,6 +48,7 @@ export default {
 #app {
   background: #100f0e !important;
 }
+
 .preloader {
   background: black;
   opacity: .5;
@@ -52,6 +58,7 @@ export default {
   top: 0;
   position: fixed;
 }
+
 .admin-panel {
   position: fixed;
   left: 0;

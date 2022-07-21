@@ -49,7 +49,7 @@
           <div class="avatar" v-if="canUploadAvatar"
             :style="`background-image: url(\'http://localhost:3001/users/${storeUser.user.username}/${storeUser.avatar}\');`">
           </div>
-           <div class="avatar" v-if="!canUploadAvatar"
+          <div class="avatar" v-if="!canUploadAvatar"
             :style="`background-image: url('/src/assets/empty-avatar.webp');`">
           </div>
         </div>
@@ -83,16 +83,11 @@ export default {
       return this.storeUser.user.username && this.storeUser.avatar.length > 0
     }
   },
-  created() {
-    this.storeUser.getUserData()
-    this.getAvatar()
+  async created() {
+    // await this.storeUser.getUserData()
+    // await this.getAvatar()
   },
   methods: {
-    async getAvatar() {
-      const answer = await axios.get('http://localhost:3001/api/avatar', httpOptions())
-      this.storeUser.updateAvatar(answer.data.result.avatar)
-      log(answer)
-    },
     unlogin() {
       localStorage.removeItem('authToken')
       location.reload()

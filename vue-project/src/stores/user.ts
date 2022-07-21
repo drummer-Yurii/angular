@@ -25,6 +25,11 @@ export const useUserStore = defineStore({
     update(user: User) {
       this.user = user;
     },
+    async getAvatar() {
+      const answer = await axios.get('http://localhost:3001/api/avatar', httpOptions())
+      this.updateAvatar(answer.data.result.avatar)
+      log(answer)
+    },
     updateAvatar(fileName: string) {
       this.avatar = fileName;
     },
