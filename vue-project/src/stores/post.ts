@@ -128,12 +128,12 @@ export const usePostStore = defineStore({
         fd.append("directory", "/testpost");
         fd.append("basename", "wobble-004.txt");
         return new Promise(async (resolve, reject) => {
-          const answer = await axios.post(
-            `http://localhost:3001/upload?pathForUploading=${pathForUploading}&fileName=${fileName}`,
-            fd,
-            httpOptions(),
-            {}
-          );
+          const answer = await axios
+            .post(`http://localhost:3001/upload?pathForUploading=${pathForUploading}&fileName=${fileName}`,
+              fd,
+              httpOptions(),
+              {}
+            );
           log(answer);
           resolve(answer);
         })

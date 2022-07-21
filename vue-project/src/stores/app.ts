@@ -8,24 +8,25 @@ interface appState {
   app: App | {},
   preloading: boolean,
   files: string[],
-  ui: any
+}
+const defaultUi = {
+  firstScreen: {
+    waves: {
+      w1: 'orange',
+      w2: 'yellow',
+      w3: 'gray',
+      w4: 'blue'
+    }
+  }
 }
 export const useAppStore = defineStore({
   id: 'app',
   state: (): appState => ({
-    app: {},
+    app: {
+      ui: defaultUi
+    },
     preloading: false,
     files: [],
-    ui: {
-      firstScreen: {
-        waves: {
-          w1: 'orange',
-          w2: 'yellow',
-          w3: 'gray',
-          w4: 'blue'
-        }
-      }
-    }
   }),
   getters: {
   },
@@ -34,23 +35,39 @@ export const useAppStore = defineStore({
       await this.getAppInfo()
       await this.getAppFiles()
     },
-   async getAppInfo() {
-      const answer = await axios.get('http://localhost:3001/api/app-info', httpOptions())
+    async getAppInfo() {
+      const answer = await axios
+        .get('http://localhost:3001/api/app-info',
+          httpOptions())
       // log(answer)
       const { ok, info, msg } = answer.data.result
+      if (!info.ui) info.ui = defaultUi
       ok ? this.app = info : alert(msg)
     },
-   async getAppFiles() {
-      const answer = await axios.get('http://localhost:3001/api/app-files', httpOptions())
+    editApp() {
+      axios
+        .put("http://localhost:3001/api/app-info",
+          this.app,
+          httpOptions(),
+        )
+        .then((answer) => {
+          console.log(answer);
+          this.init()
+        });
+    },
+    async getAppFiles() {
+      const answer = await axios
+        .get('http://localhost:3001/api/app-files',
+          httpOptions())
       // log(answer)
       const { ok, files, msg } = answer.data.result
       ok ? this.files = files : alert(msg)
     },
     appImg() {
-     const fileName = this.files.find((f) => f.split(".")[0] == "app-img")
-     const url = 'http://localhost:3001/app/' + fileName
+      const fileName = this.files.find((f) => f.split(".")[0] == "app-img")
+      const url = 'http://localhost:3001/app/' + fileName
       return url
-    }
+    },
     // update(app: App) {
     //   this.app = app;
     // },

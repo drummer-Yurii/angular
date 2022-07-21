@@ -19,7 +19,7 @@
             placeholder="facebookPage" />
         </div>
         <div class="panel">
-          <button @click="editApp" type="button" class="btn btn-primary">
+          <button @click="storeApp.editApp" type="button" class="btn btn-primary">
             Save
           </button>
         </div>
@@ -77,31 +77,7 @@ export default {
      uploadFile('fileToUploadMainImg', `/app/`, 'app-img')
     },
     getAppData() {
-      // axios
-      //   .get("http://localhost:3001/api/app-info", {
-      //     headers: {
-      //       "auth-token": localStorage.getItem("authToken"),
-      //     },
-      //   })
-      //   .then((answer) => {
-      //     console.log(answer);
-      //     this.storeApp.update(answer.data.result.info[0]);
-      //   });
       this.storeApp.init()
-    },
-
-    editApp() {
-      axios
-        .put("http://localhost:3001/api/app-info", this.storeApp.app, {
-          headers: {
-            "auth-token": localStorage.getItem("authToken"),
-          },
-        })
-        .then((answer) => {
-          console.log(answer);
-          this.getAppData();
-          // this.userData=answer.data.user
-        });
     },
     uploadFile() {
       const target = document.getElementById("fileToUpload");

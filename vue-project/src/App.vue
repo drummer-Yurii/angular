@@ -3,10 +3,11 @@
   <Nav :companyName="storeApp.app.companyName" />
   <RouterView />
   <div class="admin-panel">
-    <input type="color" opacity v-model="storeApp.ui.firstScreen.waves.w1"/>
-    <input type="color" opacity v-model="storeApp.ui.firstScreen.waves.w2"/>
-    <input type="color" opacity v-model="storeApp.ui.firstScreen.waves.w3"/>
-    <input type="color" opacity v-model="storeApp.ui.firstScreen.waves.w4"/>
+    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w1"/>
+    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w2"/>
+    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w3"/>
+    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w4"/>
+    <button @click="storeApp.editApp()">Save</button>
   </div>
 </template>
 

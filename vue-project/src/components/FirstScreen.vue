@@ -40,10 +40,10 @@ c-22.4,3-38.4,9.2-47.8,18.3c-11.2,10.9-13.6,26.7-16.3,45c-3.1,20.8-6.6,44.4-25.3
           <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
         </defs>
         <g class="parallax">
-          <use xlink:href="#gentle-wave" x="48" y="0" :fill="storeApp.ui.firstScreen.waves.w1" />
-          <use xlink:href="#gentle-wave" x="48" y="3" :fill="storeApp.ui.firstScreen.waves.w2" />
-          <use xlink:href="#gentle-wave" x="48" y="5" :fill="storeApp.ui.firstScreen.waves.w3" />
-          <use xlink:href="#gentle-wave" x="48" y="7" :fill="storeApp.ui.firstScreen.waves.w4" />
+          <use xlink:href="#gentle-wave" x="48" y="0" :fill="storeApp.app.ui.firstScreen.waves.w1" />
+          <use xlink:href="#gentle-wave" x="48" y="3" :fill="storeApp.app.ui.firstScreen.waves.w2" />
+          <use xlink:href="#gentle-wave" x="48" y="5" :fill="storeApp.app.ui.firstScreen.waves.w3" />
+          <use xlink:href="#gentle-wave" x="48" y="7" :fill="storeApp.app.ui.firstScreen.waves.w4" />
         </g>
       </svg>
     </div>
