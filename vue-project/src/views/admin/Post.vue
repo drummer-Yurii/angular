@@ -14,8 +14,15 @@
       <div class="blocks">
         <div v-for="(block, index) in storePost.post.blocks" :key="'post' + index">
           <hr>
-          <div class="block block-galery">
-              <Galery />
+          <div v-if="block.type == 'galery'" class="block block-galery">
+            <div class="block-panel">
+              <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+            </div>
+            <!-- <img :src="block.filePath" type="img"> -->
+            <div class="block-panel-bottom">
+              <input type="file" class="block-file-to-upload" :name="block.fileId" />
+            </div>
+            <Galery :filePath="block.filePath" />
           </div>
           <div v-if="block.type == 'text'" class="block block-text">
             <textarea v-model="block.text" class="form-control" aria-label="With textarea">
@@ -64,6 +71,7 @@
         <button @click="addVideoBlock" type="button" class="btn btn-info">Video</button>
         <button @click="addAudioBlock" type="button" class="btn btn-info">Audio</button>
         <button @click="addImgBlock" type="button" class="btn btn-info">Img</button>
+        <button @click="addGaleryBlock" type="button" class="btn btn-info">Galery</button>
       </div>
       <hr />
       <div class="panel">
@@ -87,9 +95,9 @@ import { randomString } from "high-level";
 import Galery from "@/components/Galery.vue";
 
 export default {
-   components: {
-       Galery,
-    },
+  components: {
+    Galery,
+  },
   data() {
     return {
       addButtonsPanel: false,
@@ -146,6 +154,13 @@ export default {
       const newBlock = {
         type: 'img',
         fileId: randomString(1),
+      };
+      this.storePost.post.blocks.push(newBlock)
+    },
+    addGaleryBlock() {
+      const newBlock = {
+        type: 'galery',
+        fileId: randomString(1)
       };
       this.storePost.post.blocks.push(newBlock)
     },

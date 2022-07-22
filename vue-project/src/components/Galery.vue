@@ -1,8 +1,9 @@
 <template>
     <ul>
         <li>
-            <img src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05466_kwlv0n.jpg"
-                alt="A Toyota Previa covered in graffiti" loading="lazy">
+            !!!{{filePath}}
+            <img :src="filePath"
+                alt="!!!!" loading="lazy">
         </li>
         <li>
             <img src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05621_zgtcco.jpg"
@@ -163,7 +164,9 @@
 <script>
 
 export default {
-
+     props: {
+    filePath: String,
+  },
 }
 </script >
 <style scoped>
