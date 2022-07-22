@@ -75,7 +75,7 @@ function goToPost() {
 .post {
   min-height: 20rem;
   background: gray;
-  margin-top: 2rem;
+  margin: 1rem;
   border-radius: 3rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   overflow: hidden;

@@ -14,6 +14,9 @@
       <div class="blocks">
         <div v-for="(block, index) in storePost.post.blocks" :key="'post' + index">
           <hr>
+          <div class="block block-galery">
+              <Galery />
+          </div>
           <div v-if="block.type == 'text'" class="block block-text">
             <textarea v-model="block.text" class="form-control" aria-label="With textarea">
             </textarea>
@@ -81,8 +84,12 @@ import { usePostStore } from "@/stores/post";
 import { useRoute } from "vue-router";
 import { httpOptions, log } from "@/utils";
 import { randomString } from "high-level";
+import Galery from "@/components/Galery.vue";
 
 export default {
+   components: {
+       Galery,
+    },
   data() {
     return {
       addButtonsPanel: false,

@@ -16,7 +16,7 @@ html{
 .my-form {
     background: #213232;
     margin-top: 3rem;
-    max-width: 20rem;
+    max-width: 40rem;
     display: flex;
     flex-direction: column;
     color: wheat;
