@@ -158,9 +158,11 @@ export default {
       this.storePost.post.blocks.push(newBlock)
     },
     addGaleryBlock() {
+      const fileId = randomString(1)
       const newBlock = {
         type: 'galery',
-        fileId: randomString(1)
+        fileId,
+        fileIdList: [fileId]
       };
       this.storePost.post.blocks.push(newBlock)
     },
