@@ -152,6 +152,7 @@ export const usePostStore = defineStore({
       this.post = await this.getFileNames(this.post)
     },
     async getFileNames(post) {
+      if(!post) return console.warn('NOT VALID INPUT DATA !!!: stores/post: getFileNames(post)')
       log('1) run getFileNames method!!!')
       log('2) post=', post)
       const answer = await axios.get(

@@ -38,7 +38,7 @@
             <video controls :src="block.filePath" type="video/mp4">
             </video>
             <div class="block-panel-bottom">
-              <input type="file" class="block-file-to-upload" :name="block.fileId" />
+              <input @change="changeFile" type="file" class="block-file-to-upload" :name="block.fileId" />
             </div>
           </div>
           <div v-if="block.type == 'audio'" class="block block-audio">
@@ -47,7 +47,7 @@
             </div>
             <audio controls :src="block.filePath" type="audio"></audio>
             <div class="block-panel-bottom">
-              <input type="file" class="block-file-to-upload" :name="block.fileId" />
+              <input @change="changeFile" type="file" class="block-file-to-upload" :name="block.fileId" />
             </div>
           </div>
           <div v-if="block.type == 'img'" class="block block-img">
@@ -56,11 +56,18 @@
             </div>
             <img :src="block.filePath" type="img">
             <div class="block-panel-bottom">
-              <input type="file" class="block-file-to-upload" :name="block.fileId" />
+              <input @change="changeFile" type="file" class="block-file-to-upload" :name="block.fileId" />
             </div>
           </div>
           <div v-if="!block.type" class="block block-text">block without type!!!</div>
         </div>
+      </div>
+      <div class="preview">
+        *** {{carentChooseFile}}
+        <img v-if="carentChooseFileType == 'img'" :src="carentChooseFile" type="img">
+        <video v-if="carentChooseFileType == 'video'" controls :src="carentChooseFile" type="video/mp4">
+        </video>
+        <audio controls v-if="carentChooseFileType == 'audio'" :src="carentChooseFile" type="audio"></audio>
       </div>
       <hr />
       <div v-if="!addButtonsPanel" class="panel">
@@ -101,6 +108,8 @@ export default {
   data() {
     return {
       addButtonsPanel: false,
+      carentChooseFile: null,
+      carentChooseFileType: null,
     };
   },
   setup() {
@@ -137,6 +146,7 @@ export default {
       console.log(this.storePost.post)
     },
     addVideoBlock() {
+      this.carentChooseFileType = 'video'
       const newBlock = {
         type: 'video',
         fileId: randomString(1),
@@ -144,6 +154,7 @@ export default {
       this.storePost.post.blocks.push(newBlock)
     },
     addAudioBlock() {
+      this.carentChooseFileType = 'audio'
       const newBlock = {
         type: 'audio',
         fileId: randomString(1),
@@ -151,6 +162,7 @@ export default {
       this.storePost.post.blocks.push(newBlock)
     },
     addImgBlock() {
+      this.carentChooseFileType = 'img'
       const newBlock = {
         type: 'img',
         fileId: randomString(1),
@@ -165,6 +177,11 @@ export default {
         fileIdList: [fileId]
       };
       this.storePost.post.blocks.push(newBlock)
+    },
+    changeFile(e) {
+      console.log(e, '!!!!!!!!')
+      const file = e.target.files[0];
+      this.carentChooseFile = URL.createObjectURL(file);
     },
     deleteBlock(i) {
       log(i);
