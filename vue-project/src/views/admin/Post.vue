@@ -54,7 +54,7 @@
             <div class="block-panel">
               <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
             </div>
-            <img :src="block.filePath" type="img">
+            <img v-if="!storePost.loadingBlocks.some(blockIndex => blockIndex == index)" :src="block.filePath" type="img">
             <div class="block-panel-bottom">
               <input @change="changeFile" type="file" class="block-file-to-upload" :name="block.fileId" />
             </div>
@@ -62,7 +62,7 @@
           <div v-if="!block.type" class="block block-text">block without type!!!</div>
         </div>
       </div>
-      <div class="preview">
+      <div class="preview" v-if="storePost.loadingBlocks.length > 0">
         *** {{carentChooseFile}}
         <img v-if="carentChooseFileType == 'img'" :src="carentChooseFile" type="img">
         <video v-if="carentChooseFileType == 'video'" controls :src="carentChooseFile" type="video/mp4">
@@ -168,6 +168,8 @@ export default {
         fileId: randomString(1),
       };
       this.storePost.post.blocks.push(newBlock)
+      this.storePost.loadingBlocks.push(this.storePost.post.blocks.length-1)
+      log('loadingBlocks', this.loadingBlocks)
     },
     addGaleryBlock() {
       const fileId = randomString(1)
@@ -218,6 +220,9 @@ video {
 
 .block-panel-bottom {
   padding: .5rem;
+}
+.preview {
+  border: solid 2px red;
 }
 
 @media (min-width: 1024px) {

@@ -8,6 +8,7 @@ import { useAppStore } from "@/stores/app";
 interface postState {
   posts: [Post] | [];
   post: Post | {};
+  loadingBlocks: [];
 }
 export const usePostStore = defineStore({
   id: "post",
@@ -15,7 +16,8 @@ export const usePostStore = defineStore({
     posts: [],
     post: {
       blocks: []
-    }
+    },
+    loadingBlocks: [],
   }),
   getters: {
     getPosts(state: any): any {
@@ -66,7 +68,7 @@ export const usePostStore = defineStore({
     },
     async submit(id) {
       // const route = useRoute();
-      console.log("submit", this.post);
+      console.log("submit", this.post, id);
       // const id = route.params.id;
       let answer;
       let postForUpdate;
@@ -101,7 +103,10 @@ export const usePostStore = defineStore({
       log('??????????????????????????????????');
       await this.fileUploader(blocksUpload, `/posts/${postForUpdate._id}/`);
       log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-      await this.getFileNames();
+      await this.getPost(this.post._id);
+      await this.getFileNames(this.post);
+      this.loadingBlocks = [];
+      log('DONE!!!!!!!!')
       return;
       // 1
       // const isImgChoise: any = document.getElementById("fileToUpload");
@@ -143,6 +148,10 @@ export const usePostStore = defineStore({
         .all(promises)
         .catch(log);
       log('result', result);
+      var inputs = document.querySelectorAll('input[type=file]');
+      inputs.forEach(input => {
+        input.value = '';
+      });
     },
     // deleteBlock(i) {
     //   log(i);
@@ -152,7 +161,8 @@ export const usePostStore = defineStore({
       this.post = await this.getFileNames(this.post)
     },
     async getFileNames(post) {
-      if(!post) return console.warn('NOT VALID INPUT DATA !!!: stores/post: getFileNames(post)')
+      log('stores/post: getFileNames(post)', post)
+      if (!post) return console.warn('NOT VALID INPUT DATA !!!: stores/post: getFileNames(post)')
       log('1) run getFileNames method!!!')
       log('2) post=', post)
       const answer = await axios.get(
