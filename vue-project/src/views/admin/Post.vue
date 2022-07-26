@@ -65,7 +65,7 @@
             <div class="block-panel">
               <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
             </div>
-            <audio controls :src="block.filePath" type="audio"></audio>
+            <audio v-if="!storePost.loadingBlocks.some(blockIndex => blockIndex == index)" controls :src="block.filePath" type="audio"></audio>
             <div class="block-panel-bottom">
               <input @change="changeFile" type="file" class="block-file-to-upload" :name="block.fileId" />
             </div>
