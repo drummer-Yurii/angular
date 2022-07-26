@@ -1,15 +1,18 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { httpOptions, log } from "@/utils";
+import { httpOptions, pause } from "@/utils";
 import type { Post } from "@/interfaces";
 import { useAppStore } from "@/stores/app";
 
+// switch
+const log = true ? console.log : () => null;
 
 interface postState {
   posts: [Post] | [];
   post: Post | {};
   loadingBlocks: [];
 }
+
 export const usePostStore = defineStore({
   id: "post",
   state: (): postState => ({
@@ -23,53 +26,49 @@ export const usePostStore = defineStore({
     getPosts(state: any): any {
       return state.posts
     },
-    // switchPreloading(state:any, to: boolean):any {
-    //   const storeApp = useAppStore();
-    //   storeApp.preloading = to
-    // },
   },
 
   actions: {
+
     async refresh() {
       const answer = await axios.get(
         "http://localhost:3001/api/post",
         httpOptions()
       );
-      log(answer);
+      log('stores/post: refresh()', answer);
       this.update(answer.data.result.posts);
     },
-    async getPost(id) {
+
+    async getPost(id: string) {
       if (id == "new") return;
       const answer = await axios.get(
         "http://localhost:3001/api/post?_id=" + id,
         httpOptions()
       );
-      console.log(answer);
+      log('stores/post: refresh()', answer);
       this.post = answer.data.result.post;
     },
-    update(posts: [Post]) {
+
+    async update(posts: [Post]) {
       this.posts = [];
-      setTimeout(() => { this.posts = posts; }, 50)
+      await pause(50)
+      this.posts = posts;
     },
+
     async delete(post: Post) {
-      console.log('delete');
       const storeApp = useAppStore();
-      console.log(post);
       storeApp.preloading = true;
       const answer = await axios.delete(
         "http://localhost:3001/api/post/" + post._id,
         httpOptions()
       );
-      log(answer);
-      setTimeout(async () => {
-        await this.refresh();
-        storeApp.preloading = false;
-      }, 1000)
+      log('stores/post: delete()', answer);
+      await pause(1000)
+      await this.refresh();
+      storeApp.preloading = false;
     },
-    async submit(id) {
-      // const route = useRoute();
-      console.log("submit", this.post, id);
-      // const id = route.params.id;
+
+    async submit(id: string) {
       let answer;
       let postForUpdate;
       if (id == "new") {

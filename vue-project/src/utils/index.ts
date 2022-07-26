@@ -18,7 +18,7 @@ const uploadFile = async (target, path, fileName) => {
     if (targetDom.files.length == 0)
         return alert("file not selected! please chois avatar");
     const file = targetDom.files[0];
-    const url =  `http://localhost:3001/upload?pathForUploading=${path}&fileName=${fileName}`
+    const url = `http://localhost:3001/upload?pathForUploading=${path}&fileName=${fileName}`
     var fd = new FormData();
     fd.append("sampleFile", file);
 
@@ -38,4 +38,7 @@ const uploadFile = async (target, path, fileName) => {
     location.reload();
 }
 
-export { httpOptions, log, uploadFile }
+const pause = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+
+export { httpOptions, log, uploadFile, pause }
