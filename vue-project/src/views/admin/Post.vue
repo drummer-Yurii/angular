@@ -1,19 +1,33 @@
 <template>
   <div class="my-layout post-page">
+
+    <!-- POST FORM -->
     <div class="my-form post-form">
+
+      <!-- if err -->
       <div v-if="!storePost">No Post</div>
+
+      <!-- if ok -->
       <div v-if="storePost.post">
         <img :src="storePost.post.img" type="img">
       </div>
+
+      <!-- title -->
       <div class="input-group mb-1">
         <input v-model="storePost.post.title" class="form-control" type="text" aria-label="title" placeholder="title" />
       </div>
+
+      <!-- description -->
       <div class="input-group">
         <textarea v-model="storePost.post.description" class="form-control" aria-label="With textarea"></textarea>
       </div>
+
+      <!-- BLOCKS -->
       <div class="blocks">
         <div v-for="(block, index) in storePost.post.blocks" :key="'post' + index">
           <hr>
+
+          <!-- BLOCK Galery -->
           <div v-if="block.type == 'galery'" class="block block-galery">
             <div class="block-panel">
               <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
@@ -24,6 +38,8 @@
             </div>
             <Galery :filePath="block.filePath" />
           </div>
+
+          <!-- BLOCK Text -->
           <div v-if="block.type == 'text'" class="block block-text">
             <textarea v-model="block.text" class="form-control" aria-label="With textarea">
             </textarea>
@@ -31,6 +47,8 @@
               <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
             </div>
           </div>
+
+          <!-- BLOCK Video -->
           <div v-if="block.type == 'video'" class="block block-video">
             <div class="block-panel">
               <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
@@ -41,6 +59,8 @@
               <input @change="changeFile" type="file" class="block-file-to-upload" :name="block.fileId" />
             </div>
           </div>
+
+          <!-- BLOCK Audio -->
           <div v-if="block.type == 'audio'" class="block block-audio">
             <div class="block-panel">
               <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
@@ -50,6 +70,8 @@
               <input @change="changeFile" type="file" class="block-file-to-upload" :name="block.fileId" />
             </div>
           </div>
+
+          <!-- BLOCK Img-->
           <div v-if="block.type == 'img'" class="block block-img">
             <div class="block-panel">
               <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
@@ -62,6 +84,8 @@
           <div v-if="!block.type" class="block block-text">block without type!!!</div>
         </div>
       </div>
+
+      <!-- PREWIEW -->
       <div class="preview" v-if="storePost.loadingBlocks.length > 0">
         *** {{carentChooseFile}}
         <img v-if="carentChooseFileType == 'img'" :src="carentChooseFile" type="img">
@@ -70,9 +94,13 @@
         <audio controls v-if="carentChooseFileType == 'audio'" :src="carentChooseFile" type="audio"></audio>
       </div>
       <hr />
+
+      <!-- PANEL -->
       <div v-if="!addButtonsPanel" class="panel">
         <button @click="toggleButtonsPanel" type="button" class="btn btn-info">Add block</button>
       </div>
+
+      <!-- PANEL -->
       <div v-if="addButtonsPanel" class="panel add-buttons">
         <button @click="addTextBlock" type="button" class="btn btn-info">Text</button>
         <button @click="addVideoBlock" type="button" class="btn btn-info">Video</button>
@@ -81,13 +109,19 @@
         <button @click="addGaleryBlock" type="button" class="btn btn-info">Galery</button>
       </div>
       <hr />
+
+      <!-- PANEL -->
       <div class="panel">
         <button @click="storePost.submit(getId())" type="button" class="btn btn-primary">
           save
         </button>
       </div>
+
     </div>
+
+    <!-- !!! need some wrapper  -->
     <input type="file" id="fileToUpload" name="sampleFile" />
+
   </div>
 </template>
 
