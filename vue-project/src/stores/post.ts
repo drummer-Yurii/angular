@@ -11,6 +11,7 @@ interface postState {
   posts: [Post] | [];
   post: Post | {};
   loadingBlocks: [];
+  multiPreview: [];
 }
 
 export const usePostStore = defineStore({
@@ -21,6 +22,7 @@ export const usePostStore = defineStore({
       blocks: []
     },
     loadingBlocks: [],
+    multiPreview: [],
   }),
   getters: {
     getPosts(state: any): any {

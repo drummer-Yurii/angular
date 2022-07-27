@@ -56,7 +56,7 @@
             <video v-if="showAssetInBlock(index)" controls :src="block.filePath" type="video/mp4">
             </video>
             <div class="block-panel-bottom">
-              <input @change="changeFile" type="file" class="block-file-to-upload" :name="block.fileId" />
+              <input @change="changeFile($event, index)" type="file" class="block-file-to-upload" :name="block.fileId" />
             </div>
           </div>
 
@@ -67,7 +67,7 @@
             </div>
             <audio v-if="showAssetInBlock(index)" controls :src="block.filePath" type="audio"></audio>
             <div class="block-panel-bottom">
-              <input @change="changeFile" type="file" class="block-file-to-upload" :name="block.fileId" />
+              <input @change="changeFile($event, index)" type="file" class="block-file-to-upload" :name="block.fileId" />
             </div>
           </div>
 
@@ -78,16 +78,26 @@
             </div>
             <img v-if="showAssetInBlock(index)" :src="block.filePath" type="img">
             <div class="block-panel-bottom">
-              <input @change="changeFile" type="file" class="block-file-to-upload" :name="block.fileId" />
+              <input @change="changeFile($event, index)" type="file" class="block-file-to-upload" :name="block.fileId" />
             </div>
           </div>
           <div v-if="!block.type" class="block block-text">block without type!!!</div>
         </div>
       </div>
 
-      <!-- PREWIEW -->
+      <!-- MULTI PREVIEW -->
+      <div class="multi-preview" v-for="(block, index) in storePost.multiPreview" :key="'multiPreview' + index" v-if="storePost.loadingBlocks.length > 0">
+        *** {{ carentChooseFile }}
+        <img v-if="block.type == 'img'" :src="block.carentChooseFile" type="img">
+        <video v-if="block.type  == 'video'" controls :src="block.carentChooseFile" type="video/mp4">
+        </video>
+        <audio controls v-if="block.type  == 'audio'" :src="block.carentChooseFile" type="audio"></audio>
+      </div>
+      <hr />
+
+      <!-- PREVIEW -->
       <div class="preview" v-if="storePost.loadingBlocks.length > 0">
-        *** {{carentChooseFile}}
+        *** {{ carentChooseFile }}
         <img v-if="carentChooseFileType == 'img'" :src="carentChooseFile" type="img">
         <video v-if="carentChooseFileType == 'video'" controls :src="carentChooseFile" type="video/mp4">
         </video>
@@ -185,8 +195,9 @@ export default {
         type: 'video',
         fileId: randomString(1),
       };
+      this.storePost.multiPreview.push(newBlock)
       this.storePost.post.blocks.push(newBlock)
-      this.storePost.loadingBlocks.push(this.storePost.post.blocks.length-1)
+      this.storePost.loadingBlocks.push(this.storePost.post.blocks.length - 1)
     },
     addAudioBlock() {
       this.carentChooseFileType = 'audio'
@@ -194,8 +205,9 @@ export default {
         type: 'audio',
         fileId: randomString(1),
       };
+      this.storePost.multiPreview.push(newBlock)
       this.storePost.post.blocks.push(newBlock)
-      this.storePost.loadingBlocks.push(this.storePost.post.blocks.length-1)
+      this.storePost.loadingBlocks.push(this.storePost.post.blocks.length - 1)
     },
     addImgBlock() {
       this.carentChooseFileType = 'img'
@@ -203,8 +215,9 @@ export default {
         type: 'img',
         fileId: randomString(1),
       };
+      this.storePost.multiPreview.push(newBlock)
       this.storePost.post.blocks.push(newBlock)
-      this.storePost.loadingBlocks.push(this.storePost.post.blocks.length-1)
+      this.storePost.loadingBlocks.push(this.storePost.post.blocks.length - 1)
       log('loadingBlocks', this.loadingBlocks)
     },
     addGaleryBlock() {
@@ -216,10 +229,11 @@ export default {
       };
       this.storePost.post.blocks.push(newBlock)
     },
-    changeFile(e) {
-      console.log(e, '!!!!!!!!')
+    changeFile(e, i) {
+      console.log(i, e, '!!!!!!!!');
       const file = e.target.files[0];
       this.carentChooseFile = URL.createObjectURL(file);
+      this.storePost.multiPreview[i].carentChooseFile = URL.createObjectURL(file); 
     },
     deleteBlock(i) {
       log(i);
@@ -227,7 +241,7 @@ export default {
       this.storePost.submit(this.getId());
     },
     showAssetInBlock(index) {
-    return !this.storePost.loadingBlocks.some(blockIndex => blockIndex == index);
+      return !this.storePost.loadingBlocks.some(blockIndex => blockIndex == index);
     },
   },
 };
@@ -259,6 +273,11 @@ video {
 .block-panel-bottom {
   padding: .5rem;
 }
+
+.multi-preview {
+  border: solid 2px green;
+}
+
 .preview {
   border: solid 2px red;
 }
