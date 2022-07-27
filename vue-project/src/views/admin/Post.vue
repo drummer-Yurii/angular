@@ -53,7 +53,7 @@
             <div class="block-panel">
               <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
             </div>
-            <video controls :src="block.filePath" type="video/mp4">
+            <video v-if="showAssetInBlock(index)" controls :src="block.filePath" type="video/mp4">
             </video>
             <div class="block-panel-bottom">
               <input @change="changeFile" type="file" class="block-file-to-upload" :name="block.fileId" />
@@ -65,7 +65,7 @@
             <div class="block-panel">
               <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
             </div>
-            <audio v-if="!storePost.loadingBlocks.some(blockIndex => blockIndex == index)" controls :src="block.filePath" type="audio"></audio>
+            <audio v-if="showAssetInBlock(index)" controls :src="block.filePath" type="audio"></audio>
             <div class="block-panel-bottom">
               <input @change="changeFile" type="file" class="block-file-to-upload" :name="block.fileId" />
             </div>
@@ -76,7 +76,7 @@
             <div class="block-panel">
               <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
             </div>
-            <img v-if="!storePost.loadingBlocks.some(blockIndex => blockIndex == index)" :src="block.filePath" type="img">
+            <img v-if="showAssetInBlock(index)" :src="block.filePath" type="img">
             <div class="block-panel-bottom">
               <input @change="changeFile" type="file" class="block-file-to-upload" :name="block.fileId" />
             </div>
@@ -186,6 +186,7 @@ export default {
         fileId: randomString(1),
       };
       this.storePost.post.blocks.push(newBlock)
+      this.storePost.loadingBlocks.push(this.storePost.post.blocks.length-1)
     },
     addAudioBlock() {
       this.carentChooseFileType = 'audio'
@@ -194,6 +195,7 @@ export default {
         fileId: randomString(1),
       };
       this.storePost.post.blocks.push(newBlock)
+      this.storePost.loadingBlocks.push(this.storePost.post.blocks.length-1)
     },
     addImgBlock() {
       this.carentChooseFileType = 'img'
@@ -224,7 +226,9 @@ export default {
       this.storePost.post.blocks.splice(i, 1);
       this.storePost.submit(this.getId());
     },
-
+    showAssetInBlock(index) {
+    return !this.storePost.loadingBlocks.some(blockIndex => blockIndex == index);
+    },
   },
 };
 </script>
