@@ -98,29 +98,6 @@
         </div>
       </div>
 
-      <!-- MULTI PREVIEW -->
-      <!-- <div class="multi-preview" v-for="(block, index) in storePost.multiPreview" :key="'multiPreview' + index"
-        v-if="storePost.loadingBlocks.length > 0">
-        *** {{ carentChooseFile }}
-        <img v-if="block.type == 'img'" :src="block.carentChooseFile" type="img">
-        <video v-if="block.type == 'video'" controls :src="block.carentChooseFile" type="video/mp4">
-        </video>
-        <audio controls v-if="block.type == 'audio'" :src="block.carentChooseFile" type="audio"></audio>
-      </div>
-      <hr /> -->
-      <!-- не пропускати carentChooseFile -->
-      <!-- випиляти preview -->
-
-      <!-- PREVIEW -->
-      <!-- <div class="preview" v-if="storePost.loadingBlocks.length > 0">
-        *** {{ carentChooseFile }}
-        <img v-if="carentChooseFileType == 'img'" :src="carentChooseFile" type="img">
-        <video v-if="carentChooseFileType == 'video'" controls :src="carentChooseFile" type="video/mp4">
-        </video>
-        <audio controls v-if="carentChooseFileType == 'audio'" :src="carentChooseFile" type="audio"></audio>
-      </div>
-      <hr /> -->
-
       <!-- PANEL -->
       <div v-if="!addButtonsPanel" class="panel">
         <button @click="toggleButtonsPanel" type="button" class="btn btn-info">Add block</button>
@@ -187,7 +164,6 @@ export default {
       await this.storePost.getPost(this.getId());
       await this.storePost.setFileNamesToStorePost();
     }
-
   },
   methods: {
     getId() {
@@ -203,7 +179,6 @@ export default {
         text: '',
       };
       this.storePost.post.blocks.push(newBlock)
-      console.log(this.storePost.post)
     },
     addVideoBlock() {
       this.carentChooseFileType = 'video'
@@ -211,7 +186,6 @@ export default {
         type: 'video',
         fileId: randomString(1),
       };
-      // this.storePost.multiPreview.push(newBlock)
       this.storePost.post.blocks.push(newBlock)
       this.storePost.loadingBlocks.push(this.storePost.post.blocks.length - 1)
     },
@@ -221,7 +195,6 @@ export default {
         type: 'audio',
         fileId: randomString(1),
       };
-      // this.storePost.multiPreview.push(newBlock)
       this.storePost.post.blocks.push(newBlock)
       this.storePost.loadingBlocks.push(this.storePost.post.blocks.length - 1)
     },
@@ -231,10 +204,8 @@ export default {
         type: 'img',
         fileId: randomString(1),
       };
-      // this.storePost.multiPreview.push(newBlock)
       this.storePost.post.blocks.push(newBlock)
       this.storePost.loadingBlocks.push(this.storePost.post.blocks.length - 1)
-      log('loadingBlocks', this.loadingBlocks)
     },
     addGaleryBlock() {
       const fileId = randomString(1)
@@ -246,16 +217,11 @@ export default {
       this.storePost.post.blocks.push(newBlock)
     },
     changeFile(e, i) {
-      console.log(i, e, '!!!!!!!!');
       const file = e.target.files[0];
-      log(file, '1234567');
       this.carentChooseFile = URL.createObjectURL(file);
-      // log(i, this.storePost.multiPreview);
       this.storePost.post.blocks[i].carentChooseFile = URL.createObjectURL(file);
-      // this.storePost.multiPreview[i - 1].carentChooseFile = URL.createObjectURL(file);
     },
     deleteBlock(i) {
-      log(i);
       this.storePost.post.blocks.splice(i, 1);
       this.storePost.submit(this.getId());
     },
