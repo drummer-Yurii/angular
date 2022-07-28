@@ -53,10 +53,15 @@
             <div class="block-panel">
               <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
             </div>
-            <video v-if="showAssetInBlock(index)" controls :src="block.filePath" type="video/mp4">
+            <video v-if="!block.carentChooseFile" controls :src="block.filePath" type="video/mp4">
             </video>
+            <div v-if="block.carentChooseFile" class="block-preview">
+              <video controls :src="block.carentChooseFile" type="video/mp4">
+              </video>
+            </div>
             <div class="block-panel-bottom">
-              <input @change="changeFile($event, index)" type="file" class="block-file-to-upload" :name="block.fileId" />
+              <input @change="changeFile($event, index)" type="file" class="block-file-to-upload"
+                :name="block.fileId" />
             </div>
           </div>
 
@@ -65,9 +70,13 @@
             <div class="block-panel">
               <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
             </div>
-            <audio v-if="showAssetInBlock(index)" controls :src="block.filePath" type="audio"></audio>
+            <audio v-if="!block.carentChooseFile" controls :src="block.filePath" type="audio"></audio>
+            <div v-if="block.carentChooseFile" class="block-preview">
+              <audio controls :src="block.carentChooseFile" type="audio"></audio>
+            </div>
             <div class="block-panel-bottom">
-              <input @change="changeFile($event, index)" type="file" class="block-file-to-upload" :name="block.fileId" />
+              <input @change="changeFile($event, index)" type="file" class="block-file-to-upload"
+                :name="block.fileId" />
             </div>
           </div>
 
@@ -76,9 +85,13 @@
             <div class="block-panel">
               <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
             </div>
-            <img v-if="showAssetInBlock(index)" :src="block.filePath" type="img">
+            <img v-if="!block.carentChooseFile" :src="block.filePath" type="img">
+            <div v-if="block.carentChooseFile" class="block-preview">
+              <img :src="block.carentChooseFile" type="img">
+            </div>
             <div class="block-panel-bottom">
-              <input @change="changeFile($event, index)" type="file" class="block-file-to-upload" :name="block.fileId" />
+              <input @change="changeFile($event, index)" type="file" class="block-file-to-upload"
+                :name="block.fileId" />
             </div>
           </div>
           <div v-if="!block.type" class="block block-text">block without type!!!</div>
@@ -86,24 +99,27 @@
       </div>
 
       <!-- MULTI PREVIEW -->
-      <div class="multi-preview" v-for="(block, index) in storePost.multiPreview" :key="'multiPreview' + index" v-if="storePost.loadingBlocks.length > 0">
+      <!-- <div class="multi-preview" v-for="(block, index) in storePost.multiPreview" :key="'multiPreview' + index"
+        v-if="storePost.loadingBlocks.length > 0">
         *** {{ carentChooseFile }}
         <img v-if="block.type == 'img'" :src="block.carentChooseFile" type="img">
-        <video v-if="block.type  == 'video'" controls :src="block.carentChooseFile" type="video/mp4">
+        <video v-if="block.type == 'video'" controls :src="block.carentChooseFile" type="video/mp4">
         </video>
-        <audio controls v-if="block.type  == 'audio'" :src="block.carentChooseFile" type="audio"></audio>
+        <audio controls v-if="block.type == 'audio'" :src="block.carentChooseFile" type="audio"></audio>
       </div>
-      <hr />
+      <hr /> -->
+      <!-- не пропускати carentChooseFile -->
+      <!-- випиляти preview -->
 
       <!-- PREVIEW -->
-      <div class="preview" v-if="storePost.loadingBlocks.length > 0">
+      <!-- <div class="preview" v-if="storePost.loadingBlocks.length > 0">
         *** {{ carentChooseFile }}
         <img v-if="carentChooseFileType == 'img'" :src="carentChooseFile" type="img">
         <video v-if="carentChooseFileType == 'video'" controls :src="carentChooseFile" type="video/mp4">
         </video>
         <audio controls v-if="carentChooseFileType == 'audio'" :src="carentChooseFile" type="audio"></audio>
       </div>
-      <hr />
+      <hr /> -->
 
       <!-- PANEL -->
       <div v-if="!addButtonsPanel" class="panel">
@@ -195,7 +211,7 @@ export default {
         type: 'video',
         fileId: randomString(1),
       };
-      this.storePost.multiPreview.push(newBlock)
+      // this.storePost.multiPreview.push(newBlock)
       this.storePost.post.blocks.push(newBlock)
       this.storePost.loadingBlocks.push(this.storePost.post.blocks.length - 1)
     },
@@ -205,7 +221,7 @@ export default {
         type: 'audio',
         fileId: randomString(1),
       };
-      this.storePost.multiPreview.push(newBlock)
+      // this.storePost.multiPreview.push(newBlock)
       this.storePost.post.blocks.push(newBlock)
       this.storePost.loadingBlocks.push(this.storePost.post.blocks.length - 1)
     },
@@ -215,7 +231,7 @@ export default {
         type: 'img',
         fileId: randomString(1),
       };
-      this.storePost.multiPreview.push(newBlock)
+      // this.storePost.multiPreview.push(newBlock)
       this.storePost.post.blocks.push(newBlock)
       this.storePost.loadingBlocks.push(this.storePost.post.blocks.length - 1)
       log('loadingBlocks', this.loadingBlocks)
@@ -232,8 +248,11 @@ export default {
     changeFile(e, i) {
       console.log(i, e, '!!!!!!!!');
       const file = e.target.files[0];
+      log(file, '1234567');
       this.carentChooseFile = URL.createObjectURL(file);
-      this.storePost.multiPreview[i].carentChooseFile = URL.createObjectURL(file); 
+      // log(i, this.storePost.multiPreview);
+      this.storePost.post.blocks[i].carentChooseFile = URL.createObjectURL(file);
+      // this.storePost.multiPreview[i - 1].carentChooseFile = URL.createObjectURL(file);
     },
     deleteBlock(i) {
       log(i);
@@ -274,12 +293,18 @@ video {
   padding: .5rem;
 }
 
+.block-preview {
+  border: solid 2px blue;
+}
+
 .multi-preview {
   border: solid 2px green;
+  width: 5rem;
 }
 
 .preview {
   border: solid 2px red;
+  width: 5rem;
 }
 
 @media (min-width: 1024px) {
