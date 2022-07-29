@@ -32,11 +32,15 @@
             <div class="block-panel">
               <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
             </div>
-            <!-- <img :src="block.filePath" type="img"> -->
-            <div class="block-panel-bottom">
-              <input type="file" class="block-file-to-upload" :name="block.fileId" />
+            <div v-for="(GIBlock, GIIndex) in storePost.post.blocks[index].fileIdList"
+              :key="'post-galery-img' + GIIndex" class="galery-img">
+              <img :src="GIBlock.filePath" type="img">
+              <input type="file" class="block-file-to-upload" :name="GIBlock.fileId" />
             </div>
-            <Galery :filePath="block.filePath" />
+            <div class="block-panel-bottom">
+              <button @click="addImgToGalery(index)" type="button" class="btn btn-info">Add</button>
+            </div>
+            <!-- <Galery :filePath="block.filePath" /> -->
           </div>
 
           <!-- BLOCK Text -->
@@ -208,13 +212,21 @@ export default {
       this.storePost.loadingBlocks.push(this.storePost.post.blocks.length - 1)
     },
     addGaleryBlock() {
-      const fileId = randomString(1)
+      // const fileId = randomString(1)
       const newBlock = {
         type: 'galery',
-        fileId,
-        fileIdList: [fileId]
+        // fileId,
+        fileIdList: []
       };
       this.storePost.post.blocks.push(newBlock)
+    },
+    addImgToGalery(i) {
+      const fileId = randomString(1)
+      const newGaleryBlock = {
+        type: 'galery-block',
+        fileId,
+      }
+      this.storePost.post.blocks[i].fileIdList.push(newGaleryBlock);
     },
     changeFile(e, i) {
       const file = e.target.files[0];
@@ -261,6 +273,11 @@ video {
 
 .block-preview {
   border: solid 2px blue;
+}
+
+.block-galery {
+  min-width: 5rem;
+  border: solid .5rem gray;
 }
 
 .multi-preview {
