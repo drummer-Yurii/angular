@@ -34,8 +34,12 @@
             </div>
             <div v-for="(GIBlock, GIIndex) in storePost.post.blocks[index].fileIdList"
               :key="'post-galery-img' + GIIndex" class="galery-img">
-              <img :src="GIBlock.filePath" type="img">
-              <input type="file" class="block-file-to-upload" :name="GIBlock.fileId" />
+              <img v-if="!GIBlock.carentChooseFile" :src="GIBlock.filePath" type="img">
+              <div v-if="GIBlock.carentChooseFile" class="block-preview">
+                <img :src="GIBlock.carentChooseFile" type="img">
+              </div>
+              <input @change="changeFileInGalery($event, index, GIIndex)" type="file" class="block-file-to-upload"
+                :name="GIBlock.fileId" />
             </div>
             <div class="block-panel-bottom">
               <button @click="addImgToGalery(index)" type="button" class="btn btn-info">Add</button>
@@ -232,6 +236,11 @@ export default {
       const file = e.target.files[0];
       this.carentChooseFile = URL.createObjectURL(file);
       this.storePost.post.blocks[i].carentChooseFile = URL.createObjectURL(file);
+    },
+    changeFileInGalery(e, i, ii) {
+      const file = e.target.files[0];
+      this.carentChooseFile = URL.createObjectURL(file);
+      this.storePost.post.blocks[i].fileIdList[ii].carentChooseFile = URL.createObjectURL(file);
     },
     deleteBlock(i) {
       this.storePost.post.blocks.splice(i, 1);
