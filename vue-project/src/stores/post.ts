@@ -118,11 +118,11 @@ export const usePostStore = defineStore({
       const targetsForUploading = targets.filter((target) => (target.files?.length > 0) || (target.type == 'custom'))
       const promises = targetsForUploading.map((target) => {
         const isMyTarget = !!target.fileName;
-        // log(isMyTarget);
+        log('FU isMyTarget', isMyTarget);
         var fileName = isMyTarget ? target.fileName : target.name;
-        // log('fileName1', fileName, target.name);
+        log('FU fileName, target.name', fileName, target.name);
         const fd = new FormData();
-        // log(target.files[0]);
+        log('FU file', target.files[0]);
         fd.append("sampleFile", target.files[0]);
         fd.append("directory", "/testpost");
         fd.append("basename", "wobble-004.txt");
@@ -163,11 +163,22 @@ export const usePostStore = defineStore({
       };
       const files = answer.data.result.files;
       post.blocks.forEach((block, i) => {
-        if (block.fileId) {
-          const fName = files.find((f: string) => f.split('.')[0] == block.fileId);
-          post.blocks[i].file = fName;
-          post.blocks[i].filePath = `http://localhost:3001/posts/${post._id}/${fName}?random=${Math.random()}`
+        if (block.type == 'galery') {
+          block.fileIdList.forEach((bb, ii) => {
+            if (bb.fileId) {
+              const fName = files.find((f: string) => f.split('.')[0] == bb.fileId);
+              block.fileIdList[ii].file = fName;
+              block.fileIdList[ii].filePath = `http://localhost:3001/posts/${post._id}/${fName}?random=${Math.random()}`
+            }
+          });
+        } else {
+          if (block.fileId) {
+            const fName = files.find((f: string) => f.split('.')[0] == block.fileId);
+            post.blocks[i].file = fName;
+            post.blocks[i].filePath = `http://localhost:3001/posts/${post._id}/${fName}?random=${Math.random()}`
+          }
         }
+
       });
       post.img = "/src/assets/logo.svg";
       files.forEach((f: string) => {
