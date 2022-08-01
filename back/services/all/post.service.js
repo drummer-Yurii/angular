@@ -43,7 +43,15 @@ class PostService {
         const files = await fsp.readdir(path);
         const oldFiles = files.filter((f) => {
             const isActual = post.blocks.some((b) => b.file == f);
-            return !isActual;
+            let isActualDiper = false
+            post.blocks.forEach(b => {
+                if(b.fileIdList) {
+                    b.fileIdList.forEach(bb => {
+                     if(bb.file == f) isActualDiper = true
+                    })
+                }
+            }) 
+            return !isActual && !isActualDiper;
         });
         log('oldFiles', oldFiles);
         oldFiles.forEach((f)=>{

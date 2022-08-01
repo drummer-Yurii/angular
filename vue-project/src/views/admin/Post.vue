@@ -38,6 +38,9 @@
               <div v-if="GIBlock.carentChooseFile" class="block-preview">
                 <img :src="GIBlock.carentChooseFile" type="img">
               </div>
+              <div class="block-panel">
+                <button @click="deleteBlockInBlock(index, GIIndex)" type="button" class="btn btn-info">Delete</button>
+              </div>
               <input @change="changeFileInGalery($event, index, GIIndex)" type="file" class="block-file-to-upload"
                 :name="GIBlock.fileId" />
             </div>
@@ -246,6 +249,10 @@ export default {
       this.storePost.post.blocks.splice(i, 1);
       this.storePost.submit(this.getId());
     },
+    deleteBlockInBlock(i, ii) {
+      this.storePost.post.blocks[i].fileIdList.splice(ii, 1);
+      this.storePost.submit(this.getId());
+    },
     showAssetInBlock(index) {
       return !this.storePost.loadingBlocks.some(blockIndex => blockIndex == index);
     },
@@ -258,6 +265,10 @@ export default {
 
 img {
   width: 100%;
+}
+
+.galery-img {
+  position: relative;
 }
 
 video {
