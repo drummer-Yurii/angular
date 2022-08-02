@@ -2,12 +2,15 @@
   <div class="preloader" v-if="storeApp.preloading">Pending</div>
   <Nav :companyName="storeApp.app.companyName" />
   <RouterView />
-  <div class="admin-panel" v-if="storeUser.isAdmin">
-    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w1" />
-    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w2" />
-    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w3" />
-    <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w4" />
-    <button @click="storeApp.editApp()">Save</button>
+  <div class="admin-panel" v-if="storeUser.isAdmin" :class="isOpenAP ? 'open' : 'close'">
+    <div class="AP-container">
+      <button @click="isOpenAP = !isOpenAP" class="AP-tab">{{isOpenAP ? 'close' : 'open'}}</button>
+      <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w1" />
+      <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w2" />
+      <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w3" />
+      <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w4" />
+      <button @click="storeApp.editApp()">Save</button>
+    </div>
   </div>
 </template>
 
@@ -32,6 +35,7 @@ export default {
   },
   data() {
     return {
+      isOpenAP: true,
     }
   },
   async created() {
@@ -67,5 +71,18 @@ export default {
   background: rgba(0, 0, 0, 0.384);
   padding: 1rem;
   z-index: 999;
+}
+
+.close {
+  bottom: -3.5rem;
+}
+
+.AP-container {
+  position: relative;
+}
+
+.AP-tab {
+  position: absolute;
+  top: -2rem;
 }
 </style>
