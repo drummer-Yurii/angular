@@ -10,132 +10,130 @@
       <!-- if ok -->
       <div v-if="storePost.post">
         <img :src="storePost.post.img" type="img">
-      </div>
+        <input type="file" id="fileToUpload" name="sampleFile" />
 
-      <!-- title -->
-      <div class="input-group mb-1">
-        <input v-model="storePost.post.title" class="form-control" type="text" aria-label="title" placeholder="title" />
-      </div>
 
-      <!-- description -->
-      <div class="input-group">
-        <textarea v-model="storePost.post.description" class="form-control" aria-label="With textarea"></textarea>
-      </div>
+        <!-- title -->
+        <div class="input-group mb-1">
+          <input v-model="storePost.post.title" class="form-control" type="text" aria-label="title"
+            placeholder="title" />
+        </div>
 
-      <!-- BLOCKS -->
-      <div class="blocks">
-        <div v-for="(block, index) in storePost.post.blocks" :key="'post' + index">
-          <hr>
+        <!-- description -->
+        <div class="input-group">
+          <textarea v-model="storePost.post.description" class="form-control" aria-label="With textarea"></textarea>
+        </div>
 
-          <!-- BLOCK Galery -->
-          <div v-if="block.type == 'galery'" class="block block-galery">
-            <div class="block-panel">
-              <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
-            </div>
-            <div v-for="(GIBlock, GIIndex) in storePost.post.blocks[index].fileIdList"
-              :key="'post-galery-img' + GIIndex" class="galery-img">
-              <img v-if="!GIBlock.carentChooseFile" :src="GIBlock.filePath" type="img">
-              <div v-if="GIBlock.carentChooseFile" class="block-preview">
-                <img :src="GIBlock.carentChooseFile" type="img">
-              </div>
+        <!-- BLOCKS -->
+        <div class="blocks">
+          <div v-for="(block, index) in storePost.post.blocks" :key="'post' + index">
+            <hr>
+
+            <!-- BLOCK Galery -->
+            <div v-if="block.type == 'galery'" class="block block-galery">
               <div class="block-panel">
-                <button @click="deleteBlockInBlock(index, GIIndex)" type="button" class="btn btn-info">Delete</button>
+                <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
               </div>
-              <input @change="changeFileInGalery($event, index, GIIndex)" type="file" class="block-file-to-upload"
-                :name="GIBlock.fileId" />
+              <div v-for="(GIBlock, GIIndex) in storePost.post.blocks[index].fileIdList"
+                :key="'post-galery-img' + GIIndex" class="galery-img">
+                <img v-if="!GIBlock.carentChooseFile" :src="GIBlock.filePath" type="img">
+                <div v-if="GIBlock.carentChooseFile" class="block-preview">
+                  <img :src="GIBlock.carentChooseFile" type="img">
+                </div>
+                <div class="block-panel">
+                  <button @click="deleteBlockInBlock(index, GIIndex)" type="button" class="btn btn-info">Delete</button>
+                </div>
+                <input @change="changeFileInGalery($event, index, GIIndex)" type="file" class="block-file-to-upload"
+                  :name="GIBlock.fileId" />
+              </div>
+              <div class="block-panel-bottom">
+                <button @click="addImgToGalery(index)" type="button" class="btn btn-info">Add</button>
+              </div>
+              <!-- <Galery :filePath="block.filePath" /> -->
             </div>
-            <div class="block-panel-bottom">
-              <button @click="addImgToGalery(index)" type="button" class="btn btn-info">Add</button>
-            </div>
-            <!-- <Galery :filePath="block.filePath" /> -->
-          </div>
 
-          <!-- BLOCK Text -->
-          <div v-if="block.type == 'text'" class="block block-text">
-            <textarea v-model="block.text" class="form-control" aria-label="With textarea">
+            <!-- BLOCK Text -->
+            <div v-if="block.type == 'text'" class="block block-text">
+              <textarea v-model="block.text" class="form-control" aria-label="With textarea">
             </textarea>
-            <div class="block-panel">
-              <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+              <div class="block-panel">
+                <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+              </div>
             </div>
-          </div>
 
-          <!-- BLOCK Video -->
-          <div v-if="block.type == 'video'" class="block block-video">
-            <div class="block-panel">
-              <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
-            </div>
-            <video v-if="!block.carentChooseFile" controls :src="block.filePath" type="video/mp4">
-            </video>
-            <div v-if="block.carentChooseFile" class="block-preview">
-              <video controls :src="block.carentChooseFile" type="video/mp4">
+            <!-- BLOCK Video -->
+            <div v-if="block.type == 'video'" class="block block-video">
+              <div class="block-panel">
+                <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+              </div>
+              <video v-if="!block.carentChooseFile" controls :src="block.filePath" type="video/mp4">
               </video>
+              <div v-if="block.carentChooseFile" class="block-preview">
+                <video controls :src="block.carentChooseFile" type="video/mp4">
+                </video>
+              </div>
+              <div class="block-panel-bottom">
+                <input @change="changeFile($event, index)" type="file" class="block-file-to-upload"
+                  :name="block.fileId" />
+              </div>
             </div>
-            <div class="block-panel-bottom">
-              <input @change="changeFile($event, index)" type="file" class="block-file-to-upload"
-                :name="block.fileId" />
-            </div>
-          </div>
 
-          <!-- BLOCK Audio -->
-          <div v-if="block.type == 'audio'" class="block block-audio">
-            <div class="block-panel">
-              <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+            <!-- BLOCK Audio -->
+            <div v-if="block.type == 'audio'" class="block block-audio">
+              <div class="block-panel">
+                <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+              </div>
+              <audio v-if="!block.carentChooseFile" controls :src="block.filePath" type="audio"></audio>
+              <div v-if="block.carentChooseFile" class="block-preview">
+                <audio controls :src="block.carentChooseFile" type="audio"></audio>
+              </div>
+              <div class="block-panel-bottom">
+                <input @change="changeFile($event, index)" type="file" class="block-file-to-upload"
+                  :name="block.fileId" />
+              </div>
             </div>
-            <audio v-if="!block.carentChooseFile" controls :src="block.filePath" type="audio"></audio>
-            <div v-if="block.carentChooseFile" class="block-preview">
-              <audio controls :src="block.carentChooseFile" type="audio"></audio>
-            </div>
-            <div class="block-panel-bottom">
-              <input @change="changeFile($event, index)" type="file" class="block-file-to-upload"
-                :name="block.fileId" />
-            </div>
-          </div>
 
-          <!-- BLOCK Img-->
-          <div v-if="block.type == 'img'" class="block block-img">
-            <div class="block-panel">
-              <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+            <!-- BLOCK Img-->
+            <div v-if="block.type == 'img'" class="block block-img">
+              <div class="block-panel">
+                <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
+              </div>
+              <img v-if="!block.carentChooseFile" :src="block.filePath" type="img">
+              <div v-if="block.carentChooseFile" class="block-preview">
+                <img :src="block.carentChooseFile" type="img">
+              </div>
+              <div class="block-panel-bottom">
+                <input @change="changeFile($event, index)" type="file" class="block-file-to-upload"
+                  :name="block.fileId" />
+              </div>
             </div>
-            <img v-if="!block.carentChooseFile" :src="block.filePath" type="img">
-            <div v-if="block.carentChooseFile" class="block-preview">
-              <img :src="block.carentChooseFile" type="img">
-            </div>
-            <div class="block-panel-bottom">
-              <input @change="changeFile($event, index)" type="file" class="block-file-to-upload"
-                :name="block.fileId" />
-            </div>
+            <div v-if="!block.type" class="block block-text">block without type!!!</div>
           </div>
-          <div v-if="!block.type" class="block block-text">block without type!!!</div>
+        </div>
+
+        <!-- PANEL -->
+        <div v-if="!addButtonsPanel" class="panel">
+          <button @click="toggleButtonsPanel" type="button" class="btn btn-info">Add block</button>
+        </div>
+
+        <!-- PANEL -->
+        <div v-if="addButtonsPanel" class="panel add-buttons">
+          <button @click="addTextBlock" type="button" class="btn btn-info">Text</button>
+          <button @click="addVideoBlock" type="button" class="btn btn-info">Video</button>
+          <button @click="addAudioBlock" type="button" class="btn btn-info">Audio</button>
+          <button @click="addImgBlock" type="button" class="btn btn-info">Img</button>
+          <button @click="addGaleryBlock" type="button" class="btn btn-info">Galery</button>
+        </div>
+        <hr />
+
+        <!-- PANEL -->
+        <div class="panel">
+          <button @click="storePost.submit(getId())" type="button" class="btn btn-primary">
+            save
+          </button>
         </div>
       </div>
-
-      <!-- PANEL -->
-      <div v-if="!addButtonsPanel" class="panel">
-        <button @click="toggleButtonsPanel" type="button" class="btn btn-info">Add block</button>
-      </div>
-
-      <!-- PANEL -->
-      <div v-if="addButtonsPanel" class="panel add-buttons">
-        <button @click="addTextBlock" type="button" class="btn btn-info">Text</button>
-        <button @click="addVideoBlock" type="button" class="btn btn-info">Video</button>
-        <button @click="addAudioBlock" type="button" class="btn btn-info">Audio</button>
-        <button @click="addImgBlock" type="button" class="btn btn-info">Img</button>
-        <button @click="addGaleryBlock" type="button" class="btn btn-info">Galery</button>
-      </div>
-      <hr />
-
-      <!-- PANEL -->
-      <div class="panel">
-        <button @click="storePost.submit(getId())" type="button" class="btn btn-primary">
-          save
-        </button>
-      </div>
-
     </div>
-
-    <!-- !!! need some wrapper  -->
-    <input type="file" id="fileToUpload" name="sampleFile" />
-
   </div>
 </template>
 
