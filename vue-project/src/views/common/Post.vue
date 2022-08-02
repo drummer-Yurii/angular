@@ -15,6 +15,9 @@
       <!-- blocks -->
       <div class="blocks">
         <div v-for="(block, index) in storePost.post.blocks" :key="'post' + index">
+          <div v-if="block.type == 'galery'" class="block block-galery">
+            <Galery :fileIdList="block.fileIdList"/>
+          </div>
           <div v-if="block.type == 'text'" class="block block-text">
             <!-- <textarea v-model="block.text" class="form-control" aria-label="With textarea">
             </textarea>
@@ -47,13 +50,13 @@
       <div class="post-panel">
         <div class="panel-icon facebook-icon">
           <a :href="fbShareLink">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
-            role="img" class="iconify iconify--ic" width="32" height="32" preserveAspectRatio="xMidYMid meet"
-            viewBox="0 0 24 24">
-            <path fill="currentColor"
-              d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z">
-            </path>
-          </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+              role="img" class="iconify iconify--ic" width="32" height="32" preserveAspectRatio="xMidYMid meet"
+              viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z">
+              </path>
+            </svg>
           </a>
         </div>
       </div>
@@ -70,15 +73,19 @@ import { useUserStore } from "@/stores/user";
 import { usePostStore } from "@/stores/post";
 import { useRoute } from "vue-router";
 import { httpOptions, log } from "@/utils";
+import Galery from "@/components/Galery.vue";
 
 export default {
+  components: {
+    Galery
+  },
   setup() {
     const storePost = usePostStore();
     const storeUser = useUserStore();
     const route = useRoute();
     const pageLink = location.href;
     // const fbShareLink = 'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.nytimes.com%2Fes%2F2020%2F05%2F26%2Fespanol%2Fcoronavirus-superficies-como-se-transmite.html&amp%3Bsrc=sdkpreparse'
-    const fbShareLink = 'https://www.facebook.com/sharer/sharer.php?u='+pageLink+'&src=sdkpreparse&t=TITLE&display=popup&quote=TEXT&hashtag=#HASHTAG'
+    const fbShareLink = 'https://www.facebook.com/sharer/sharer.php?u=' + pageLink + '&src=sdkpreparse&t=TITLE&display=popup&quote=TEXT&hashtag=#HASHTAG'
     log(pageLink);
     log(fbShareLink)
     return {
@@ -216,12 +223,14 @@ img {
   width: 70%;
   max-width: 25rem;
 }
+
 .post-panel {
   padding: 1rem;
   display: flex;
   justify-content: end;
   background: #143040;
 }
+
 .facebook-icon {
   display: inline-block;
   color: #3b5998;
