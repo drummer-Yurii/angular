@@ -4,6 +4,9 @@ let App = mongoose.model('App',{
     companyName:String,
     phone:Number,
     email:String,
+    country:String,
+    city:String,
+    adress:String,
     facebookPage:String,
     ui: {
         firstScreen: {

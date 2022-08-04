@@ -11,9 +11,18 @@
           <input v-model="storeApp.app.phone" class="form-control" type="number" aria-label="phone"
             placeholder="phone" />
         </div>
-        <div class="input-group mb-3">
-          <input v-model="storeApp.app.email" class="form-control" type="text" aria-label="email" placeholder="email" />
-        </div>
+          <div class="input-group mb-3">
+            <input v-model="storeApp.app.email" class="form-control" type="text" aria-label="email" placeholder="email" />
+          </div>
+          <div class="input-group mb-3">
+            <input v-model="storeApp.app.country" class="form-control" type="text" aria-label="country" placeholder="country" />
+          </div>
+          <div class="input-group mb-3">
+            <input v-model="storeApp.app.city" class="form-control" type="text" aria-label="city" placeholder="city" />
+          </div>
+          <div class="input-group mb-3">
+            <input v-model="storeApp.app.adress" class="form-control" type="text" aria-label="adress" placeholder="adress" />
+          </div>
         <div class="input-group mb-3">
           <input v-model="storeApp.app.facebookPage" class="form-control" type="text" aria-label="facebookPage"
             placeholder="facebookPage" />

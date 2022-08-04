@@ -23,7 +23,7 @@ export const useAppStore = defineStore({
   id: 'app',
   state: (): appState => ({
     app: {
-      ui: defaultUi
+      ui: defaultUi,
     },
     preloading: false,
     files: [],
