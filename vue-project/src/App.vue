@@ -1,17 +1,26 @@
 <template>
-  <div class="preloader" v-if="storeApp.preloading">Pending</div>
-  <Nav :companyName="storeApp.app.companyName" />
-  <RouterView />
-  <div class="admin-panel" v-if="storeUser.isAdmin" :class="isOpenAP ? 'open' : 'close'">
-    <div class="AP-container">
-      <button @click="isOpenAP = !isOpenAP" class="AP-tab">{{isOpenAP ? 'close' : 'open'}}</button>
-      <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w1" />
-      <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w2" />
-      <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w3" />
-      <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w4" />
-      <button @click="storeApp.editApp()">Save</button>
+<div class="app-container" :style="{background:storeApp.app.ui.common?.bg}">
+    <div class="preloader" v-if="storeApp.preloading">Pending</div>
+    <Nav :companyName="storeApp.app.companyName" />
+    <RouterView />
+    <div class="admin-panel" v-if="storeUser.isAdmin" :class="isOpenAP ? 'open' : 'close'">
+      <div class="AP-container">
+        <button @click="isOpenAP = !isOpenAP" class="AP-tab">{{isOpenAP ? 'close' : 'open'}}</button>
+        <span>waves</span>
+        <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w1" />
+        <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w2" />
+        <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w3" />
+        <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w4" />
+        <span>common</span>
+        <span>common-bg</span>
+        <input type="color" opacity v-model="storeApp.app.ui.common.bg" />
+        <span>post-bg</span>
+        <input type="color" opacity v-model="storeApp.app.ui.post.bg" />
+        <button @click="storeApp.editApp()">Save</button>
+      </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -66,6 +75,16 @@ export default {
 .admin-panel {
   position: fixed;
   left: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.384);
+  padding: 1rem;
+  z-index: 999;
+}
+
+.admin-panel-bg {
+  position: fixed;
+  left: 65rem;
   bottom: 0;
   width: 100%;
   background: rgba(0, 0, 0, 0.384);

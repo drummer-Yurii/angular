@@ -1,6 +1,6 @@
 @ -1,92 +0,0 @@
 <template>
-  <div class="post" @click="goToPost">
+  <div class="post" @click="goToPost" :style="{background:storeApp.app.ui.post.bg}">
       <div class="admin-tools" v-if="storeUser.isAdmin">
         <button v-on:click.stop="storePost.delete(post)" type="button" class="btn btn-dark">Delete</button>
       </div>
@@ -23,8 +23,10 @@ import type { Post } from "@/interfaces";
 import { useRouter, useRoute } from "vue-router";
 import { usePostStore } from "@/stores/post";
 import { useUserStore } from "@/stores/user";
+import { useAppStore } from "@/stores/app";
 const storePost = usePostStore();
 const storeUser = useUserStore();
+const storeApp = useAppStore();
 const props = defineProps<{
   post: { img: string; title: string; _id: string };
 }>();
@@ -68,13 +70,12 @@ function goToPost() {
 }
 
 .post-text {
-  background: wheat;
   padding: 1rem;
 }
 
 .post {
   min-height: 20rem;
-  background: gray;
+  background: wheat;
   margin: 1rem;
   border-radius: 3rem;
   border: 1px solid rgba(255, 255, 255, 0.2);

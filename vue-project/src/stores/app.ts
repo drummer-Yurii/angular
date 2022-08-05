@@ -9,6 +9,15 @@ interface appState {
   preloading: boolean,
   files: string[],
 }
+
+const defaultCommonUI = {
+  bg: '#222',
+}
+
+const defaultPostUI = {
+  bg: '#aaa'
+}
+
 const defaultUi = {
   firstScreen: {
     waves: {
@@ -17,7 +26,9 @@ const defaultUi = {
       w3: 'gray',
       w4: 'blue'
     }
-  }
+  },
+  common: defaultCommonUI,
+  post: defaultPostUI
 }
 export const useAppStore = defineStore({
   id: 'app',
@@ -42,6 +53,8 @@ export const useAppStore = defineStore({
       // log(answer)
       const { ok, info, msg } = answer.data.result
       if (!info.ui) info.ui = defaultUi
+      if(!info.ui.common) info.ui.common = defaultCommonUI
+      if(!info.ui.post) info.ui.post = defaultPostUI
       ok ? this.app = info : alert(msg)
     },
     editApp() {
