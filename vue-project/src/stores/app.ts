@@ -15,8 +15,10 @@ const defaultCommonUI = {
 }
 
 const defaultPostUI = {
-  bg: '#aaa'
+  bg: '#aaa',
+  br: 4,
 }
+
 
 const defaultUi = {
   firstScreen: {

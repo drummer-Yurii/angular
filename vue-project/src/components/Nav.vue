@@ -42,8 +42,8 @@
             </li>
           </ul>
           <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input v-model="storePost.searchQvery" @input="storePost.search()" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
           </form>
           <div class="user">{{ storeUser.user.username }}</div>
           <div class="avatar" v-if="canUploadAvatar"
@@ -63,6 +63,7 @@ import { ref } from 'vue'
 import axios from 'axios'
 import { useUserStore } from '@/stores/user'
 import { useAppStore } from '@/stores/app'
+import { usePostStore } from '@/stores/post'
 import { httpOptions, log } from '@/utils'
 
 
@@ -73,9 +74,11 @@ export default {
   setup() {
     const storeUser = useUserStore()
     const storeApp = useAppStore()
+    const storePost = usePostStore()
     return {
       storeUser,
-      storeApp
+      storeApp,
+      storePost
     }
   },
   computed: {

@@ -22,6 +22,7 @@ let App = mongoose.model('App', {
     },
     post: {
       bg: String,
+      br: Number
     }
   },
 });

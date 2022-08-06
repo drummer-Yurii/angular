@@ -9,8 +9,10 @@ const log = true ? console.log : () => null;
 
 interface postState {
   posts: [Post] | [];
+  filteredPosts: [Post] | [];
   post: Post | {};
   loadingBlocks: [];
+  searchQvery: string;
   // multiPreview: [];
 }
 
@@ -18,11 +20,13 @@ export const usePostStore = defineStore({
   id: "post",
   state: (): postState => ({
     posts: [],
+    filteredPosts: [],
     post: {
       blocks: []
     },
     loadingBlocks: [],
     // multiPreview: [],
+    searchQvery: ''
   }),
   getters: {
     getPosts(state: any): any {
@@ -31,6 +35,12 @@ export const usePostStore = defineStore({
   },
 
   actions: {
+    search() {
+      log(this.searchQvery);
+      this.filteredPosts = this.posts.filter((post) => {
+        return post.title == this.searchQvery
+      })
+    },
 
     async refresh() {
       const answer = await axios.get(
@@ -54,7 +64,7 @@ export const usePostStore = defineStore({
     async update(posts: [Post]) {
       this.posts = [];
       await pause(50)
-      this.posts = posts;
+      this.posts = this.filteredPosts = posts;
     },
 
     async delete(post: Post) {

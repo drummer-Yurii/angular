@@ -1,6 +1,6 @@
 @ -1,92 +0,0 @@
 <template>
-  <div class="post" @click="goToPost" :style="{background:storeApp.app.ui.post.bg}">
+  <div class="post" @click="goToPost" :style="{background:storeApp.app.ui.post.bg, borderRadius:storeApp.app.ui.post.br + 'rem'}">
       <div class="admin-tools" v-if="storeUser.isAdmin">
         <button v-on:click.stop="storePost.delete(post)" type="button" class="btn btn-dark">Delete</button>
       </div>
