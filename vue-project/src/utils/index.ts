@@ -41,4 +41,14 @@ const uploadFile = async (target, path, fileName) => {
 const pause = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 
-export { httpOptions, log, uploadFile, pause }
+const sliceIntoChunks = (arr:any[], chunkSize:number) => {
+    const res = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+        const chunk = arr.slice(i, i + chunkSize);
+        res.push(chunk);
+    }
+    return res;
+}
+
+
+export { httpOptions, log, uploadFile, pause, sliceIntoChunks }

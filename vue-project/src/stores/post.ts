@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { httpOptions, pause } from "@/utils";
+import { httpOptions, pause, sliceIntoChunks } from "@/utils";
 import type { Post } from "@/interfaces";
 import { useAppStore } from "@/stores/app";
 
@@ -10,10 +10,11 @@ const log = true ? console.log : () => null;
 interface postState {
   posts: [Post] | [];
   filteredPosts: [Post] | [];
+  paginatedPosts: [Post] | [];
   post: Post | {};
   loadingBlocks: [];
   searchQvery: string;
-  // multiPreview: [];
+  currentPage: number;
 }
 
 export const usePostStore = defineStore({
@@ -21,12 +22,13 @@ export const usePostStore = defineStore({
   state: (): postState => ({
     posts: [],
     filteredPosts: [],
+    paginatedPosts: [],
     post: {
       blocks: []
     },
     loadingBlocks: [],
-    // multiPreview: [],
-    searchQvery: ''
+    searchQvery: '',
+    currentPage: 1,
   }),
   getters: {
     getPosts(state: any): any {
@@ -35,17 +37,23 @@ export const usePostStore = defineStore({
   },
 
   actions: {
+
+    pagination() {
+      log('pagination');
+      const pageSize = 2
+      const pagesAmount = Math.ceil(this.filteredPosts / pageSize);
+      const chunks = sliceIntoChunks(this.paginatedPosts, pageSize);
+      log(chunks);
+      this.paginatedPosts = chunks[this.currentPage-1];
+    },
+
     async search() {
-      log(this.searchQvery);
       this.filteredPosts = []
       await pause(100)
       this.filteredPosts = this.posts.filter((post) => {
-        log(post.title)
-        if (!post.title) return false
-        // return post.title == this.searchQvery
-        return post.title.includes(this.searchQvery);
+        return !post.title ? false : post.title.includes(this.searchQvery);
       })
-      if(this.searchQvery == '') this.filteredPosts = this.posts
+      if (this.searchQvery == '') this.filteredPosts = this.posts
     },
 
     async refresh() {
@@ -70,7 +78,8 @@ export const usePostStore = defineStore({
     async update(posts: [Post]) {
       this.posts = [];
       await pause(50)
-      this.posts = this.filteredPosts = posts;
+      this.posts = this.filteredPosts = this.paginatedPosts = posts;
+      this.pagination();
     },
 
     async delete(post: Post) {

@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="feed">
-      <div v-for="(post, index) in storePost.filteredPosts" :key="'post'+index">
+      <div v-for="(post, index) in storePost.paginatedPosts" :key="'post'+index">
         <Post :post="post" />
       </div>
     </div>
