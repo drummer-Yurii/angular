@@ -1,9 +1,9 @@
 <template>
   <div class="app-container" :style="{ background: storeApp.app.ui.common?.bg }">
-    <div class="preloader" v-if="storeApp.preloading">Pending</div>
+    <div class="app-preloader" v-if="storeApp.preloading">Pending</div>
     <Nav :companyName="storeApp.app.companyName" />
     <RouterView />
-    <div class="admin-panel" v-if="storeUser.isAdmin" :class="isOpenAP ? 'open' : 'close'">
+    <div class="app-admin-panel" v-if="storeUser.isAdmin" :class="isOpenAP ? 'open' : 'close'">
       <div class="AP-container">
         <div class="AP-group">
           <button @click="isOpenAP = !isOpenAP" class="AP-tab">{{ isOpenAP ? 'close' : 'open' }}</button>
@@ -66,12 +66,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #app {
   background: #100f0e !important;
 }
 
-.preloader {
+.app-preloader {
   background: black;
   opacity: .5;
   width: 100vw;
@@ -81,7 +81,7 @@ export default {
   position: fixed;
 }
 
-.admin-panel {
+.app-admin-panel {
   position: fixed;
   left: 0;
   bottom: 0;
@@ -91,7 +91,7 @@ export default {
   z-index: 999;
 }
 
-.admin-panel-bg {
+.app-admin-panel-bg {
   position: fixed;
   left: 65rem;
   bottom: 0;

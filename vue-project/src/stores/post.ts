@@ -35,11 +35,17 @@ export const usePostStore = defineStore({
   },
 
   actions: {
-    search() {
+    async search() {
       log(this.searchQvery);
+      this.filteredPosts = []
+      await pause(100)
       this.filteredPosts = this.posts.filter((post) => {
-        return post.title == this.searchQvery
+        log(post.title)
+        if (!post.title) return false
+        // return post.title == this.searchQvery
+        return post.title.includes(this.searchQvery);
       })
+      if(this.searchQvery == '') this.filteredPosts = this.posts
     },
 
     async refresh() {

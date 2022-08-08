@@ -67,11 +67,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import '@/assets/base.css';
 @media (min-width: 1024px) {
-  .login {
-  }
 
   .login-form {
     padding: 1rem;
