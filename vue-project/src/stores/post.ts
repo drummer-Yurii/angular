@@ -15,6 +15,7 @@ interface postState {
   loadingBlocks: [];
   searchQvery: string;
   currentPage: number;
+  pagesAmount: number;
 }
 
 export const usePostStore = defineStore({
@@ -29,6 +30,7 @@ export const usePostStore = defineStore({
     loadingBlocks: [],
     searchQvery: '',
     currentPage: 1,
+    pagesAmount: 1,
   }),
   getters: {
     getPosts(state: any): any {
@@ -37,13 +39,14 @@ export const usePostStore = defineStore({
   },
 
   actions: {
-
-    pagination() {
+    async pagination() {
+      this.paginatedPosts = []
+      await pause(100)
       log('pagination');
-      const pageSize = 2
-      const pagesAmount = Math.ceil(this.filteredPosts / pageSize);
-      const chunks = sliceIntoChunks(this.paginatedPosts, pageSize);
-      log(chunks);
+      const pageSize = 10
+      this.pagesAmount = Math.ceil(this.filteredPosts.length / pageSize);
+      const chunks = sliceIntoChunks(this.filteredPosts, pageSize);
+      log(chunks, this.currentPage);
       this.paginatedPosts = chunks[this.currentPage-1];
     },
 
