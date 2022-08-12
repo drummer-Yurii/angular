@@ -365,8 +365,27 @@
     </div>
 </template>
 <script>
+import {pause} from "@/utils";
 export default {
-    
+    async created() {
+     await pause(1000)
+        const h = document.querySelector("#h");
+        const b = document.body;
+
+        let base = (e) => {
+            var x = e.pageX / window.innerWidth - 0.5;
+            var y = e.pageY / window.innerHeight - 0.5;
+            h.style.transform = `
+        perspective(90vw)
+        rotateX(${y * 4 + 75}deg)
+        rotateZ(${-x * 12 + 45}deg)
+        translateZ(-9vw)
+    `;
+        }
+
+        b.addEventListener("pointermove", base);
+
+    },
 }
 </script>
 <style scoped>
@@ -409,8 +428,9 @@ body {
   width: 28vw;
   height: 28vw;
   transform: perspective(90vw) rotateX(75deg) rotateZ(45deg) translateZ(-9vw);
-  top: 5rem;
-  left: 10rem;
+  top: 3rem;
+  right: 10rem;
+  margin-bottom: 3rem;
 }
 
 .h-shadow {
