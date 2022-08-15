@@ -21,7 +21,8 @@
                 <!-- article test -->
                 <article v-for="(article, index) in storeApp.app.pages.about.articles" :key="'article'+index" class="article">
                     <div class="article-text" :data-number="`0${index + 1}`">
-                        <div class="article-subtitle">GEt Started</div>
+                        <div v-if="false" class="article-subtitle">{{article.subtitle}}</div>
+                        <input v-model="storeApp.app.pages.about.articles[index].subtitle" type="text">
                         <h2 class="article-title">What level of hiker are you?</h2>
                         <p>Determining what level of hiker you are can be an important tool when planning future hikes.
                             This hiking level guide will help you plan hikes according to different hike ratings set by
