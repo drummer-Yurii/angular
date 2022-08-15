@@ -20,7 +20,7 @@
 
                 <!-- article test -->
                 <article v-for="(article, index) in storeApp.app.pages.about.articles" :key="'article'+index" class="article">
-                    <div class="article-text" data-number="01">
+                    <div class="article-text" :data-number="`0${index + 1}`">
                         <div class="article-subtitle">GEt Started</div>
                         <h2 class="article-title">What level of hiker are you?</h2>
                         <p>Determining what level of hiker you are can be an important tool when planning future hikes.
