@@ -18,6 +18,27 @@
         <main class="main">
             <div class="container">
 
+                <!-- article test -->
+                <article v-for="(article, index) in storeApp.app.pages.about.articles" :key="'article'+index" class="article">
+                    <div class="article-text" data-number="01">
+                        <div class="article-subtitle">GEt Started</div>
+                        <h2 class="article-title">What level of hiker are you?</h2>
+                        <p>Determining what level of hiker you are can be an important tool when planning future hikes.
+                            This hiking level guide will help you plan hikes according to different hike ratings set by
+                            various websites like All Trails and Modern Hiker. What type of hiker are you – novice,
+                            moderate, advanced moderate, expert, or expert backpacker?</p>
+                        <a href="#" class="article-read-more">read more</a>
+                    </div>
+                    <div class="article-img">
+                        <img src="./../assets/2.png">
+                    </div>
+                </article>
+                <div class="panel">
+                    <button @click.stop="addArticle()">Add article</button>
+                    <button @click.stop="dellArticle(index)">delete article</button>
+                </div>
+                <!-- //article test -->
+
                 <article class="article">
                     <div class="article-text" data-number="01">
                         <div class="article-subtitle">GEt Started</div>
@@ -32,6 +53,7 @@
                         <img src="./../assets/2.png">
                     </div>
                 </article>
+                
 
                 <article class="article">
                     <div class="article-text" data-number="02">
@@ -73,11 +95,31 @@
 <script>
 import Room3d from "@/components/Room3d.vue"
 import Footer from "@/components/Footer.vue"
+import { useAppStore } from "@/stores/app";
 
 export default {
     components: {
         Room3d,
         Footer,
+    },
+     setup() {
+        const storeApp = useAppStore();
+        return {
+            storeApp,
+        };
+    },
+
+    methods: {
+        addArticle() {
+            const newArticle = {}
+            if(!this.storeApp.pages) this.storeApp.pages={}
+            if(!this.storeApp.pages.about) this.storeApp.pages.about={}
+            if(!this.storeApp.pages.about.articles) this.storeApp.pages.about.articles=[]
+            this.storeApp.app.pages.about.articles.push(newArticle);
+        },
+        dellArticle(i) {
+            this.storeApp.app.pages.about.articles.splice(i, 1);
+        }
     },
 }
 
@@ -259,4 +301,5 @@ h1 {
     width: 600px;
     height: 400px;
 }
+
 </style>

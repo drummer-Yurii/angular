@@ -23,6 +23,11 @@ interface App {
     phone:Number,
     email:String,
     facebookPage:String,
+    pages: {
+        about: {
+            articles: [any]
+        }
+    }
 };
 
 export type { Post, User, App }

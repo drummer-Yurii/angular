@@ -25,6 +25,11 @@ let App = mongoose.model('App', {
       br: Number
     }
   },
+  pages: {
+    about: {
+        articles: []
+    }
+}
 });
 
 export default App;
