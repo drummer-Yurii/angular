@@ -21,71 +21,26 @@
                 <!-- article test -->
                 <article v-for="(article, index) in storeApp.app.pages.about.articles" :key="'article'+index" class="article">
                     <div class="article-text" :data-number="`0${index + 1}`">
-                        <div v-if="false" class="article-subtitle">{{article.subtitle}}</div>
-                        <input v-model="storeApp.app.pages.about.articles[index].subtitle" type="text">
-                        <h2 class="article-title">What level of hiker are you?</h2>
-                        <p>Determining what level of hiker you are can be an important tool when planning future hikes.
-                            This hiking level guide will help you plan hikes according to different hike ratings set by
-                            various websites like All Trails and Modern Hiker. What type of hiker are you – novice,
-                            moderate, advanced moderate, expert, or expert backpacker?</p>
+                        <div v-if="!isEditMode" class="article-subtitle">{{article.subtitle}}</div>
+                        <input v-if="isEditMode" v-model="storeApp.app.pages.about.articles[index].subtitle" type="text">
+                        <h2 v-if="!isEditMode" class="article-title">{{article.title}}</h2>
+                        <input v-if="isEditMode" v-model="storeApp.app.pages.about.articles[index].title" type="text">
+                        <p v-if="!isEditMode">{{article.p}}</p>
+                        <textarea v-if="isEditMode" v-model="storeApp.app.pages.about.articles[index].p" type="text"></textarea>
                         <a href="#" class="article-read-more">read more</a>
                     </div>
                     <div class="article-img">
                         <img src="./../assets/2.png">
                     </div>
+                    <button @click.stop="dellArticle(index)">delete article</button>
                 </article>
                 <div class="panel">
                     <button @click.stop="addArticle()">Add article</button>
-                    <button @click.stop="dellArticle(index)">delete article</button>
+                    <button v-if="isEditMode" @click="save()">Save</button>
+                    <button v-if="!isEditMode" @click="isEditMode=true">Edit</button>
+
                 </div>
                 <!-- //article test -->
-
-                <article class="article">
-                    <div class="article-text" data-number="01">
-                        <div class="article-subtitle">GEt Started</div>
-                        <h2 class="article-title">What level of hiker are you?</h2>
-                        <p>Determining what level of hiker you are can be an important tool when planning future hikes.
-                            This hiking level guide will help you plan hikes according to different hike ratings set by
-                            various websites like All Trails and Modern Hiker. What type of hiker are you – novice,
-                            moderate, advanced moderate, expert, or expert backpacker?</p>
-                        <a href="#" class="article-read-more">read more</a>
-                    </div>
-                    <div class="article-img">
-                        <img src="./../assets/2.png">
-                    </div>
-                </article>
-                
-
-                <article class="article">
-                    <div class="article-text" data-number="02">
-                        <div class="article-subtitle">Hiking Essentials</div>
-                        <h2 class="article-title">Picking the right Hiking Gear!</h2>
-                        <p>The nice thing about beginning hiking is that you don’t really need any special gear, you can
-                            probably get away with things you already have.
-                            Let’s start with clothing. A typical mistake hiking beginners make is wearing jeans and
-                            regular clothes, which will get heavy and chafe wif they get sweaty or wet.</p>
-                        <a href="#" class="article-read-more">read more</a>
-                    </div>
-                    <div class="article-img">
-                        <img src="./../assets/3.jpg">
-                    </div>
-                </article>
-
-                <article class="article">
-                    <div class="article-text" data-number="03">
-                        <div class="article-subtitle">where you go is the key</div>
-                        <h2 class="article-title">Understand Your Map & Timing</h2>
-                        <p>To start, print out the hiking guide and map. If it’s raining, throw them in a Zip-Lock bag.
-                            Read over the guide, study the map, and have a good idea of what to expect. I like to know
-                            what my next landmark is as I hike. For example, I’ll read the guide and know that say, in a
-                            mile, I make a right turn at the junction..</p>
-                        <a href="#" class="article-read-more">read more</a>
-                    </div>
-                    <div class="article-img">
-                        <img src="./../assets/1.webp">
-                    </div>
-                </article>
-
             </div>
         </main>
     
@@ -110,6 +65,16 @@ export default {
         };
     },
 
+    async created() {
+    await this.storeApp.init()
+  },
+
+  data() {
+    return {
+        isEditMode: false,
+    }
+  },
+
     methods: {
         addArticle() {
             const newArticle = {}
@@ -120,6 +85,11 @@ export default {
         },
         dellArticle(i) {
             this.storeApp.app.pages.about.articles.splice(i, 1);
+            this.storeApp.editApp()
+        },
+        save() {
+            this.isEditMode=false
+            this.storeApp.editApp()
         }
     },
 }
