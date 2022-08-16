@@ -30,7 +30,9 @@
                         <a href="#" class="article-read-more">read more</a>
                     </div>
                     <div class="article-img">
-                        <img src="./../assets/2.png">
+                        <img :src="'http://localhost:3001/about-page/2.png'">
+                        <img :src="'http://localhost:3001/about-page/'+ article.img">
+                        <input v-if="isEditMode" type="file">
                     </div>
                     <button @click.stop="dellArticle(index)">delete article</button>
                 </article>
