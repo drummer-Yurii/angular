@@ -22,17 +22,17 @@
                 <article v-for="(article, index) in storeApp.app.pages.about.articles" :key="'article'+index" class="article">
                     <div class="article-text" :data-number="`0${index + 1}`">
                         <div v-if="!isEditMode" class="article-subtitle">{{article.subtitle}}</div>
-                        <input v-if="isEditMode" v-model="storeApp.app.pages.about.articles[index].subtitle" type="text">
+                        <input class="article-input-subtitle" v-if="isEditMode" v-model="storeApp.app.pages.about.articles[index].subtitle" type="text">
                         <h2 v-if="!isEditMode" class="article-title">{{article.title}}</h2>
-                        <input v-if="isEditMode" v-model="storeApp.app.pages.about.articles[index].title" type="text">
+                        <input class="article-input-title" v-if="isEditMode" v-model="storeApp.app.pages.about.articles[index].title" type="text">
                         <p v-if="!isEditMode">{{article.p}}</p>
-                        <textarea v-if="isEditMode" v-model="storeApp.app.pages.about.articles[index].p" type="text"></textarea>
+                        <textarea class="article-textarea-p" v-if="isEditMode" v-model="storeApp.app.pages.about.articles[index].p" type="text"></textarea>
                         <a href="#" class="article-read-more">read more</a>
                     </div>
                     <div class="article-img">
                         <img :src="'http://localhost:3001/about-page/2.png'">
                         <img :src="'http://localhost:3001/about-page/'+ article.img">
-                        <input v-if="isEditMode" type="file">
+                        <input class="file-to-upload" v-if="isEditMode" type="file" :name="'Photo'">
                     </div>
                     <button @click.stop="dellArticle(index)">delete article</button>
                 </article>
@@ -40,7 +40,7 @@
                     <button @click.stop="addArticle()">Add article</button>
                     <button v-if="isEditMode" @click="save()">Save</button>
                     <button v-if="!isEditMode" @click="isEditMode=true">Edit</button>
-
+                    <button @click.stop="upload()">Upload Files</button>
                 </div>
                 <!-- //article test -->
             </div>
@@ -92,7 +92,11 @@ export default {
         save() {
             this.isEditMode=false
             this.storeApp.editApp()
-        }
+        },
+        upload() {
+            this.isEditMode = false
+            this.storeApp.uploadFilesAboutPage()
+        },
     },
 }
 
@@ -274,5 +278,8 @@ h1 {
     width: 600px;
     height: 400px;
 }
+
+/* Input */
+
 
 </style>

@@ -2,9 +2,11 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import { httpOptions, log } from '@/utils'
 import type { App } from '@/interfaces'
+import {fileUploader} from '@/utils/file-uploader'
 
 // add interface
 interface appState {
+  serverUrl: string,
   app: App | {},
   preloading: boolean,
   files: string[],
@@ -34,16 +36,39 @@ const defaultUi = {
 }
 export const useAppStore = defineStore({
   id: 'app',
-  state: (): appState => ({
-    app: {
-      ui: defaultUi,
-    },
-    preloading: false,
-    files: [],
-  }),
+  state: (): appState => {
+    let host = ''
+    host = window.location.host
+    host = host.split(':')[0] + ':3001'
+    // host = '134.249.153.7'
+    const serverUrl = `http://${host}`
+    log('SERVER URL ---> ', serverUrl)
+    //
+    return {
+      serverUrl,
+      app: {
+        ui: defaultUi,
+      },
+      preloading: false,
+      files: [],
+    }
+  },
   getters: {
   },
   actions: {
+
+    /* 
+      Upload files 
+    */
+    async uploadFilesAboutPage () {
+      log('hello world')
+      await fileUploader({
+        DOMQuery: '.file-to-upload',
+        publicFolder: `${this.serverUrl}/upload`,//???!!!
+        pathForUploading: `/about-page/`
+      })
+    },
+
     async init() {
       await this.getAppInfo()
       await this.getAppFiles()
@@ -55,8 +80,8 @@ export const useAppStore = defineStore({
       // log(answer)
       const { ok, info, msg } = answer.data.result
       if (!info.ui) info.ui = defaultUi
-      if(!info.ui.common) info.ui.common = defaultCommonUI
-      if(!info.ui.post) info.ui.post = defaultPostUI
+      if (!info.ui.common) info.ui.common = defaultCommonUI
+      if (!info.ui.post) info.ui.post = defaultPostUI
       ok ? this.app = info : alert(msg)
     },
     editApp() {

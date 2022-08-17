@@ -39,6 +39,7 @@ export const usePostStore = defineStore({
   },
 
   actions: {
+
     async pagination() {
       this.paginatedPosts = []
       await pause(100)
@@ -47,7 +48,7 @@ export const usePostStore = defineStore({
       this.pagesAmount = Math.ceil(this.filteredPosts.length / pageSize);
       const chunks = sliceIntoChunks(this.filteredPosts, pageSize);
       log(chunks, this.currentPage);
-      this.paginatedPosts = chunks[this.currentPage-1];
+      this.paginatedPosts = chunks[this.currentPage - 1];
     },
 
     async search() {
