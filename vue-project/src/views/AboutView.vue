@@ -31,8 +31,8 @@
                     </div>
                     <div class="article-img">
                         <img :src="'http://localhost:3001/about-page/2.png'">
-                        <img :src="'http://localhost:3001/about-page/'+ article.img">
-                        <input class="file-to-upload" v-if="isEditMode" type="file" :name="'Photo'">
+                        <img v-if="!reload" :src="'http://localhost:3001/about-page/'+ article.fileName">
+                        <input @change="fileChange($event, index)" class="file-to-upload" v-if="isEditMode" type="file" :name="article.fileId">
                     </div>
                     <button @click.stop="dellArticle(index)">delete article</button>
                 </article>
@@ -40,7 +40,7 @@
                     <button @click.stop="addArticle()">Add article</button>
                     <button v-if="isEditMode" @click="save()">Save</button>
                     <button v-if="!isEditMode" @click="isEditMode=true">Edit</button>
-                    <button @click.stop="upload()">Upload Files</button>
+                    <!-- <button @click.stop="upload()">Upload Files</button> -->
                 </div>
                 <!-- //article test -->
             </div>
@@ -51,9 +51,11 @@
     </div>
 </template>
 <script>
-import Room3d from "@/components/Room3d.vue"
-import Footer from "@/components/Footer.vue"
+import Room3d from "@/components/Room3d.vue";
+import Footer from "@/components/Footer.vue";
 import { useAppStore } from "@/stores/app";
+import { randomString } from "high-level";
+import { httpOptions, pause, sliceIntoChunks } from "@/utils";
 
 export default {
     components: {
@@ -74,12 +76,15 @@ export default {
   data() {
     return {
         isEditMode: false,
+        reload: false,
     }
   },
 
     methods: {
         addArticle() {
-            const newArticle = {}
+            const newArticle = {
+                fileId: randomString(1),
+            }
             if(!this.storeApp.pages) this.storeApp.pages={}
             if(!this.storeApp.pages.about) this.storeApp.pages.about={}
             if(!this.storeApp.pages.about.articles) this.storeApp.pages.about.articles=[]
@@ -89,13 +94,22 @@ export default {
             this.storeApp.app.pages.about.articles.splice(i, 1);
             this.storeApp.editApp()
         },
-        save() {
+            async save() {
             this.isEditMode=false
             this.storeApp.editApp()
+            this.upload()
+            this.reload = true
+            await pause(5000)
+            this.reload = false
         },
         upload() {
-            this.isEditMode = false
             this.storeApp.uploadFilesAboutPage()
+        },
+        fileChange($event, index) {
+            const ecstention = $event.target.files[0].name.split('.')[1]
+            const fileId = this.storeApp.app.pages.about.articles[index].fileId
+            this.storeApp.app.pages.about.articles[index].fileName = fileId + '.' + ecstention 
+            console.log($event.target.files[0].name, index)
         },
     },
 }
@@ -276,7 +290,7 @@ h1 {
 .article-img img {
     display: block;
     width: 600px;
-    height: 400px;
+    /* height: 400px; */
 }
 
 /* Input */
