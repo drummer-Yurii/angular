@@ -17,9 +17,9 @@ const customTarget = async () => {
 
 
 const RUN = async (targets: any[], publicFolder: string, pathForUploading: string): Promise<void> => {
-
+    console.log('run begin')
     const targetsForUploading = targets.filter((target) => (target.files?.length > 0) || (target.type == 'custom'))
-
+    console.log('targetsForUploading', targetsForUploading)
     const promises = targetsForUploading.map((target) => {
         const isMyTarget = !!target.fileName;
         var fileName = isMyTarget ? target.fileName : target.name;
@@ -41,6 +41,7 @@ const RUN = async (targets: any[], publicFolder: string, pathForUploading: strin
         .catch(log);
     var inputs = document.querySelectorAll('input[type=file]');
     inputs.forEach(input => input.value = '');
+    console.log('run end')
 }
 
 

@@ -12,40 +12,47 @@
                     vel vero.
                 </p>
             </div>
-            
+
         </div>
 
         <main class="main">
             <div class="container">
 
                 <!-- article test -->
-                <article v-for="(article, index) in storeApp.app.pages.about.articles" :key="'article'+index" class="article">
+                <article v-for="(article, index) in storeApp.app.pages.about.articles" :key="'article' + index"
+                    class="article">
                     <div class="article-text" :data-number="`0${index + 1}`">
-                        <div v-if="!isEditMode" class="article-subtitle">{{article.subtitle}}</div>
-                        <input class="article-input-subtitle" v-if="isEditMode" v-model="storeApp.app.pages.about.articles[index].subtitle" type="text">
-                        <h2 v-if="!isEditMode" class="article-title">{{article.title}}</h2>
-                        <input class="article-input-title" v-if="isEditMode" v-model="storeApp.app.pages.about.articles[index].title" type="text">
-                        <p v-if="!isEditMode">{{article.p}}</p>
-                        <textarea class="article-textarea-p" v-if="isEditMode" v-model="storeApp.app.pages.about.articles[index].p" type="text"></textarea>
+                        <div v-if="!isEditMode" class="article-subtitle">{{ article.subtitle }}</div>
+                        <input class="article-input-subtitle" v-if="isEditMode"
+                            v-model="storeApp.app.pages.about.articles[index].subtitle" type="text">
+                        <h2 v-if="!isEditMode" class="article-title">{{ article.title }}</h2>
+                        <input class="article-input-title" v-if="isEditMode"
+                            v-model="storeApp.app.pages.about.articles[index].title" type="text">
+                        <p v-if="!isEditMode">{{ article.p }}</p>
+                        <textarea class="article-textarea-p" v-if="isEditMode"
+                            v-model="storeApp.app.pages.about.articles[index].p" type="text"></textarea>
                         <a href="#" class="article-read-more">read more</a>
                     </div>
-                    <div class="article-img">
-                        <img :src="'http://localhost:3001/about-page/2.png'">
-                        <img v-if="!reload" :src="'http://localhost:3001/about-page/'+ article.fileName">
-                        <input @change="fileChange($event, index)" class="file-to-upload" v-if="isEditMode" type="file" :name="article.fileId">
+                    <div class="article-img-wrapper">
+                        <!-- <img :src="'http://localhost:3001/about-page/2.png'"> -->
+                        <img class="article-img" v-if="!reload"
+                            :src="'http://localhost:3001/about-page/' + article.fileName" @error="imgError(index)"
+                            @load="imgOnload(index)">
+                        <input @change="fileChange($event, index)" class="file-to-upload" v-if="isEditMode" type="file"
+                            :name="article.fileId">
                     </div>
                     <button @click.stop="dellArticle(index)">delete article</button>
                 </article>
                 <div class="panel">
                     <button @click.stop="addArticle()">Add article</button>
                     <button v-if="isEditMode" @click="save()">Save</button>
-                    <button v-if="!isEditMode" @click="isEditMode=true">Edit</button>
+                    <button v-if="!isEditMode" @click="isEditMode = true">Edit</button>
                     <!-- <button @click.stop="upload()">Upload Files</button> -->
                 </div>
                 <!-- //article test -->
             </div>
         </main>
-    
+
         <Footer />
 
     </div>
@@ -62,7 +69,7 @@ export default {
         Room3d,
         Footer,
     },
-     setup() {
+    setup() {
         const storeApp = useAppStore();
         return {
             storeApp,
@@ -70,48 +77,62 @@ export default {
     },
 
     async created() {
-    await this.storeApp.init()
-  },
+        await this.storeApp.init()
+    },
 
-  data() {
-    return {
-        isEditMode: false,
-        reload: false,
-    }
-  },
+    data() {
+        return {
+            isEditMode: false,
+            reload: false,
+        }
+    },
 
     methods: {
+        async imgError(index) {
+            this.reload = true
+            await pause(500)
+            this.reload = false
+            console.log('imgError', index)
+        },
+        imgOnload(index) {
+            console.log('imgOnload', index)
+        },
         addArticle() {
             const newArticle = {
                 fileId: randomString(1),
             }
-            if(!this.storeApp.pages) this.storeApp.pages={}
-            if(!this.storeApp.pages.about) this.storeApp.pages.about={}
-            if(!this.storeApp.pages.about.articles) this.storeApp.pages.about.articles=[]
+            if (!this.storeApp.pages) this.storeApp.pages = {}
+            if (!this.storeApp.pages.about) this.storeApp.pages.about = {}
+            if (!this.storeApp.pages.about.articles) this.storeApp.pages.about.articles = []
             this.storeApp.app.pages.about.articles.push(newArticle);
         },
         dellArticle(i) {
             this.storeApp.app.pages.about.articles.splice(i, 1);
             this.storeApp.editApp()
         },
-            async save() {
-            this.isEditMode=false
-            this.storeApp.editApp()
-            this.upload()
+        async save() {
+            await this.storeApp.editApp()
+            await this.upload()
+            const images = document.querySelectorAll('.article-img')
+            console.log(images)
+            this.isEditMode = false
             this.reload = true
-            await pause(5000)
+            await pause(500)
             this.reload = false
+
         },
-        upload() {
-            this.storeApp.uploadFilesAboutPage()
+        async upload() {
+            await this.storeApp.uploadFilesAboutPage()
+            console.log('end upload')
         },
         fileChange($event, index) {
             const ecstention = $event.target.files[0].name.split('.')[1]
             const fileId = this.storeApp.app.pages.about.articles[index].fileId
-            this.storeApp.app.pages.about.articles[index].fileName = fileId + '.' + ecstention 
+            this.storeApp.app.pages.about.articles[index].fileName = fileId + '.' + ecstention
             console.log($event.target.files[0].name, index)
         },
     },
+
 }
 
 </script>
@@ -135,7 +156,7 @@ export default {
 .header-about {
     position: relative;
     height: 30rem;
-    
+
     padding-bottom: 3rem;
     z-index: 1;
 }
@@ -287,13 +308,16 @@ h1 {
     background-image: url('./../img/icons/arrow-right.svg');
 }
 
-.article-img img {
-    display: block;
+.article-img-wrapper {
     width: 600px;
+    min-height: 3rem;
+}
+
+.article-img {
+    display: block;
+    width: 100%;
     /* height: 400px; */
 }
 
 /* Input */
-
-
 </style>

@@ -67,6 +67,7 @@ export const useAppStore = defineStore({
         publicFolder: `${this.serverUrl}/upload`,//???!!!
         pathForUploading: `/about-page/`
       })
+      log('end uploadFilesAboutPage')
     },
 
     async init() {
