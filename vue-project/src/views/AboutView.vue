@@ -34,7 +34,6 @@
                         <a href="#" class="article-read-more">read more</a>
                     </div>
                     <div class="article-img-wrapper">
-                        <!-- <img :src="'http://localhost:3001/about-page/2.png'"> -->
                         <img class="article-img" v-if="!reload[index] && !reloadAll"
                             :src="'http://localhost:3001/about-page/' + article.fileName" @error="imgError(index)"
                             @load="imgOnload(index)">
