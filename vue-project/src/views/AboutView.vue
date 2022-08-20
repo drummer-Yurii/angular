@@ -35,7 +35,7 @@
                     </div>
                     <div class="article-img-wrapper">
                         <!-- <img :src="'http://localhost:3001/about-page/2.png'"> -->
-                        <img class="article-img" v-if="!reload"
+                        <img class="article-img" v-if="!reload[index] && !reloadAll"
                             :src="'http://localhost:3001/about-page/' + article.fileName" @error="imgError(index)"
                             @load="imgOnload(index)">
                         <input @change="fileChange($event, index)" class="file-to-upload" v-if="isEditMode" type="file"
@@ -83,15 +83,16 @@ export default {
     data() {
         return {
             isEditMode: false,
-            reload: false,
+            reload: [],
+            reloadAll: false,
         }
     },
 
     methods: {
         async imgError(index) {
-            this.reload = true
+            this.reload[index] = true
             await pause(500)
-            this.reload = false
+            this.reload[index] = false
             console.log('imgError', index)
         },
         imgOnload(index) {
@@ -116,9 +117,9 @@ export default {
             const images = document.querySelectorAll('.article-img')
             console.log(images)
             this.isEditMode = false
-            this.reload = true
+            this.reloadAll = true
             await pause(500)
-            this.reload = false
+            this.reloadAll = false
 
         },
         async upload() {
