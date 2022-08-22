@@ -28,8 +28,6 @@ class AppService {
     };
 
     async editProcedure(msg) {
-        // log(post).plase()
-        // const app = await (await this.edit(msg)).app;
         const result = await this.edit(msg);
         await cleanUpOldFiles({
             path: 'uploads/about-page/',
@@ -37,30 +35,6 @@ class AppService {
         });
         return { ok: true };
     };
-
-
-    // async cleanUpOldFiles(app) {
-    //     log('clean begin')
-    //     const path = 'uploads/about-page/';
-    //     const files = await fsp.readdir(path);
-    //     const oldFiles = files.filter((f) => {
-    //         const isActual = app.pages.about.articles.some((a) => a.fileName == f);
-    //         return !isActual;
-    //     });
-    //     log('oldFiles', oldFiles);
-    //     oldFiles.forEach((f)=>{
-    //         const pathToFile = path + '/' + f  
-    //         try {
-    //             fs.unlink(pathToFile, () => {
-    //                 console.log('deleted', pathToFile);
-    //             });
-    //         } catch (error) {
-    //             console.log('can not deleted', pathToFile);
-    //         }
-    //     });
-
-    //     return { ok: true };
-    // };
 
     async getFiles() {
         const path = 'uploads/app/';
