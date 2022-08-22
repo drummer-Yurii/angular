@@ -35,6 +35,7 @@ class AppService {
     };
 
     async cleanUpOldFiles(app) {
+        log('clean begin')
         const path = 'uploads/about-page/';
         const files = await fsp.readdir(path);
         const oldFiles = files.filter((f) => {

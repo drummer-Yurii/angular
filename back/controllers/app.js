@@ -18,7 +18,7 @@ const appControllerGet = async (req, res) => {
 const appControllerPut = async ( req, res) => {
   try {
     log('Con: appControllerPut').place();
-    const result = await appService.edit(req.body);
+    const result = await appService.editProcedure(req.body);
     return (result.ok) ? good(result, req, res, 'App was edited') : bad(null, req, res, 409, result.msg);
   } catch (e) {
     log('Error:', e,);
