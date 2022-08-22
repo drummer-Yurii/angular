@@ -3,6 +3,7 @@ import { log } from '../../colub/high-level/index.js';
 import { App } from '../../models/index.js';
 import mailService from './mail.service.js';
 import fs from 'fs';
+import { cleanUpOldFiles } from '../../my_modules/fs-utils.js';
 const fsp = fs.promises;
 
 async function init() {
@@ -30,32 +31,36 @@ class AppService {
         // log(post).plase()
         // const app = await (await this.edit(msg)).app;
         const result = await this.edit(msg);
-        await this.cleanUpOldFiles(result.app);
+        await cleanUpOldFiles({
+            path: 'uploads/about-page/',
+            actualFiles: result.app.pages.about.articles.map((a) => a.fileName).filter(fn => !!fn)
+        });
         return { ok: true };
     };
 
-    async cleanUpOldFiles(app) {
-        log('clean begin')
-        const path = 'uploads/about-page/';
-        const files = await fsp.readdir(path);
-        const oldFiles = files.filter((f) => {
-            const isActual = app.pages.about.articles.some((a) => a.fileName == f);
-            return !isActual;
-        });
-        log('oldFiles', oldFiles);
-        oldFiles.forEach((f)=>{
-            const pathToFile = path + '/' + f  
-            try {
-                fs.unlink(pathToFile, () => {
-                    console.log('deleted', pathToFile);
-                });
-            } catch (error) {
-                console.log('can not deleted', pathToFile);
-            }
-        });
-       
-        return { ok: true };
-    };
+
+    // async cleanUpOldFiles(app) {
+    //     log('clean begin')
+    //     const path = 'uploads/about-page/';
+    //     const files = await fsp.readdir(path);
+    //     const oldFiles = files.filter((f) => {
+    //         const isActual = app.pages.about.articles.some((a) => a.fileName == f);
+    //         return !isActual;
+    //     });
+    //     log('oldFiles', oldFiles);
+    //     oldFiles.forEach((f)=>{
+    //         const pathToFile = path + '/' + f  
+    //         try {
+    //             fs.unlink(pathToFile, () => {
+    //                 console.log('deleted', pathToFile);
+    //             });
+    //         } catch (error) {
+    //             console.log('can not deleted', pathToFile);
+    //         }
+    //     });
+
+    //     return { ok: true };
+    // };
 
     async getFiles() {
         const path = 'uploads/app/';

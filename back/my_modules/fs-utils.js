@@ -3,6 +3,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 import fs from 'fs';
+const fsp = fs.promises;
 
 /*
 delete fails in folder
@@ -26,6 +27,28 @@ cleanUp(`/posts/62ba931031583299577448d1/`,'post-img') // example
         });
     })       
 };
+
+async function cleanUpOldFiles(set) {
+    const path = set.path;
+    const files = await fsp.readdir(path);
+    const oldFiles = files.filter((f) => {
+        const isActual = set.actualFiles.some((fn) => fn == f);
+        return !isActual;
+    });
+    log('oldFiles', oldFiles);
+    oldFiles.forEach((f) => {
+        const pathToFile = path + '/' + f
+        try {
+            fs.unlink(pathToFile, () => {
+                console.log('deleted', pathToFile);
+            });
+        } catch (error) {
+            console.log('can not delete', pathToFile);
+        }
+    });
+    return { ok: true };
+};
+
 async function canAccess(path) {
     return new Promise((resolve, reject) => {
         try {
@@ -50,5 +73,5 @@ async function ensureFolder(path) {
     return 'ok'
 };
 
-export {cleanUp, canAccess, ensureFolder};
+export {cleanUp, canAccess, ensureFolder, cleanUpOldFiles};
 
