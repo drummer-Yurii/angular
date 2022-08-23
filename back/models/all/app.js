@@ -27,7 +27,8 @@ let App = mongoose.model('App', {
   },
   pages: {
     about: {
-        articles: []
+        articles: [],
+        firstText: String,
     }
 }
 });

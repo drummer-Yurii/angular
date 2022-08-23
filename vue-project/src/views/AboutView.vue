@@ -6,11 +6,8 @@
         <div class="header-about">
             <h1>About us</h1>
             <div class="header-info">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non repellendus provident, veniam deserunt
-                    nam porro
-                    dicta necessitatibus accusantium! At voluptas fugit ex deleniti neque temporibus magni dolore aut
-                    vel vero.
-                </p>
+                <p>{{storeApp.app.pages.about.firstText}}</p>
+                <textarea v-if="isEditMode" v-model="storeApp.app.pages.about.firstText"></textarea>
             </div>
 
         </div>
@@ -39,16 +36,16 @@
                             @load="imgOnload(index)">
                         <input @change="fileChange($event, index)" class="file-to-upload" v-if="isEditMode" type="file"
                             :name="article.fileId">
+                        <button class="delete-btn" @click.stop="dellArticle(index)">delete article</button>
                     </div>
-                    <button @click.stop="dellArticle(index)">delete article</button>
                 </article>
+                <!-- //article test -->
                 <div class="panel">
                     <button @click.stop="addArticle()">Add article</button>
                     <button v-if="isEditMode" @click="save()">Save</button>
                     <button v-if="!isEditMode" @click="isEditMode = true">Edit</button>
                     <!-- <button @click.stop="upload()">Upload Files</button> -->
                 </div>
-                <!-- //article test -->
             </div>
         </main>
 
@@ -142,7 +139,6 @@ export default {
 }
 
 .about {
-    position: relative;
     overflow: hidden;
     z-index: 0;
     background: #0B1D26;
@@ -150,6 +146,14 @@ export default {
 
 .about-room {
     z-index: 9;
+}
+
+.panel {
+    position: relative;
+}
+
+.main {
+    z-index: 99;
 }
 
 /* Header */
@@ -207,6 +211,7 @@ h1 {
 }
 
 .article {
+    position: relative;
     margin-bottom: 200px;
     display: flex;
     justify-content: space-between;
@@ -309,6 +314,7 @@ h1 {
 }
 
 .article-img-wrapper {
+    position: relative;
     width: 600px;
     min-height: 3rem;
 }
@@ -317,6 +323,19 @@ h1 {
     display: block;
     width: 100%;
     /* height: 400px; */
+}
+
+.delete-btn {
+    position: absolute;
+}
+
+.header-info textarea {
+    width: 500px;
+    height: 200px;
+}
+
+.header-info p {
+    /* width: 40%; */
 }
 
 /* Input */

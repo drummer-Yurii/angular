@@ -53,7 +53,7 @@ export default {
   },
   data() {
     return {
-      isOpenAP: true,
+      isOpenAP: false,
     }
   },
   async created() {
