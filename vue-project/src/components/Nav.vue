@@ -128,5 +128,8 @@ export default {
     border-radius: 1rem;
     background-size: cover;
   }
+  .user {
+    margin-right: 1rem;
+  }
 }
 </style>

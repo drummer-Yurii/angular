@@ -2,7 +2,7 @@
   <div class="my-layout profile">
     <section>
       <div class="my-form profile-form">
-        <div class="info">Username: {{ storeUser.user.username }}</div>
+        <div class="info">Age</div>
         <div class="input-group mb-3">
           <input
             v-model="storeUser.user.age"
@@ -12,6 +12,7 @@
             placeholder="age"
           />
         </div>
+        <div class="info">Phone</div>
         <div class="input-group mb-3">
           <input
             v-model="storeUser.user.phone"
@@ -21,6 +22,7 @@
             placeholder="phone"
           />
         </div>
+        <div class="info">Email</div>
         <div class="input-group mb-3">
           <input
             v-model="storeUser.user.email"
@@ -30,6 +32,7 @@
             placeholder="email"
           />
         </div>
+        <div class="info">Facebook</div>
         <div class="input-group mb-3">
           <input
             v-model="storeUser.user.facebookPage"
@@ -50,6 +53,7 @@
         </div>
       </div>
       <div class="my-form img-form">
+        <div class="info">Avatar</div>
         <input type="file" id="fileToUpload" name="sampleFile" />
         <button @click="upload" type="button" class="btn btn-primary">
           Upload
@@ -105,7 +109,7 @@ section {
     
   }
   .btn-primary {
-    width: 4rem;
+    /* width: 4rem; */
     margin-top: 2px;
   }
 
