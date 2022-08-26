@@ -1,28 +1,39 @@
 <template>
   <div class="my-layout profile">
     <section>
+      <div class="left-block">
       <div class="my-form profile-form">
-        <div class="info">Company name: {{ storeApp.app.companyName }}</div>
+        <div class="info">Main info</div>
+        <hr />
+        <div class="info">Company name:</div>
         <div class="input-group mb-3">
           <input v-model="storeApp.app.companyName" class="form-control" type="text" aria-label="company name"
             placeholder="company name" />
         </div>
+        <div class="info">Phone</div>
         <div class="input-group mb-3">
           <input v-model="storeApp.app.phone" class="form-control" type="number" aria-label="phone"
             placeholder="phone" />
         </div>
-          <div class="input-group mb-3">
-            <input v-model="storeApp.app.email" class="form-control" type="text" aria-label="email" placeholder="email" />
-          </div>
-          <div class="input-group mb-3">
-            <input v-model="storeApp.app.country" class="form-control" type="text" aria-label="country" placeholder="country" />
-          </div>
-          <div class="input-group mb-3">
-            <input v-model="storeApp.app.city" class="form-control" type="text" aria-label="city" placeholder="city" />
-          </div>
-          <div class="input-group mb-3">
-            <input v-model="storeApp.app.adress" class="form-control" type="text" aria-label="adress" placeholder="adress" />
-          </div>
+        <div class="info">Email</div>
+        <div class="input-group mb-3">
+          <input v-model="storeApp.app.email" class="form-control" type="text" aria-label="email" placeholder="email" />
+        </div>
+        <div class="info">Country</div>
+        <div class="input-group mb-3">
+          <input v-model="storeApp.app.country" class="form-control" type="text" aria-label="country"
+            placeholder="country" />
+        </div>
+        <div class="info">City</div>
+        <div class="input-group mb-3">
+          <input v-model="storeApp.app.city" class="form-control" type="text" aria-label="city" placeholder="city" />
+        </div>
+        <div class="info">Adress</div>
+        <div class="input-group mb-3">
+          <input v-model="storeApp.app.adress" class="form-control" type="text" aria-label="adress"
+            placeholder="adress" />
+        </div>
+        <div class="info">Facebook</div>
         <div class="input-group mb-3">
           <input v-model="storeApp.app.facebookPage" class="form-control" type="text" aria-label="facebookPage"
             placeholder="facebookPage" />
@@ -33,26 +44,40 @@
           </button>
         </div>
       </div>
+      </div>
+      <div class="right-block">
       <div class="my-form img-form">
+        <!-- <div class="info">Post Img</div>
         <input type="file" id="fileToUpload" name="sampleFile" />
         <button @click="uploadFile" type="button" class="btn btn-primary">
           send
-        </button>
-        <hr/>
+        </button> -->
+        <div class="info">Add post</div>
+        <hr />
         <button @click="goToNewPost" type="button" class="btn btn-primary">
           new post
         </button>
       </div>
+       <div class="my-form background-img-form">
+        <div class="info">Main Img</div>
+        <hr />
+          <input type="file" id="fileToUploadMainImg" name="sampleFile" />
+          <hr />
+          <button @click="uploadMainImg" type="button" class="btn btn-primary btn-bg-img">
+            Upload
+          </button>
+        </div>
+        </div>
     </section>
     <hr>
-    <section>
+    <!-- <section>
       <div class="my-form img-form">
         <input type="file" id="fileToUploadMainImg" name="sampleFile" />
         <button @click="uploadMainImg" type="button" class="btn btn-primary">
           Upload
         </button>
       </div>
-    </section>
+    </section> -->
   </div>
 </template>
 
@@ -61,7 +86,7 @@ import { ref } from "vue";
 import axios from "axios";
 import { useUserStore } from "@/stores/user";
 import { useAppStore } from "@/stores/app";
-import { httpOptions, log, uploadFile} from "@/utils";
+import { httpOptions, log, uploadFile } from "@/utils";
 
 export default {
   setup() {
@@ -83,7 +108,7 @@ export default {
   },
   methods: {
     uploadMainImg() {
-     uploadFile('fileToUploadMainImg', `/app/`, 'app-img')
+      uploadFile('fileToUploadMainImg', `/app/`, 'app-img')
     },
     getAppData() {
       this.storeApp.init()
@@ -131,6 +156,12 @@ export default {
 section {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+}
+.my-form {
+  width: 20rem;
+  padding: 1rem;
+  margin: 1rem .5rem;
 }
 
 @media (min-width: 1024px) {
@@ -142,15 +173,21 @@ section {
 
   .profile-form {
     padding: 1rem;
-
   }
 
-  .img-form {
-    padding-top: 2.5rem;
-  }
+  /* .img-form {
+    padding-top: 1rem;
+    margin: 1rem;
+  } */
 
   .btn-primary {
     width: 4rem;
+    line-height: 1rem;
+    margin-top: 2px;
+  }
+
+  .btn-bg-img {
+    width: 6rem;
     line-height: 1rem;
     margin-top: 2px;
   }
@@ -160,7 +197,7 @@ section {
   }
 
   #fileToUpload {
-    padding-top: 1.5rem;
+    /* padding-top: 1.5rem; */
   }
 }
 </style>
