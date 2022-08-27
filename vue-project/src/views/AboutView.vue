@@ -49,7 +49,7 @@
             </div>
         </main>
 
-        <Footer />
+        <Footer class="footer"/>
 
     </div>
 </template>
@@ -154,6 +154,11 @@ export default {
 
 .main {
     z-index: 99;
+}
+
+.footer {
+    position: relative;
+    z-index: 999;
 }
 
 /* Header */

@@ -2,82 +2,93 @@
   <div class="my-layout profile">
     <section>
       <div class="left-block">
-      <div class="my-form profile-form">
-        <div class="info">Main info</div>
-        <hr />
-        <div class="info">Company name:</div>
-        <div class="input-group mb-3">
-          <input v-model="storeApp.app.companyName" class="form-control" type="text" aria-label="company name"
-            placeholder="company name" />
-        </div>
-        <div class="info">Phone</div>
-        <div class="input-group mb-3">
-          <input v-model="storeApp.app.phone" class="form-control" type="number" aria-label="phone"
-            placeholder="phone" />
-        </div>
-        <div class="info">Email</div>
-        <div class="input-group mb-3">
-          <input v-model="storeApp.app.email" class="form-control" type="text" aria-label="email" placeholder="email" />
-        </div>
-        <div class="info">Country</div>
-        <div class="input-group mb-3">
-          <input v-model="storeApp.app.country" class="form-control" type="text" aria-label="country"
-            placeholder="country" />
-        </div>
-        <div class="info">City</div>
-        <div class="input-group mb-3">
-          <input v-model="storeApp.app.city" class="form-control" type="text" aria-label="city" placeholder="city" />
-        </div>
-        <div class="info">Adress</div>
-        <div class="input-group mb-3">
-          <input v-model="storeApp.app.adress" class="form-control" type="text" aria-label="adress"
-            placeholder="adress" />
-        </div>
-        <div class="info">Facebook</div>
-        <div class="input-group mb-3">
-          <input v-model="storeApp.app.facebookPage" class="form-control" type="text" aria-label="facebookPage"
-            placeholder="facebookPage" />
-        </div>
-        <div class="panel">
-          <button @click="storeApp.editApp" type="button" class="btn btn-primary">
-            Save
-          </button>
-        </div>
-      </div>
-      </div>
-      <div class="right-block">
-      <div class="my-form img-form">
-        <!-- <div class="info">Post Img</div>
-        <input type="file" id="fileToUpload" name="sampleFile" />
-        <button @click="uploadFile" type="button" class="btn btn-primary">
-          send
-        </button> -->
-        <div class="info">Add post</div>
-        <hr />
-        <button @click="goToNewPost" type="button" class="btn btn-primary">
-          new post
-        </button>
-      </div>
-       <div class="my-form background-img-form">
-        <div class="info">Main Img</div>
-        <hr />
+        <!-- CARD -->
+        <div class="my-form background-img-form">
+          <div class="info">Main Img</div>
+          <hr />
           <input type="file" id="fileToUploadMainImg" name="sampleFile" />
           <hr />
           <button @click="uploadMainImg" type="button" class="btn btn-primary btn-bg-img">
             Upload
           </button>
         </div>
+        <!-- CARD -->
+        <div class="my-form profile-form">
+          <div class="info">Main info</div>
+          <hr />
+          <div class="info">Company name:</div>
+          <div class="input-group mb-3">
+            <input v-model="storeApp.app.companyName" class="form-control" type="text" aria-label="company name"
+              placeholder="company name" />
+          </div>
+          <div class="info">Phone</div>
+          <div class="input-group mb-3">
+            <input v-model="storeApp.app.phone" class="form-control" type="number" aria-label="phone"
+              placeholder="phone" />
+          </div>
+          <div class="info">Email</div>
+          <div class="input-group mb-3">
+            <input v-model="storeApp.app.email" class="form-control" type="text" aria-label="email"
+              placeholder="email" />
+          </div>
+          <div class="info">Country</div>
+          <div class="input-group mb-3">
+            <input v-model="storeApp.app.country" class="form-control" type="text" aria-label="country"
+              placeholder="country" />
+          </div>
+          <div class="info">City</div>
+          <div class="input-group mb-3">
+            <input v-model="storeApp.app.city" class="form-control" type="text" aria-label="city" placeholder="city" />
+          </div>
+          <div class="info">Adress</div>
+          <div class="input-group mb-3">
+            <input v-model="storeApp.app.adress" class="form-control" type="text" aria-label="adress"
+              placeholder="adress" />
+          </div>
+          
+          <div class="panel">
+            <button @click="storeApp.editApp" type="button" class="btn btn-primary">
+              Save
+            </button>
+          </div>
         </div>
+      </div>
+      <div class="right-block">
+        <!-- CARD -->
+        <div class="my-form img-form">
+          <div class="info">Add post</div>
+          <hr />
+          <button @click="goToNewPost" type="button" class="btn btn-primary">
+            new post
+          </button>
+        </div>
+        
+        <!-- CARD -->
+        <div class="my-form">
+          <div class="info">Social icons</div>
+          <hr />
+          <div class="info">Facebook</div>
+          <div class="input-group mb-3">
+            <input v-model="storeApp.app.facebookPage" class="form-control" type="text" aria-label="facebookPage"
+              placeholder="facebookPage" />
+          </div>
+          <div class="info">Instagram</div>
+          <div class="input-group mb-3">
+            <input v-model="storeApp.app.instagram" class="form-control" type="text" placeholder="instagram" />
+          </div>
+          <div class="info">Tiktok</div>
+          <div class="input-group mb-3">
+            <input v-model="storeApp.app.tiktok" class="form-control" type="text" placeholder="tiktok" />
+          </div>
+          <div class="info">Youtube</div>
+          <div class="input-group mb-3">
+            <input v-model="storeApp.app.youtube" class="form-control" type="text" placeholder="youtube" />
+          </div>
+        </div>
+      </div>
     </section>
     <hr>
-    <!-- <section>
-      <div class="my-form img-form">
-        <input type="file" id="fileToUploadMainImg" name="sampleFile" />
-        <button @click="uploadMainImg" type="button" class="btn btn-primary">
-          Upload
-        </button>
-      </div>
-    </section> -->
+
   </div>
 </template>
 
@@ -158,6 +169,7 @@ section {
   flex-direction: column;
   flex-wrap: wrap;
 }
+
 .my-form {
   width: 20rem;
   padding: 1rem;

@@ -2,6 +2,8 @@
   <div class="my-layout profile">
     <section>
       <div class="my-form profile-form">
+        <div class="info">Profile info</div>
+        <hr/>
         <div class="info">Age</div>
         <div class="input-group mb-3">
           <input
@@ -54,7 +56,9 @@
       </div>
       <div class="my-form img-form">
         <div class="info">Avatar</div>
+        <hr/>
         <input type="file" id="fileToUpload" name="sampleFile" />
+        <hr/>
         <button @click="upload" type="button" class="btn btn-primary">
           Upload
         </button>
@@ -92,7 +96,15 @@ export default {
 section {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
 }
+
+.my-form {
+  width: 20rem;
+  padding: 1rem;
+  margin: 1rem .5rem;
+}
+
 @media (min-width: 1024px) {
   section {
     flex-direction: row;
@@ -102,12 +114,14 @@ section {
 
   .profile-form {
     padding: 1rem;
+    margin: 1rem;
     
   }
-  .img-form {
+  
+  /* .img-form {
     padding: 1rem;
     
-  }
+  } */
   .btn-primary {
     /* width: 4rem; */
     margin-top: 2px;

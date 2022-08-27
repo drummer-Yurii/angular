@@ -47,7 +47,7 @@ export default {
           </path>
         </svg>
       </a>
-      <a :href="storeApp.app.facebookPage" class="icon">
+      <a :href="storeApp.app.instagram" class="icon">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
           class="iconify iconify--bi" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16">
           <path fill="#888888"
@@ -55,7 +55,7 @@ export default {
           </path>
         </svg>
       </a>
-      <a :href="storeApp.app.facebookPage" class="icon">
+      <a :href="storeApp.app.tiktok" class="icon">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
           class="iconify iconify--bi" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16">
           <path fill="#888888"
@@ -63,7 +63,7 @@ export default {
           </path>
         </svg>
       </a>
-      <a :href="storeApp.app.facebookPage" class="icon">
+      <a :href="storeApp.app.youtube" class="icon">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
           class="iconify iconify--bi" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16">
           <path fill="#888888"
