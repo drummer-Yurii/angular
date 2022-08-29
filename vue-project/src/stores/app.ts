@@ -69,6 +69,15 @@ export const useAppStore = defineStore({
       })
       log('end uploadFilesAboutPage')
     },
+    async uploadLogoImg () {
+      log('hello world')
+      await fileUploader({
+        DOMQuery: '#fileToUploadLogoImg',
+        publicFolder: `${this.serverUrl}/upload`,//???!!!
+        pathForUploading: `/app/`
+      })
+      log('end uploadFilesAboutPage')
+    },
 
     async init() {
       await this.getAppInfo()
@@ -106,6 +115,11 @@ export const useAppStore = defineStore({
     },
     appImg() {
       const fileName = this.files.find((f) => f.split(".")[0] == "app-img")
+      const url = 'http://localhost:3001/app/' + fileName
+      return url
+    },
+    appLogo() {
+      const fileName = this.files.find((f) => f.split(".")[0] == "logo")
       const url = 'http://localhost:3001/app/' + fileName
       return url
     },

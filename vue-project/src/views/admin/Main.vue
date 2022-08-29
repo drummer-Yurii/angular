@@ -12,6 +12,7 @@
             Upload
           </button>
         </div>
+       
         <!-- CARD -->
         <div class="my-form profile-form">
           <div class="info">Main info</div>
@@ -60,6 +61,17 @@
           <hr />
           <button @click="goToNewPost" type="button" class="btn btn-primary">
             new post
+          </button>
+        </div>
+
+         <!-- CARD -->
+         <div class="my-form background-img-form">
+          <div class="info">App logo</div>
+          <hr />
+          <input type="file" id="fileToUploadLogoImg" name="logo" />
+          <hr />
+          <button @click="uploadLogoImg" type="button" class="btn btn-primary btn-bg-img">
+            Upload
           </button>
         </div>
         
@@ -120,6 +132,9 @@ export default {
   methods: {
     uploadMainImg() {
       uploadFile('fileToUploadMainImg', `/app/`, 'app-img')
+    },
+    uploadLogoImg() {
+      this.storeApp.uploadLogoImg()
     },
     getAppData() {
       this.storeApp.init()

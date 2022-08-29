@@ -12,7 +12,7 @@ cleanUp(`/posts/62ba931031583299577448d1/`,'post-img') // example
  function cleanUp(pathForUploading, fileName, dirname) {
     return new Promise((resolve, reject)=>{
     let counter = 0;
-        ['jpg', 'jpeg', 'png','jpg', 'jpeg', 'png','jpg', 'jpeg', 'PNG'].forEach((extention, i, arr) => {
+        ['jpg', 'jpeg', 'png','jpg', 'jpeg', 'png','jpg', 'jpeg', 'PNG', 'svg', 'webp' ].forEach((extention, i, arr) => {
             const path = dirname + '/uploads' + pathForUploading + fileName + '.' + extention;
             log('shoud delete', path)
             try {
