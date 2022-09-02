@@ -47,11 +47,7 @@
               placeholder="adress" />
           </div>
           
-          <div class="panel">
-            <button @click="storeApp.editApp" type="button" class="btn btn-primary">
-              Save
-            </button>
-          </div>
+          
         </div>
       </div>
       <div class="right-block">
@@ -97,6 +93,16 @@
             <input v-model="storeApp.app.youtube" class="form-control" type="text" placeholder="youtube" />
           </div>
         </div>
+      </div>
+      
+    </section>
+    <section>
+      <div class="my-form bottom-panel">
+        <div class="panel">
+            <button @click="storeApp.editApp" type="button" class="btn btn-primary">
+              Save
+            </button>
+          </div>
       </div>
     </section>
     <hr>
@@ -190,6 +196,11 @@ section {
   padding: 1rem;
   margin: 1rem .5rem;
 }
+.bottom-panel{
+  width: 100vw;
+  max-width: 41rem;
+  margin: 0;
+}
 
 @media (min-width: 1024px) {
   section {
@@ -222,9 +233,17 @@ section {
   .panel {
     text-align: center;
   }
+  
 
   #fileToUpload {
     /* padding-top: 1.5rem; */
+  }
+}
+@media (max-width: 1024px) {
+    .bottom-panel{
+    width: 100vw;
+    max-width: 20rem;
+    margin: 0;
   }
 }
 </style>

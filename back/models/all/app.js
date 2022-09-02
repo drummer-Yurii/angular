@@ -8,6 +8,9 @@ let App = mongoose.model('App', {
   city: String,
   adress: String,
   facebookPage: String,
+  instagram: String,
+  tiktok: String,
+  youtube: String,
   ui: {
     firstScreen: {
       waves: {
