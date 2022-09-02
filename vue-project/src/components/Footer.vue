@@ -1,14 +1,14 @@
-<script lang="ts">
+<script>
 import { useAppStore } from "@/stores/app";
 
 export default {
   setup() {
-    const storeApp = useAppStore();
-    return {
-      storeApp,
-    };
-  },
-}
+    const storeApp = useAppStore()
+      return {
+        storeApp,
+      }
+    } 
+};
 
 </script>
 
