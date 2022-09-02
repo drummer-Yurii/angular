@@ -1,1 +1,5 @@
 Hello!
+
+DB:
+dump
+mongodump --db somedb --gzip --out /backups/`date +"%Y-%m-%d"`

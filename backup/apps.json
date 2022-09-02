@@ -1,0 +1,76 @@
+[{
+  "_id": {
+    "$oid": "629b1fc026a227cc5e76247e"
+  },
+  "the": "app",
+  "__v": 0,
+  "companyName": "RhythmMen Drum Show",
+  "email": "friendcom@ukr.net",
+  "facebookPage": "facebooke",
+  "phone": 989878765,
+  "ui": {
+    "firstScreen": {
+      "waves": {
+        "w1": "#7e4330",
+        "w2": "#662e9e",
+        "w3": "#cd8eb9",
+        "w4": "#5c2966"
+      }
+    },
+    "common": {
+      "bg": "#3e7e8e"
+    },
+    "post": {
+      "bg": "#75677e",
+      "br": null
+    }
+  },
+  "adress": "Soborna.str",
+  "city": "Kyiv",
+  "country": "Ukraine",
+  "pages": {
+    "about": {
+      "articles": [
+        {
+          "fileId": "-310ssoljp9",
+          "fileName": "-310ssoljp9.jpg",
+          "subtitle": "GEt Started",
+          "title": "What level of  hiker are you?",
+          "p": "Determining what level of hiker you are can be an important tool when planning future hikes. This hiking level guide will help you plan hikes according to different hike ratings set by various websites like All Trails and Modern Hiker. What type of hiker are you – novice, moderate, advanced moderate, expert, or expert backpacker?"
+        },
+        {
+          "fileId": "-30j2ryr31yq",
+          "fileName": "-30j2ryr31yq.jpg",
+          "subtitle": "Hiking Essentials",
+          "title": "Picking the right Hiking Gear!",
+          "p": "The nice thing about beginning hiking is that you don’t really need any special gear, you can probably get away with things you already have.\n                    Let’s start with clothing. A typical mistake hiking beginners make is wearing jeans and regular clothes, which will get heavy and chafe wif they get sweaty or wet."
+        },
+        {
+          "fileId": "-6pbxkj58z8y",
+          "fileName": "-6pbxkj58z8y.jpg",
+          "subtitle": "where you go is the key",
+          "title": "Understand Your Map & Timing",
+          "p": "To start, print out the hiking guide and map. If it’s raining, throw them in a Zip-Lock bag. Read over the guide, study the map, and have a good idea of what to expect. I like to know what my next landmark is as I hike. For example, I’ll read the guide and know that say, in a mile, I make a right turn at the junction.."
+        },
+        {
+          "fileId": "-3e5qozoqx16",
+          "fileName": "-3e5qozoqx16.png",
+          "subtitle": "exsplore the world",
+          "title": "Explore The Natural Beauty Of Halmahera With Us",
+          "p": "explore the beauty of god's earth in a beautiful forest and have fun"
+        },
+        {
+          "fileId": "-kvtkvlvw20p",
+          "fileName": "-kvtkvlvw20p.webp",
+          "subtitle": "Prepare Yourself",
+          "title": "Start Exploring With Us.",
+          "p": "Very satisfying service makes it comfortable, a beautiful place in the world. There's the best discount for you today."
+        }
+      ],
+      "firstText": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae ab amet laudantium laboriosam modi nobis illo voluptates, pariatur cupiditate qui saepe repudiandae? Quia alias dolorum eligendi ut similique eaque. Est!"
+    }
+  },
+  "instagram": "instagram",
+  "tiktok": "tiktok",
+  "youtube": "youtube"
+}]

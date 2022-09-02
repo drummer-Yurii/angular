@@ -1,0 +1,52 @@
+[{
+  "_id": {
+    "$oid": "6283c3949cca71cb84a4fc55"
+  },
+  "username": "1",
+  "firstName": "",
+  "lastName": "",
+  "password": "779ca231eef7a55526b324a08105dffc00d5b753",
+  "__v": 0,
+  "age": 32,
+  "email": "sdd",
+  "facebookPage": "sagas",
+  "phone": 234445,
+  "authToken": "-y8cfbge9zq-1mnt71mf13r-zy2oshrsxw-f4xva34iamc"
+},{
+  "_id": {
+    "$oid": "62908fb492a355290a1db315"
+  },
+  "username": "admin",
+  "email": "admin",
+  "password": "49315373bbc3aa95bf8d6a177330953c485bf3db",
+  "__v": 0,
+  "authToken": "-tr5zht3xz48-ovap0knzm2c-c90c9yxaepe-o1gobyvq31d",
+  "age": {
+    "$numberLong": "324344543134"
+  },
+  "phone": 1441824238
+},{
+  "_id": {
+    "$oid": "62b17df8e57dbec1faef6a30"
+  },
+  "username": "dfsf",
+  "email": "admin",
+  "password": "49315373bbc3aa95bf8d6a177330953c485bf3db",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62b17f09e57dbec1faef6a37"
+  },
+  "username": "2",
+  "email": "2",
+  "password": "a5e673091200b83d11841e8843f39ef3b34dfd38",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62b1861917d9cd637cd417a4"
+  },
+  "username": "3",
+  "email": "3",
+  "password": "32d2f5aa49100644394050955f51e5a2ef6c0274",
+  "__v": 0
+}]
