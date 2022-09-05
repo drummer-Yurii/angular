@@ -10,6 +10,7 @@ interface appState {
   app: App | {},
   preloading: boolean,
   files: string[],
+  apiUrl: string,
 }
 
 const defaultCommonUI = {
@@ -46,6 +47,7 @@ export const useAppStore = defineStore({
     //
     return {
       serverUrl,
+      apiUrl: serverUrl + '/api',
       app: {
         ui: defaultUi,
       },
@@ -85,7 +87,7 @@ export const useAppStore = defineStore({
     },
     async getAppInfo() {
       const answer = await axios
-        .get('http://localhost:3001/api/app-info',
+        .get(this.apiUrl+'/app-info',
           httpOptions())
       // log(answer)
       const { ok, info, msg } = answer.data.result
@@ -96,7 +98,7 @@ export const useAppStore = defineStore({
     },
     editApp() {
       axios
-        .put("http://localhost:3001/api/app-info",
+        .put(this.apiUrl+"/app-info",
           this.app,
           httpOptions(),
         )
@@ -107,7 +109,7 @@ export const useAppStore = defineStore({
     },
     async getAppFiles() {
       const answer = await axios
-        .get('http://localhost:3001/api/app-files',
+        .get(this.apiUrl+'/app-files',
           httpOptions())
       // log(answer)
       const { ok, files, msg } = answer.data.result
@@ -115,17 +117,14 @@ export const useAppStore = defineStore({
     },
     appImg() {
       const fileName = this.files.find((f) => f.split(".")[0] == "app-img")
-      const url = 'http://localhost:3001/app/' + fileName
+      const url = this.serverUrl + '/app/' + fileName
       return url
     },
     appLogo() {
       const fileName = this.files.find((f) => f.split(".")[0] == "logo")
-      const url = 'http://localhost:3001/app/' + fileName
+      const url = this.serverUrl +'/app/' + fileName
       return url
     },
-    // update(app: App) {
-    //   this.app = app;
-    // },
   },
 
 })

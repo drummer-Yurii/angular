@@ -16,22 +16,29 @@ interface postState {
   searchQvery: string;
   currentPage: number;
   pagesAmount: number;
+  serverUrl: string,
+  apiUrl: string,
 }
 
 export const usePostStore = defineStore({
   id: "post",
-  state: (): postState => ({
-    posts: [],
-    filteredPosts: [],
-    paginatedPosts: [],
-    post: {
-      blocks: []
-    },
-    loadingBlocks: [],
-    searchQvery: '',
-    currentPage: 1,
-    pagesAmount: 1,
-  }),
+  state: (): postState => {
+    const appStore = useAppStore()
+     return ({
+      serverUrl: appStore.serverUrl,
+      apiUrl: appStore.apiUrl,
+      posts: [],
+      filteredPosts: [],
+      paginatedPosts: [],
+      post: {
+        blocks: []
+      },
+      loadingBlocks: [],
+      searchQvery: '',
+      currentPage: 1,
+      pagesAmount: 1,
+    })
+  } ,
   getters: {
     getPosts(state: any): any {
       return state.posts
@@ -62,7 +69,7 @@ export const usePostStore = defineStore({
 
     async refresh() {
       const answer = await axios.get(
-        "http://localhost:3001/api/post",
+        this.apiUrl+"/post",
         httpOptions()
       );
       log('stores/post: refresh()', answer);
@@ -72,7 +79,7 @@ export const usePostStore = defineStore({
     async getPost(id: string) {
       if (id == "new") return;
       const answer = await axios.get(
-        "http://localhost:3001/api/post?_id=" + id,
+        this.apiUrl+"/post?_id=" + id,
         httpOptions()
       );
       log('stores/post: refresh()', answer);
@@ -90,7 +97,7 @@ export const usePostStore = defineStore({
       const storeApp = useAppStore();
       storeApp.preloading = true;
       const answer = await axios.delete(
-        "http://localhost:3001/api/post/" + post._id,
+        this.apiUrl+"/post/" + post._id,
         httpOptions()
       );
       log('stores/post: delete()', answer);
@@ -106,7 +113,7 @@ export const usePostStore = defineStore({
       if (id == "new") {
         delete this.post._id
         answer = await axios.post(
-          "http://localhost:3001/api/post",
+          this.apiUrl+"/post",
           this.post,
           httpOptions()
         );
@@ -114,7 +121,7 @@ export const usePostStore = defineStore({
         // B
       } else {
         answer = await axios.put(
-          "http://localhost:3001/api/post/" + this.post._id,
+          this.apiUrl+"/post/" + this.post._id,
           this.post,
           httpOptions()
         );
@@ -157,7 +164,7 @@ export const usePostStore = defineStore({
         fd.append("basename", "wobble-004.txt");
         return new Promise(async (resolve, reject) => {
           const answer = await axios
-            .post(`http://localhost:3001/upload?pathForUploading=${pathForUploading}&fileName=${fileName}`,
+            .post(this.serverUrl+`/upload?pathForUploading=${pathForUploading}&fileName=${fileName}`,
               fd,
               httpOptions(),
               {}
@@ -183,7 +190,7 @@ export const usePostStore = defineStore({
       log('stores/post: getFileNames(post)', post)
       if (!post) return console.warn('NOT VALID INPUT DATA !!!: stores/post: getFileNames(post)')
       const answer = await axios.get(
-        "http://localhost:3001/api/post-file-names/" + post._id,
+        this.apiUrl+"/post-file-names/" + post._id,
         httpOptions()
       );
       if (!answer.data.ok) {
@@ -197,14 +204,14 @@ export const usePostStore = defineStore({
             if (bb.fileId) {
               const fName = files.find((f: string) => f.split('.')[0] == bb.fileId);
               block.fileIdList[ii].file = fName;
-              block.fileIdList[ii].filePath = `http://localhost:3001/posts/${post._id}/${fName}?random=${Math.random()}`
+              block.fileIdList[ii].filePath = this.serverUrl+`/posts/${post._id}/${fName}?random=${Math.random()}`
             }
           });
         } else {
           if (block.fileId) {
             const fName = files.find((f: string) => f.split('.')[0] == block.fileId);
             post.blocks[i].file = fName;
-            post.blocks[i].filePath = `http://localhost:3001/posts/${post._id}/${fName}?random=${Math.random()}`
+            post.blocks[i].filePath = this.serverUrl+`/posts/${post._id}/${fName}?random=${Math.random()}`
           }
         }
 
@@ -212,7 +219,7 @@ export const usePostStore = defineStore({
       post.img = "/src/assets/logo.svg";
       files.forEach((f: string) => {
         const onlyName = f.split('.')[0];
-        if (onlyName == 'post-img') post.img = `http://localhost:3001/posts/${post._id}/${f}?random=${Math.random()}`;
+        if (onlyName == 'post-img') post.img = this.serverUrl+`/posts/${post._id}/${f}?random=${Math.random()}`;
       })
       return post;
     },
