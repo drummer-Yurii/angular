@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import { httpOptions, log } from '@/utils'
 import type { App } from '@/interfaces'
-import {fileUploader} from '@/utils/file-uploader'
+import { fileUploader } from '@/utils/file-uploader'
 
 // add interface
 interface appState {
@@ -40,8 +40,9 @@ export const useAppStore = defineStore({
   state: (): appState => {
     let host = ''
     host = window.location.host
-    host = host.split(':')[0] + ':3001'
-    // host = '134.249.153.7'
+    host = host.split(':')[0]
+    log(host, '000000000000000')
+    // if (host == 'localhost') host += ':3001';
     const serverUrl = `http://${host}`
     log('SERVER URL ---> ', serverUrl)
     //
@@ -62,7 +63,7 @@ export const useAppStore = defineStore({
     /* 
       Upload files 
     */
-    async uploadFilesAboutPage () {
+    async uploadFilesAboutPage() {
       log('hello world')
       await fileUploader({
         DOMQuery: '.file-to-upload',
@@ -71,7 +72,7 @@ export const useAppStore = defineStore({
       })
       log('end uploadFilesAboutPage')
     },
-    async uploadLogoImg () {
+    async uploadLogoImg() {
       log('hello world')
       await fileUploader({
         DOMQuery: '#fileToUploadLogoImg',
@@ -87,7 +88,7 @@ export const useAppStore = defineStore({
     },
     async getAppInfo() {
       const answer = await axios
-        .get(this.apiUrl+'/app-info',
+        .get(this.apiUrl + '/app-info',
           httpOptions())
       // log(answer)
       const { ok, info, msg } = answer.data.result
@@ -98,7 +99,7 @@ export const useAppStore = defineStore({
     },
     editApp() {
       axios
-        .put(this.apiUrl+"/app-info",
+        .put(this.apiUrl + "/app-info",
           this.app,
           httpOptions(),
         )
@@ -109,7 +110,7 @@ export const useAppStore = defineStore({
     },
     async getAppFiles() {
       const answer = await axios
-        .get(this.apiUrl+'/app-files',
+        .get(this.apiUrl + '/app-files',
           httpOptions())
       // log(answer)
       const { ok, files, msg } = answer.data.result
@@ -122,7 +123,7 @@ export const useAppStore = defineStore({
     },
     appLogo() {
       const fileName = this.files.find((f) => f.split(".")[0] == "logo")
-      const url = this.serverUrl +'/app/' + fileName
+      const url = this.serverUrl + '/app/' + fileName
       return url
     },
   },
