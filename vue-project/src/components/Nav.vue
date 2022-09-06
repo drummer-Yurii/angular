@@ -18,7 +18,7 @@
             <li class="nav-item">
               <router-link :to="'/profile'" class="nav-link active" aria-current="page">Profile</router-link>
             </li>
-            <li class="nav-item" v-if="storeUser.user.username == 'admin'">
+            <li class="nav-item" v-if="storeUser.user?.username == 'admin'">
               <router-link :to="'/admin/main'" class="nav-link active" aria-current="page">Admin</router-link>
             </li>
             <li class="nav-item dropdown">
@@ -45,7 +45,7 @@
             <input v-model="storePost.searchQvery" @input="storePost.search()" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
           </form>
-          <div class="user">{{ storeUser.user.username }}</div>
+          <div class="user">{{ storeUser.user?.username }}</div>
           <div class="avatar" v-if="canUploadAvatar"
             :style="`background-image: url(\'http://localhost:3001/users/${storeUser.user.username}/${storeUser.avatar}\');`">
           </div>
@@ -83,7 +83,7 @@ export default {
   },
   computed: {
     canUploadAvatar: function () {
-      return this.storeUser.user.username && this.storeUser.avatar.length > 0
+      return this.storeUser.user?.username && this.storeUser.avatar.length > 0
     }
   },
   async created() {

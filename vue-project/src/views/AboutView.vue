@@ -36,11 +36,11 @@
                             @load="imgOnload(index)">
                         <input @change="fileChange($event, index)" class="file-to-upload" v-if="isEditMode" type="file"
                             :name="article.fileId">
-                        <button class="delete-btn" @click.stop="dellArticle(index)">delete article</button>
+                        <button v-if="storeUser.isAdmin" class="delete-btn" @click.stop="dellArticle(index)">delete article</button>
                     </div>
                 </article>
                 <!-- //article test -->
-                <div class="panel">
+                <div class="panel" v-if="storeUser.isAdmin">
                     <button @click.stop="addArticle()">Add article</button>
                     <button v-if="isEditMode" @click="save()">Save</button>
                     <button v-if="!isEditMode" @click="isEditMode = true">Edit</button>
@@ -59,6 +59,7 @@ import Footer from "@/components/Footer.vue";
 import { useAppStore } from "@/stores/app";
 import { randomString } from "high-level";
 import { httpOptions, pause, sliceIntoChunks } from "@/utils";
+import { useUserStore} from "@/stores/user";
 
 export default {
     components: {
@@ -67,8 +68,10 @@ export default {
     },
     setup() {
         const storeApp = useAppStore();
+        const storeUser = useUserStore();
         return {
             storeApp,
+            storeUser,
         };
     },
 

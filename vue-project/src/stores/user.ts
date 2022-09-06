@@ -26,7 +26,7 @@ export const useUserStore = defineStore({
   } ,
   getters: {
     isAdmin: (state) => {
-      return state.user.username == "admin";
+      return state.user?.username == "admin";
     },
   },
   actions: {
@@ -37,7 +37,7 @@ export const useUserStore = defineStore({
       const answer = await axios
         .get(this.apiUrl+'/avatar',
           httpOptions())
-      this.updateAvatar(answer.data.result.avatar)
+      this.updateAvatar(answer.data.result?.avatar)
       log(answer)
     },
     updateAvatar(fileName: string) {

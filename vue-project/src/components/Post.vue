@@ -57,7 +57,7 @@ onMounted(async () => {
 // }
 
 function goToPost() {
-  if (storeUser.user.username == 'admin')
+  if (storeUser.user?.username == 'admin')
     router.push("/admin/post/" + post.value._id)
   else
     router.push("/post/" + post.value._id);

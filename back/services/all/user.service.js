@@ -41,6 +41,9 @@ class UserService {
     return { ok: true, msg: "User was changed" };
   }
   async getAvatar(username) {
+    if (username == undefined) {
+      return { ok: false, avatar: 'no avatar'}
+    }
     const path = "uploads/users/" + username;
     // fs.writeFile("books.txt", 'data', (err) => {
     //     if (err)

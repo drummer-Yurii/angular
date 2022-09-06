@@ -7,6 +7,7 @@ router.get('/', function (req, res, next) {
 });
 
 import sessionGuard from '../guards/session.guard.js';
+import adminGuard from '../guards/admin.guard.js';
 import { registerConroller, loginConroller, mailVerification } from '../controllers/auth.js';
 import { userControllerPut, userControllerGet, userControllerGetAvatar} from '../controllers/user.js';
 import { appControllerGet, appControllerPut, appControllerGetFiles} from '../controllers/app.js'
@@ -19,23 +20,23 @@ import { postControllerPost, postControllerGet, postControllerDelete, postContro
 router.post('/api/auth/register', registerConroller);
 router.post('/api/auth/login', loginConroller);
 router.post('/api/auth/mail-verification', mailVerification);
-router.all('/*', sessionGuard);
-
-router.put('/api/user', userControllerPut);
+router.get('/api/app-info', appControllerGet);
+router.get('/api/app-files', appControllerGetFiles);
 router.get('/api/user', userControllerGet);
 router.get('/api/avatar', userControllerGetAvatar);
-
-router.get('/api/app-info', appControllerGet);
-router.put('/api/app-info', appControllerPut);
-router.get('/api/app-files', appControllerGetFiles);
-
-
-router.post('/api/post', postControllerPost);
 router.get('/api/post', postControllerGet);
-// router.get('/api/post-img/:id', postControllerGetImg);
+router.get('/api/post-file-names/:id', postControllerFileNames);
+
+router.all('/*', sessionGuard); // -----------> GUARD <-------------- //
+router.put('/api/user', userControllerPut);
+
+router.all('/*', adminGuard); // -----------> GUARD <-------------- //
+router.put('/api/app-info', appControllerPut);
+router.post('/api/post', postControllerPost);
 router.delete('/api/post/:id', postControllerDelete);
 router.put('/api/post/:id', postControllerPut);
-router.get('/api/post-file-names/:id', postControllerFileNames);
+
+
 
 
 
