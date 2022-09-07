@@ -35,26 +35,9 @@ const router = useRouter();
 const route = useRoute();
 
 onMounted(async () => {
-  // await getImg();
   post.value = await storePost.getFileNames(post.value)
 });
 
-// async function getImg() {
-//   const answer = await axios.get(
-//     "http://localhost:3001/api/post-img/" + post.value._id,
-//     httpOptions()
-//   );
-//   try {
-//     post.value.img =
-//       "http://localhost:3001/posts/" +
-//       post.value._id +
-//       "/" +
-//       answer.data.result.img + '?random=' + Math.random();
-//   } catch (error) {
-//     console.log(answer);
-//     post.value.img = "src/assets/logo.svg";
-//   }
-// }
 
 function goToPost() {
   if (storeUser.user?.username == 'admin')
