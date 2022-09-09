@@ -1,4 +1,4 @@
-import { log } from '../../colub/high-level/index.js';
+import { log } from 'high-level';
 import elasticemail from 'elasticemail';
 
 

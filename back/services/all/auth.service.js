@@ -1,5 +1,5 @@
 const level = "../../";
-import { log, randomString } from "../../colub/high-level/index.js";
+import { log, randomString } from "high-level";
 import cryptoService from "./crypto.service.js";
 import userService from "./user.service.js";
 

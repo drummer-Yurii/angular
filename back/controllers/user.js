@@ -1,5 +1,5 @@
 const level = '../../';
-import { log } from '../colub/high-level/index.js';
+import { log } from 'high-level';
 import { error, good, bad } from '../my_modules/lib.js';
 import { userService } from '../services/index.js';
 

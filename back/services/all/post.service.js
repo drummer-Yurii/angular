@@ -1,4 +1,4 @@
-import { log } from '../../colub/high-level/index.js';
+import { log } from 'high-level';
 import { Post } from '../../models/index.js';
 import fs from 'fs';
 const fsp = fs.promises;

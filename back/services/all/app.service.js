@@ -1,5 +1,5 @@
 const level = '../../';
-import { log } from '../../colub/high-level/index.js';
+import { log } from 'high-level';
 import { App } from '../../models/index.js';
 import mailService from './mail.service.js';
 import fs from 'fs';

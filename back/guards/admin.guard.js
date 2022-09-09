@@ -1,4 +1,3 @@
-// import { log } from '../colub/high-level/index.js';
 import { userService } from '../services/index.js';
 
 export default async (req, res, next) => {
