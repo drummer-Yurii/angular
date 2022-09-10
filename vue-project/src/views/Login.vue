@@ -24,7 +24,7 @@
         />
       </div>
       <div class="panel">
-        <button @click="login" type="button" class="btn btn-primary">
+        <button @click="storeUser.login(userData)" type="button" class="btn btn-primary">
           Login
         </button>
       </div>
@@ -49,20 +49,7 @@ export default {
     };
   },
   methods: {
-    async login() {
-      const answer = await axios.post(
-        "http://localhost:3001/api/auth/login",
-        this.userData
-      );
-      console.log(answer);
-      answer.data.ok ? alert(answer.data.msg2) : alert(!!!+answer.data.msg2);
-      const authToken = answer.data.result.authToken;
-      localStorage.setItem("authToken", authToken);
-      await this.storeUser.getUserData();
-      if (this.storeUser.user.username == "admin")
-        this.$router.push("/admin/main");
-      else this.$router.push("/");
-    },
+    
   },
 };
 </script>

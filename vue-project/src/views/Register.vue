@@ -54,7 +54,7 @@
       </div>
       <div class="panel">
         <button
-          @click="register(userData)"
+          @click="storeUser.register(userData)"
           type="button"
           class="btn btn-primary"
         >
@@ -67,24 +67,23 @@
 
 <script>
 import { ref } from "vue";
-import axios from "axios";
+import { useUserStore } from "@/stores/user";
+
 
 export default {
+  setup() {
+    const storeUser = useUserStore();
+    return {
+      storeUser,
+    };
+  },
   data() {
     return {
       userData: {},
     };
   },
   methods: {
-    async register(data) {
-      console.log(data);
-      const answer = await axios.post(
-        "http://localhost:3001/api/auth/register",
-        this.userData
-      );
-      console.log(answer);
-      answer.data.ok ? alert(answer.data.msg) : alert('!!!'+answer.data.msg);
-    },
+    
   },
 };
 </script>
