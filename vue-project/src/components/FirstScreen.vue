@@ -18,6 +18,7 @@ defineProps<{
         <img v-if="storeApp.files.length > 0" class="main-logo" :src="storeApp.appLogo()" alt="Logo">
 
         <h1>{{  companyName  }}</h1>
+        <h2>Hello World</h2>
       </div>
     </div>
 
