@@ -3,3 +3,9 @@ https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubunt
 
 Start:
 sudo systemctl start mongod.service
+
+JSON to MongoDB:
+mongoimport --db angular --collection posts --file posts.json --jsonArray
+
+Delete collection:
+mongo <dbname> --eval 'db.<collection>.drop()'
