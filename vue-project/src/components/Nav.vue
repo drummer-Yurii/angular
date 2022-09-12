@@ -83,7 +83,7 @@ export default {
   },
   computed: {
     canUploadAvatar: function () {
-      return this.storeUser.user?.username && this.storeUser.avatar.length > 0
+      return this.storeUser.user?.username && this.storeUser.avatar?.length > 0
     }
   },
   async created() {
