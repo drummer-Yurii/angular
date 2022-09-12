@@ -22,12 +22,12 @@ router.post('/api/auth/login', loginConroller);
 router.post('/api/auth/mail-verification', mailVerification);
 router.get('/api/app-info', appControllerGet);
 router.get('/api/app-files', appControllerGetFiles);
-router.get('/api/user', userControllerGet);
 router.get('/api/avatar', userControllerGetAvatar);
 router.get('/api/post', postControllerGet);
 router.get('/api/post-file-names/:id', postControllerFileNames);
 
 router.all('/*', sessionGuard); // -----------> GUARD <-------------- //
+router.get('/api/user', userControllerGet);
 router.put('/api/user', userControllerPut);
 
 router.all('/*', adminGuard); // -----------> GUARD <-------------- //
