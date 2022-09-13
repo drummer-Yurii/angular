@@ -32,7 +32,7 @@
                     </div>
                     <div class="article-img-wrapper">
                         <img class="article-img" v-if="!reload[index] && !reloadAll"
-                            :src="'http://localhost:3001/about-page/' + article.fileName" @error="imgError(index)"
+                            :src="storeApp.serverUrl +'/about-page/' + article.fileName" @error="imgError(index)"
                             @load="imgOnload(index)">
                         <input @change="fileChange($event, index)" class="file-to-upload" v-if="isEditMode" type="file"
                             :name="article.fileId">
