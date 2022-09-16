@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Home from '../views/Home.vue'
 import { useUserStore } from '@/stores/user'
 
 // const storeUser = useUserStore()
@@ -25,7 +25,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: Home
     },
     {
       path: '/about',
@@ -33,7 +33,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      component: () => import('../views/About.vue')
     },
     {
       path: '/register',
@@ -65,7 +65,7 @@ const router = createRouter({
     {
       path: '/post/:id',
       name: 'common-post',
-      component: () => import('../views/common/Post.vue')
+      component: () => import('../views/user/Post.vue')
     },
 
   ]
