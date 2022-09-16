@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '../views/public/Home.vue'
 import { useUserStore } from '@/stores/user'
 
 // const storeUser = useUserStore()
@@ -33,22 +33,22 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/About.vue')
+      component: () => import('../views/public/About.vue')
     },
     {
       path: '/register',
       name: 'register',
-      component: () => import('../views/Register.vue')
+      component: () => import('../views/public/Register.vue')
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/Login.vue')
+      component: () => import('../views/public/Login.vue')
     },
     {
       path: '/profile',
       name: 'lprofile',
-      component: () => import('../views/Profile.vue')
+      component: () => import('../views/public/Profile.vue')
     },
     {
       path: '/admin/main',
