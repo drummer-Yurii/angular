@@ -129,7 +129,7 @@
         <!-- PANEL -->
         <div class="panel">
           <button @click="storePost.submit(getId())" type="button" class="btn btn-primary">
-            save
+            save!
           </button>
         </div>
       </div>
