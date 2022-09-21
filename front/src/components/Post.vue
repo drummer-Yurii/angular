@@ -57,7 +57,7 @@ function goToPost() {
 }
 
 .post {
-  min-height: 20rem;
+  min-height: .2rem;
   background: wheat;
   margin: 1rem;
   border-radius: 3rem;

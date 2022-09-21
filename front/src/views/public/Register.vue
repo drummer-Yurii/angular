@@ -1,6 +1,6 @@
 <template>
-  <div class="my-layout register">
-    <div class="my-form register-form">
+  <div class="card my-layout register">
+    <div class="card my-form register-form">
       <div class="input-group mb-3">
         <input
           v-model="userData.firstName"
@@ -88,9 +88,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import '@/assets/base.css';
-@media (min-width: 1024px) {
+
   .register {
   }
 
@@ -102,5 +102,4 @@ export default {
   .panel {
     text-align: center;
   }
-}
 </style>

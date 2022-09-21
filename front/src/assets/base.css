@@ -13,6 +13,10 @@ main{
 html{
     background: darkslategrey !important;
 } */
+body {
+    position: relative;
+}
+
 .my-form {
     background: #213232;
     margin-top: 3rem;
@@ -27,3 +31,24 @@ html{
     align-items: center;
     flex-direction: column;
   }
+  .card {
+    border-radius: 1.5rem;
+    background: rgb(195 164 223 / 10%);
+    background-blend-mode: overlay;
+    border: 1px solid rgb(69 74 118 / 30%);
+    backdrop-filter: blur(50px);
+  }
+
+  .card input {
+    background: rgb(11 10 30 / 50%);
+    background-blend-mode: overlay;
+    border: 1px solid rgb(11 10 30 / 50%);
+    border-radius: 15px;
+    color: wheat;
+}
+
+.card button {
+    background: linear-gradient(99.61deg, #E3823C 14.81%, #E33C3C 89.9%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: .7rem;
+}

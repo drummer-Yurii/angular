@@ -3,7 +3,7 @@
     <section>
       <div class="left-block">
         <!-- CARD -->
-        <div class="my-form background-img-form">
+        <div class="card my-form background-img-form">
           <div class="info">Main Img</div>
           <hr />
           <input type="file" id="fileToUploadMainImg" name="sampleFile" />
@@ -14,7 +14,7 @@
         </div>
        
         <!-- CARD -->
-        <div class="my-form profile-form">
+        <div class="card my-form profile-form">
           <div class="info">Main info</div>
           <hr />
           <div class="info">Company name:</div>
@@ -52,7 +52,7 @@
       </div>
       <div class="right-block">
         <!-- CARD -->
-        <div class="my-form img-form">
+        <div class="card my-form img-form">
           <div class="info">Add post</div>
           <hr />
           <button @click="goToNewPost" type="button" class="btn btn-primary">
@@ -61,7 +61,7 @@
         </div>
 
          <!-- CARD -->
-         <div class="my-form background-img-form">
+         <div class="card my-form background-img-form">
           <div class="info">App logo</div>
           <hr />
           <input type="file" id="fileToUploadLogoImg" name="logo" />
@@ -72,7 +72,7 @@
         </div>
         
         <!-- CARD -->
-        <div class="my-form">
+        <div class="card my-form">
           <div class="info">Social icons</div>
           <hr />
           <div class="info">Facebook</div>
@@ -97,7 +97,7 @@
       
     </section>
     <section>
-      <div class="my-form bottom-panel">
+      <div class="card my-form bottom-panel">
         <div class="panel">
             <button @click="storeApp.editApp" type="button" class="btn btn-primary">
               Save
@@ -202,21 +202,13 @@ section {
   margin: 0;
 }
 
-@media (min-width: 1024px) {
   section {
     flex-direction: row;
   }
 
-  .profile {}
-
   .profile-form {
     padding: 1rem;
   }
-
-  /* .img-form {
-    padding-top: 1rem;
-    margin: 1rem;
-  } */
 
   .btn-primary {
     width: 4rem;
@@ -233,17 +225,29 @@ section {
   .panel {
     text-align: center;
   }
-  
 
-  #fileToUpload {
-    /* padding-top: 1.5rem; */
-  }
-}
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
     .bottom-panel{
     width: 100vw;
     max-width: 20rem;
     margin: 0;
+  }
+} */
+
+@media (max-width: 700px) {
+    section {
+    display: inline-block;
+  }
+  .bottom-panel{
+    width: 100vw;
+    max-width: 20rem;
+    margin: 0;
+  }
+}
+
+@media (max-width: 370px) {
+  .card {
+    width: 18rem;
   }
 }
 </style>

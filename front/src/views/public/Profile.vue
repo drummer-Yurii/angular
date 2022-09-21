@@ -1,7 +1,8 @@
 <template>
   <div class="my-layout profile">
     <section>
-      <div class="my-form profile-form">
+      <!-- CARD -->
+      <div class="card my-form profile-form">
         <div class="info">Profile info</div>
         <hr/>
         <div class="info">Age</div>
@@ -54,7 +55,8 @@
           </button>
         </div>
       </div>
-      <div class="my-form img-form">
+      <!-- CARD -->
+      <div class="card my-form img-form">
         <div class="info">Avatar</div>
         <hr/>
         <input type="file" id="fileToUpload" name="sampleFile" />
@@ -104,7 +106,6 @@ section {
   margin: 1rem .5rem;
 }
 
-@media (min-width: 1024px) {
   section {
     flex-direction: row;
   }
@@ -117,12 +118,7 @@ section {
     
   }
   
-  /* .img-form {
-    padding: 1rem;
-    
-  } */
   .btn-primary {
-    /* width: 4rem; */
     margin-top: 2px;
   }
 
@@ -130,7 +126,33 @@ section {
     text-align: center;
   }
   #fileToUpload {
-    padding-top: 1.5rem;
+    /* padding-top: 1.5rem; */
+  }
+
+
+@media screen and (max-width: 1400px) {
+
+}
+
+@media screen and (max-width: 1200px) {
+
+}
+
+@media screen and (max-width: 992px) {
+
+   
+}
+
+@media screen and (max-width: 700px) {
+  section {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .my-form {
+  width: 18rem;
   }
 }
 </style>

@@ -140,11 +140,15 @@ export default {
 * {
     box-sizing: border-box;
 }
+img {
+    display: block;
+    max-width: 100%;
+}
 
 .about {
     overflow: hidden;
     z-index: 0;
-    background: #0B1D26;
+    /* background: #0B1D26; */
 }
 
 .about-room {
@@ -186,7 +190,6 @@ h1 {
     height: 20rem;
     width: 25rem;
     left: 2rem;
-    /* background: #0B1D26; */
 }
 
 .header-info p {
@@ -197,6 +200,7 @@ h1 {
 /* //Header */
 
 /* ARTICLE */
+
 .container {
     max-width: 1492px;
     margin-left: auto;
@@ -318,7 +322,6 @@ h1 {
     transform: translateY(-50%);
     width: 24px;
     height: 16px;
-    background-image: url('./../img/icons/arrow-right.svg');
 }
 
 .article-img-wrapper {
@@ -330,7 +333,7 @@ h1 {
 .article-img {
     display: block;
     width: 100%;
-    /* height: 400px; */
+    height: 400px;
 }
 
 .delete-btn {
@@ -342,9 +345,107 @@ h1 {
     height: 200px;
 }
 
-.header-info p {
-    /* width: 40%; */
+@media (max-width: 1400px) {
+
 }
 
-/* Input */
+@media (max-width: 1200px) {
+    .article-text::before {
+        width: 140px;
+        height: 140px;
+        font-size: 140px;
+    }
+
+    .article-text {
+        padding-left: 50px;
+        max-width: 50%;
+        margin-right: 20px;
+    }
+
+    .article-img {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1100px) {
+    .article-text {
+        margin-right: 30px;
+    }
+}
+
+@media (max-width: 992px) {
+    .article-text {
+        margin-right: 40px;
+    }
+    .article-img-wrapper{
+        width: 450px;
+    }
+}
+
+@media (max-width: 880px) {
+    .article-img-wrapper{
+        width: 400px;
+    }
+    .article-img {
+        width: 100%;
+    }
+}
+
+@media (max-width: 810px) {
+    .article-img-wrapper{
+        width: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .article,
+    .article:nth-child(even) {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        margin-bottom: 100px;
+    }
+
+    .article-text {
+        max-width: 100%;
+    }
+
+    .article-img {
+        max-width: 320px;
+        width: 100%;
+        height: 50%;
+        margin-bottom: 75px;
+    }
+}
+
+@media (max-width: 576px) {
+    .article-title {
+    max-width: 255px;
+    font-size: 54px;
+    }
+    .article-text {
+        max-width: 70%;
+    }
+    .header-about {
+       height: 25rem;
+    }
+    .header-info {
+        width: 25rem;
+    }
+}
+@media (max-width: 420px) {
+    .header-info {
+        width: 20rem;
+    }
+}
+
+@media (max-width: 350px) {
+    .article-img-wrapper{
+        width: 290px;
+    }
+    .header-info {
+        width: 15rem;
+    }
+}
+
+
 </style>

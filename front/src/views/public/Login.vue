@@ -1,6 +1,6 @@
 <template>
-  <div class="my-layout login">
-    <div class="my-form login-form">
+  <div class="card my-layout login">
+    <div class="card my-form login-form">
       <div class="input-group mb-3">
         <span class="input-group-text">@</span>
         <input
@@ -56,7 +56,6 @@ export default {
 
 <style scoped>
 @import '@/assets/base.css';
-@media (min-width: 1024px) {
 
   .login-form {
     padding: 1rem;
@@ -66,5 +65,4 @@ export default {
   .panel {
     text-align: center;
   }
-}
 </style>
