@@ -144,4 +144,14 @@ span {
   border-radius: 0.2rem;
   padding: 0.2rem;
 }
+
+.App-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.356);
+  margin: 0.2em;
+  border-radius: 0.2rem;
+  padding: 0.2rem;
+}
 </style>

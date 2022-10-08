@@ -13,12 +13,16 @@ main{
 html{
     background: darkslategrey !important;
 } */
+
 body {
     position: relative;
+    
 }
 
 .my-form {
-    background: #213232;
+    position: relative;
+    width: 100%;
+    background: rgb(195 164 223 / 10%);
     margin-top: 3rem;
     max-width: 40rem;
     display: flex;

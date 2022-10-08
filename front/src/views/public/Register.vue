@@ -1,5 +1,5 @@
 <template>
-  <div class="card my-layout register">
+  <div class="my-layout register">
     <div class="card my-form register-form">
       <div class="input-group mb-3">
         <input
@@ -92,6 +92,13 @@ export default {
 @import '@/assets/base.css';
 
   .register {
+    display: flex;
+  }
+
+  .my-form {
+    width: 20rem;
+    padding: 1rem;
+    margin: 1rem .5rem;
   }
 
   .register-form {
@@ -102,4 +109,10 @@ export default {
   .panel {
     text-align: center;
   }
+
+  @media screen and (max-width: 370px) {
+  .my-form {
+  width: 18rem;
+  }
+}
 </style>

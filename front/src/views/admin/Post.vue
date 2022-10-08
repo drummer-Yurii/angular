@@ -55,7 +55,7 @@
             <!-- BLOCK Text -->
             <div v-if="block.type == 'text'" class="block block-text">
               <textarea v-model="block.text" class="form-control" aria-label="With textarea">
-            </textarea>
+              </textarea>
               <div class="block-panel">
                 <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button>
               </div>
@@ -308,31 +308,29 @@ video {
   width: 5rem;
 }
 
-@media (min-width: 1024px) {
-  .post-page {}
+.post-page {}
 
-  .post-form {
-    padding: 1rem;
-  }
+.post-form {
+  padding: 1rem;
+}
 
-  .panel {
-    text-align: center;
-  }
+.panel {
+  text-align: center;
+}
 
-  .panel button {
-    margin: 0 .2rem;
-  }
+.panel button {
+  margin: 0 .2rem;
+}
 
-  .block-text {
-    background: black;
-  }
+.block-text {
+  background: black;
+}
 
-  .block-video video {
-    width: 100%;
-  }
+.block-video video {
+  width: 100%;
+}
 
-  .block-img img {
-    width: 100%;
-  }
+.block-img img {
+  width: 100%;
 }
 </style>

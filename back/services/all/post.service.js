@@ -42,7 +42,9 @@ class PostService {
         const path = 'uploads/posts/' + _id;
         const files = await fsp.readdir(path);
         const oldFiles = files.filter((f) => {
-            const isActual = post.blocks.some((b) => b.file == f);
+            let isActual = post.blocks.some((b) => b.file == f);
+            const onlyName = f.split('.')[0];
+            if(onlyName == 'post-img') isActual = true;
             let isActualDiper = false
             post.blocks.forEach(b => {
                 if(b.fileIdList) {

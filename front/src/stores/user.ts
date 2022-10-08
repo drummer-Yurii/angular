@@ -23,7 +23,7 @@ export const useUserStore = defineStore({
       },
       avatar: "",
     })
-  } ,
+  },
   getters: {
     isAdmin: (state) => {
       return state.user?.username == "admin";
@@ -35,8 +35,9 @@ export const useUserStore = defineStore({
     },
     async getAvatar() {
       const answer = await axios
-        .get(this.apiUrl+'/avatar',
-          httpOptions())
+        .get(this.apiUrl + '/avatar',
+          httpOptions()
+        );
       this.updateAvatar(answer.data.result?.avatar)
       log(answer)
     },
@@ -45,7 +46,7 @@ export const useUserStore = defineStore({
     },
     async getUserData() {
       const answer = await axios.get(
-        this.apiUrl+"/user",
+        this.apiUrl + "/user",
         httpOptions()
       );
       console.log(answer);
@@ -54,15 +55,15 @@ export const useUserStore = defineStore({
     async register(data) {
       console.log(data);
       const answer = await axios.post(
-        this.apiUrl+"/auth/register",
+        this.apiUrl + "/auth/register",
         data
       );
       console.log(answer);
-      answer.data.ok ? alert(answer.data.msg) : alert('!!!'+answer.data.msg);
+      answer.data.ok ? alert(answer.data.msg) : alert('!!!' + answer.data.msg);
     },
     async login(data) {
       const answer = await axios.post(
-        this.apiUrl+"/auth/login",
+        this.apiUrl + "/auth/login",
         data
       );
       console.log(answer);
@@ -77,7 +78,7 @@ export const useUserStore = defineStore({
     async editProfile() {
       console.log("editProfile");
       const answer = await axios.put(
-        this.apiUrl+"/user",
+        this.apiUrl + "/user",
         this.user,
         httpOptions()
       );

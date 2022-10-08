@@ -53,7 +53,9 @@ function goToPost() {
 }
 
 .post-text {
-  padding: 1rem;
+  padding: .2rem;
+  background: rgb(11 10 30 / 50%);
+  color: wheat;
 }
 
 .post {

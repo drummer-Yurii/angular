@@ -43,7 +43,6 @@
           </ul>
           <form class="d-flex">
             <input v-model="storePost.searchQvery" @input="storePost.search()" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
           </form>
           <div class="user">{{ storeUser.user?.username }}</div>
           <div class="avatar" v-if="canUploadAvatar"
@@ -101,6 +100,31 @@ export default {
 </script>
 
 <style>
+.bg-light {
+  background-color: rgb(195 164 223 / 10%) !important;
+  background-blend-mode: overlay;
+}
+
+.d-flex input {
+  background: rgb(11 10 30 / 50%);
+}
+
+.navbar-light .navbar-brand {
+  color: wheat;
+}
+
+.navbar-light .navbar-nav .nav-item a {
+  color: wheat !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: wheat;
+}
+
+.dropdown-menu {
+  background: rgb(11 10 30 / 50%);
+}
+
 @media (min-width: 1024px) {
   .profile {
     min-height: 100vh;

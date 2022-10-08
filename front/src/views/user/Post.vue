@@ -1,5 +1,6 @@
 <template>
   <div class="my-layout post-page">
+    <!-- <div class="my-form post-form"> -->
     <div class="post">
 
       <!-- img, title -->
@@ -19,29 +20,17 @@
             <Galery :fileIdList="block.fileIdList"/>
           </div>
           <div v-if="block.type == 'text'" class="block block-text">
-            <!-- <textarea v-model="block.text" class="form-control" aria-label="With textarea">
-            </textarea>
-            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button> -->
             {{ block.text }}
           </div>
           <div v-if="block.type == 'video'" class="block block-video">
-            <!-- fileId {{ block.fileId }} -->
             <video controls :src="block.filePath" type="video/mp4">
             </video>
-            <!-- <input type="file" class="block-file-to-upload" :name="block.fileId" />
-            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button> -->
           </div>
           <div v-if="block.type == 'audio'" class="block block-audio">
-            <!-- fileId {{ block.fileId }} -->
             <audio controls :src="block.filePath" type="audio"></audio>
-            <!-- <input type="file" class="block-file-to-upload" :name="block.fileId" />
-            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button> -->
           </div>
           <div v-if="block.type == 'img'" class="block block-img">
-            <!-- fileId {{ block.fileId }} -->
             <img :src="block.filePath" type="img">
-            <!-- <input type="file" class="block-file-to-upload" :name="block.fileId" />
-            <button @click="deleteBlock(index)" type="button" class="btn btn-info">Delete</button> -->
           </div>
         </div>
 
@@ -62,7 +51,7 @@
       </div>
 
     </div>
-
+  <!-- </div> -->
   </div>
 </template>
 
@@ -161,15 +150,15 @@ export default {
 }
 
 .post {
-  min-height: 20rem;
-  background: gray;
+  position: relative;
+  width: 100%;
+  background: rgb(195 164 223 / 10%);
   margin-top: 2rem;
-  margin-bottom: 2rem;
-  border-radius: 3rem;
+  max-width: 50rem;
+  border-radius: 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   overflow: hidden;
-  position: relative;
-  width: 50rem;
+  padding: .7rem;
 }
 
 .post img {
@@ -209,14 +198,16 @@ img {
 
 .block {
   font-size: 1.2rem;
-  background: #fff6e6;
+  background: rgb(11 10 30 / 50%);
+  color: wheat;
+  text-align: center;
 }
 
 .block-audio {
   display: flex;
   justify-content: center;
   padding: 1rem;
-  background: #055160;
+  /* background: #055160; */
 }
 
 .block-audio audio {
@@ -224,11 +215,15 @@ img {
   max-width: 25rem;
 }
 
+.block-video video {
+  width: 100%;
+}
+
 .post-panel {
   padding: 1rem;
   display: flex;
   justify-content: end;
-  background: #143040;
+  /* background: #143040; */
 }
 
 .facebook-icon {
@@ -239,7 +234,6 @@ img {
 }
 
 
-@media (min-width: 1024px) {
   .post-page {}
 
   .post-form {
@@ -249,5 +243,4 @@ img {
   .panel {
     text-align: center;
   }
-}
 </style>

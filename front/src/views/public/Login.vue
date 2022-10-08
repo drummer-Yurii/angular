@@ -1,5 +1,5 @@
 <template>
-  <div class="card my-layout login">
+  <div class="my-layout login">
     <div class="card my-form login-form">
       <div class="input-group mb-3">
         <span class="input-group-text">@</span>
@@ -57,6 +57,12 @@ export default {
 <style scoped>
 @import '@/assets/base.css';
 
+.my-form {
+    width: 20rem;
+    padding: 1rem;
+    margin: 1rem .5rem;
+  }
+
   .login-form {
     padding: 1rem;
     
@@ -65,4 +71,10 @@ export default {
   .panel {
     text-align: center;
   }
+
+  @media screen and (max-width: 370px) {
+  .my-form {
+  width: 18rem;
+  }
+}
 </style>
