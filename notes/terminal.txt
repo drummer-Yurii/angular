@@ -1,0 +1,1 @@
+Remove dir: rm -rf dirname

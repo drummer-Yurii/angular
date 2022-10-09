@@ -42,7 +42,7 @@ export const useAppStore = defineStore({
     host = window.location.host
     host = host.split(':')[0]
     log(host, '000000000000000')
-    if (host == 'localhost') host += ':3001';
+    // if (host == 'localhost') host += ':3001';
     const serverUrl = `http://${host}`
     log('SERVER URL ---> ', serverUrl)
     //
