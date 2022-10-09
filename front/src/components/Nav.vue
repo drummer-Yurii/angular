@@ -46,7 +46,7 @@
           </form>
           <div class="user">{{ storeUser.user?.username }}</div>
           <div class="avatar" v-if="canUploadAvatar"
-            :style="`background-image: url(\'http://localhost:3001/users/${storeUser.user.username}/${storeUser.avatar}\');`">
+            :style="`background-image: url(\'${storeApp.serverUrl}/users/${storeUser.user.username}/${storeUser.avatar}\');`">
           </div>
           <div class="avatar" v-if="!canUploadAvatar"
             :style="`background-image: url('/src/assets/empty-avatar.webp');`">
