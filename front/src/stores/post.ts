@@ -108,7 +108,7 @@ export const usePostStore = defineStore({
 
     async submit(id: string) {
       let answer;
-      let postForUpdate;
+      // let postForUpdate;
       log(id)
       //  A
       if (id == "new") {
@@ -118,8 +118,7 @@ export const usePostStore = defineStore({
           this.post,
           httpOptions()
         );
-        postForUpdate = answer.data.result.post
-        log(postForUpdate)
+        this.post = answer.data.result.post
         // B
       } else {
         answer = await axios.put(
@@ -127,7 +126,7 @@ export const usePostStore = defineStore({
           this.post,
           httpOptions()
         );
-        postForUpdate = this.post
+        // postForUpdate = this.post
       }
       log('stores/post: submit()', answer);
       // 3
@@ -141,12 +140,12 @@ export const usePostStore = defineStore({
         fileName: 'post-img',
       };
       if (isImgChoise.files.length !== 0) blocksUpload.push(myTarget);
-      await this.fileUploader(blocksUpload, `/posts/${postForUpdate._id}/`);
-      await this.getPost(this.post._id || postForUpdate._id);
+      await this.fileUploader(blocksUpload, `/posts/${this.post._id}/`);
+      await this.getPost(this.post._id);
       await this.getFileNames(this.post);
       this.loadingBlocks = [];
       log('>>> Submit DONE!');
-      return;
+      // return;
       if (answer.data.ok) this.$router.push("/")
       else alert(answer.data.msg2);
     },
