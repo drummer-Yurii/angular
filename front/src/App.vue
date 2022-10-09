@@ -3,10 +3,10 @@
     <div class="app-preloader" v-if="storeApp.preloading">Pending</div>
     <Nav :companyName="storeApp.app.companyName" />
     <RouterView />
-    <div class="app-admin-panel" v-if="storeUser.isAdmin" :class="isOpenAP ? 'open' : 'close'">
-      <div class="AP-container">
+    <div class="app-admin-panel">
+      <button @click="isOpenAP = !isOpenAP" class="AP-tab">{{ isOpenAP ? 'close' : 'open' }}</button>
+      <div class="AP-container" v-if="storeUser.isAdmin" :class="isOpenAP ? 'open' : 'close'">
         <div class="AP-group">
-          <button @click="isOpenAP = !isOpenAP" class="AP-tab">{{ isOpenAP ? 'close' : 'open' }}</button>
           <span>waves</span>
           <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w1" />
           <input type="color" opacity v-model="storeApp.app.ui.firstScreen.waves.w2" />
@@ -87,7 +87,7 @@ export default {
   bottom: 0;
   width: 100%;
   background: rgba(25, 2, 44, 0.849);
-  padding: 1rem;
+  /* padding: 1rem; */
   z-index: 999;
 }
 
@@ -102,7 +102,8 @@ export default {
 }
 
 .close {
-  bottom: -5rem;
+  /* bottom: -5rem; */
+  display: none !important; 
 }
 
 .save {
@@ -113,11 +114,13 @@ export default {
   display: flex;
   position: relative;
   align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem;
 }
 
 .AP-tab {
   position: absolute;
-  top: -3rem;
+  top: -2rem;
   background: rgba(25, 2, 44, 0.849);
   color: #fff;
 }
