@@ -1,4 +1,12 @@
 import mongoose from 'mongoose';
+const { Schema } = mongoose;
+const article = new Schema({
+  fileId: String,
+  fileName: String,
+  title: String,
+  subtitle: String,
+  p: String
+});
 let App = mongoose.model('App', {
   the: String,
   companyName: String,
@@ -30,7 +38,7 @@ let App = mongoose.model('App', {
   },
   pages: {
     about: {
-        articles: [],
+        articles: [article],
         firstText: String,
     }
 }

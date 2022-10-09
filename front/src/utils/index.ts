@@ -35,7 +35,7 @@ const uploadFile = async (target, path, fileName) => {
         {}
     );
     console.log(answer);
-    location.reload();
+    // location.reload();
 }
 
 const pause = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));

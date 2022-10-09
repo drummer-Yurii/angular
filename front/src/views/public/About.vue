@@ -31,7 +31,7 @@
                         <a href="#" class="article-read-more">read more</a>
                     </div>
                     <div class="article-img-wrapper">
-                        <img class="article-img" v-if="!reload[index] && !reloadAll"
+                        <img class="article-img" v-if="!reload[index] && !reloadAll && !article.isNew"
                             :src="storeApp.serverUrl +'/about-page/' + article.fileName" @error="imgError(index)"
                             @load="imgOnload(index)">
                         <input @change="fileChange($event, index)" class="file-to-upload" v-if="isEditMode" type="file"
@@ -99,6 +99,7 @@ export default {
         },
         addArticle() {
             const newArticle = {
+                isNew: true,
                 fileId: randomString(1),
             }
             if (!this.storeApp.pages) this.storeApp.pages = {}

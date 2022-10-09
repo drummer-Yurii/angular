@@ -41,6 +41,7 @@ class UserService {
     return { ok: true, msg: "User was changed" };
   }
   async getAvatar(username) {
+    log('getAvatar', username);
     if (username == undefined) {
       return { ok: false, avatar: 'no avatar'}
     }

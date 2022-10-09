@@ -87,7 +87,7 @@ export default {
   },
   async created() {
     // await this.storeUser.getUserData()
-    // await this.getAvatar()
+    await this.storeUser.getAvatar()
   },
   methods: {
     unlogin() {
